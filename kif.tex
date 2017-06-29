@@ -1,0 +1,4171 @@
+\font\eightrm=cmr10 scaled 800
+\font\twelverm=cmr10 scaled \magstep1
+\font\twelvebf=cmbx10 scaled \magstep1
+\font\fourteenrm=cmr10 scaled \magstep2
+\font\fourteenbf=cmbx10 scaled \magstep2
+
+
+\def\chapter#1#2{\bigskip
+\sectioncount=0
+\equationcount=0
+\hfil{\twelvebf Chapter #1}
+\medskip
+\hfil{\fourteenbf #2}
+\bigskip
+\def\thechapter{#1}}
+
+
+\def\appendix#1#2{\bigskip
+\sectioncount=0
+\equationcount=0
+\hfil{\twelvebf Appendix #1}
+\medskip
+\hfil{\fourteenbf #2}
+\bigskip
+\def\thechapter{#1}}
+
+\def\thechapter{1}
+
+
+\countdef\sectioncount=11
+\countdef\subsectioncount=13
+\countdef\subsubsectioncount=15
+\sectioncount=0
+\subsectioncount=0
+\subsubsectioncount=0
+\def\section#1{\advance\sectioncount by 1\subsectioncount=1
+\bigskip\noindent{\bf\S\thechapter.\the\sectioncount\ #1}\par
+\nobreak\medskip}
+
+\def\subsection#1{\advance\subsectioncount by 1
+\bigskip\noindent{\bf#1}\par\nobreak\medskip}
+
+\def\nosection#1{\bigskip\noindent{\bf#1}\par\nobreak\medskip}
+
+
+
+\def\sect#1{\advance\sectioncount by1\subsectioncount=0
+\nobreak\bigskip\noindent{\bf\the\sectioncount. #1}\par\medskip}
+
+\def\subsect#1{\advance\subsectioncount by 1\subsubsectioncount=0
+\bigskip\noindent{\bf\the\sectioncount.\the\subsectioncount\ #1}\par
+\nobreak\medskip}
+
+\def\subsubsect#1{\advance\subsubsectioncount by 1
+\bigskip\noindent
+{\bf\the\sectioncount.\the\subsectioncount.\the\subsubsectioncount\ #1}\par
+\nobreak\medskip}
+
+\def\nosect#1{\bigskip\noindent{\bf#1}\par\nobreak\medskip}
+
+
+
+\def\heading#1{\bigskip\noindent{\bf#1}\par\medskip}
+
+\countdef\equationcount=17
+\equationcount=0
+\def\equation{\global\advance\equationcount by 1
+\thechapter.\the\equationcount}
+
+\countdef\count=19
+\count=0
+
+\def\theorem#1#2{\medskip\noindent{\bf#1:\ }{\it#2}\par\medskip}
+
+
+
+\def\proof#1{\medskip\noindent{\bf Proof:\ }#1\par\medskip}
+
+
+
+\def\uncatcodespecials{\def\do##1{\catcode`##1=12}\dospecials}
+\def\setupverbatim{\tt\def\par{\leavevmode\endgraf}\catcode`\`=\active
+\obeylines\uncatcodespecials\obeyspaces}
+{\catcode`\`=\active \gdef`{\relax\lq}}
+{\obeyspaces\global\let =\ }{\obeylines\global\let^^M=\par}
+\def\beginverbatim{\par\begingroup\setupverbatim\doverbatim}
+{\catcode`|=0 \catcode`\\=12
+ |obeylines|gdef|doverbatim^^M#1\endverbatim{#1|endgroup}}
+
+\def\verbatim{\begingroup\setupverbatim\doverb}
+\def\doverb#1{\def\next##1#1{##1\endgroup}\next}
+
+\def\start{\ }
+
+\def\bibitem#1#2{\medskip\noindent}
+\def\cite#1{[#1]}
+
+\def\date{\the\day\ \ifcase\month\or January\or February\or March\or
+April \or May\or June\or July\or August
+\or September\or October\or November\or December\fi\ \the\year}
+
+\def\defconcept#1#2{\medskip\noindent{\tt #1} - }
+
+
+\magnification=\magstep1
+\font\bigrm=cmr10 scaled \magstep1
+\noindent Logic Group \hfill First Draft January 1992\break
+Report Logic-92-1 \hfill Current Version June 1992\par
+\vfill
+\centerline{\bigrm Knowledge Interchange Format}
+\centerline{\bigrm Version 3.0}
+\centerline{\bigrm Reference Manual}
+\vskip5mm
+\centerline{\it by}
+\vskip5mm
+\centerline{\bigrm Michael R. Genesereth}
+\centerline{\bigrm Richard E. Fikes}
+\vskip5mm
+\centerline{\it in collaboration with}
+\vskip5mm
+\centerline{\bigrm\vbox{\halign{#\hfil\cr
+Daniel Bobrow\cr
+Ronald Brachman\cr
+Thomas Gruber\cr
+Patrick Hayes\cr
+Reed Letsinger\cr
+Vladimir Lifschitz\cr}}
+\quad\vbox{\halign{#\hfil\cr
+Robert MacGregor\cr
+John McCarthy\cr
+Peter Norvig\cr
+Ramesh Patil\cr
+Len Schubert\cr
+\cr}}}
+\vfill
+
+This manual is the ``living document'' of the Interlingua Working Group of
+the DARPA Knowledge Sharing Effort.  As such, it represents work in progress
+toward a proposal for a standard knowledge interchange format.
+
+\vfill
+\centerline{Computer Science Department}
+\centerline{Stanford University}
+\centerline{Stanford, California 94305}
+\eject
+
+Abstract: {\it Knowledge Interchange Format} (KIF) is a computer-oriented
+language for the interchange of knowledge among disparate programs.  It has
+declarative semantics (i.e. the meaning of expressions in the representation can be understood without appeal to an interpreter for manipulating those
+expressions); it is logically comprehensive (i.e. it provides for the
+expression of arbitrary sentences in the first-order predicate calculus); it
+provides for the representation of knowledge about the representation of
+knowledge; it provides for the representation of nonmonotonic reasoning rules; and it provides for the definition of objects, functions, and relations.  
+
+
+\vfill\eject
+
+\centerline{\twelvebf Table of Contents}
+
+\medskip
+
+\beginverbatim
+1. Introduction................................................... 5
+
+2. Syntax......................................................... 7
+   2.1. Linear KIF................................................ 7
+   2.2. Structured KIF............................................ 7
+
+3. Conceptualization..............................................13
+   3.1. Objects...................................................13
+   3.2. Functions and Relations...................................13
+
+4. Semantics......................................................15
+   4.1. Interpretation............................................15
+   4.2. Variable Assignment.......................................16
+   4.3. Semantic Value............................................17
+   4.4. Truth Value...............................................20
+   4.5. Logical Entailment........................................22
+   4.6. Indexical Entailment......................................23
+   4.7. Nonmonotonic Entailment...................................23
+   4.8. Definitions...............................................24
+
+5. Numbers........................................................26
+   5.1. Functions on Numbers......................................26
+   5.2. Relations on Numbers......................................30
+
+6. Lists..........................................................31
+
+7. Sets...........................................................34
+   7.1. Basic Concepts............................................34
+   7.2. Sets......................................................35
+   7.3. Boundedness...............................................38
+   7.4. Paradoxes.................................................39
+
+8. Functions and Relations........................................41
+   8.1. Basic Vocabulary..........................................41
+   8.2. Function and Relation Constants...........................42
+   8.3. Concretion................................................43
+   8.4. Abstraction...............................................43
+   8.5. Additional Concepts.......................................44
+
+9. Metaknowledge..................................................46
+   9.1. Naming Expressions........................................46
+   9.2. Formalizing Syntax........................................47
+   9.3. Changing Levels of Denotation.............................52
+
+10. Nonmonotonicity...............................................54
+    10.1. Monotonic Rules.........................................54
+    10.2. Logic Programs..........................................55
+    10.3. Circumscribing Abnormality..............................55
+
+11. Definitions...................................................57
+    11.1. Complete Definitions....................................57
+    11.2. Partial Definitions.....................................58
+
+A. Abstract Algebra...............................................65
+   A.1. Binary Operations.........................................65
+   A.2. Binary Relations..........................................65
+   A.3. Algebraic Structures......................................66
+
+Bibliography
+\endverbatim
+
+\vfill\eject
+
+\chapter{1}{Introduction}
+
+{\it Knowledge Interchange Format} (KIF) is a formal language for the interchange
+of knowledge among disparate computer programs (written by different programmers,
+at different times, in different languages, and so forth). 
+
+KIF is {\it not} intended as a primary language for interaction with human users
+(though it can be used for this purpose).  Different programs can interact with
+their users in whatever forms are most appropriate to their applications (for
+example frames, graphs, charts, tables, diagrams, natural language, and so forth).
+
+KIF is also {\it not} intended to be an internal representation for knowledge
+{\it within} computer programs or within closely related sets of programs
+(though it can be used for this purpose as well).  Typically, when a program
+reads a  knowledge base in KIF, it converts the data into its own internal form
+(specialized pointer structures, arrays, etc.).  All computation is done
+using these internal forms.  When the program needs to communicate with
+another program, it maps its internal data structures into KIF.
+
+The purpose of KIF is roughly analogous to that of Postscript.  Postscript
+is commonly used by text and graphics formatting programs in communicating
+information about documents to printers.  Although it is not as efficient as a
+specialized representation for documents and not as perspicuous as a specialized
+wysiwyg display, Postscript is a programmer-readable representation that
+facilitates the independent development of formatting programs and printers. 
+While KIF is not as efficient as a specialized representation for knowledge nor
+as perspicuous as a specialized display (when printed in its list form), it too
+is a programmer-readable language and thereby facilitates the independent
+development of knowledge-manipulation programs.
+
+The definition of KIF is highly detailed.  Some of these details are essential;
+others are arbitrary.   The following general features are essential in the
+definition of KIF.
+
+\medskip
+
+\item{1.} The language has declarative semantics.  It is possible to
+understand the meaning of expressions in the language without appeal to an
+interpreter for manipulating those expressions.  In this way, KIF differs from
+other languages that are based on specific interpreters, such as Emycin
+and Prolog.
+
+\item{2.} The language is logically comprehensive -- it provides for the
+expression of arbitrary sentences in predicate calculus. In this way,
+it differs from relational database languages (many of which are confined to
+ground atomic sentences) and Prolog-like languages (that are confined to Horn
+clauses).
+
+\item{3.} The language provides for the representation of knowledge about the
+representation of knowledge.  This allows us to make all knowledge
+representation decisions explicit and permits us to introduce new knowledge
+representation constructs without changing the language.
+
+\medskip
+
+In addition to these hard criteria, KIF is designed to maximize in a joint fashion
+the following somewhat softer measures as well (to the extent possible while
+satisfying the preceding criteria).
+
+\medskip
+
+\item{1.} Translatability.  A central operational requirement for KIF is
+that it enable practical means of translating declarative knowledge
+bases to and from typical knowledge representation languages.
+
+\item{2.} Readability.  Although KIF is not intended primarily as a
+language for interaction with humans, human readability facilitates
+its use in describing representation language semantics, its use as a
+publication language for example knowledge bases, its use in assisting humans
+with knowledge base translation problems, etc.
+
+\item{3.} Useability as a representation language.  Although KIF is not
+intended for use within programs as a representation or communication
+language, it {\it can} be used for that purpose if so desired.
+
+\medskip
+
+This document supplies full technical details of KIF.  Chapter~2 presents the
+formal syntax of the language.  Chapter~3 discusses conceptualizations of the
+world.  Chapter~4 defines the semantics of the language.  Chapter~5 deals with
+lists; chapter~6, with sets; and chapter~7, with functions and relations. 
+Chapter~8 describes how metaknowledge is encoded.  Chapter~9 describes the
+formalization of monotonic and nonmonotonic rules of inference.  Chapter~10
+discusses definitions.
+
+
+\vfill\eject
+
+\chapter{2}{Syntax}
+
+Like many computer-oriented languages, KIF has two varieties.  In {\it linear}
+KIF, all expressions are strings of ASCII characters and, as such, are suitable
+for storage on serial devices (such as magnetic disks) and for transmission
+on serial media (such as phone lines).  In {\it structured} KIF, the legal
+``expressions'' of the language are structured objects.  Structured KIF is of
+special use in communication between programs operating in the same address
+space.  
+
+Fortunately, there is a simple correspondence between the two varieties of KIF.  For every character string, there is exactly one corresponding list structure; and, for every list structure, there is exactly one corresponding character string (once all unnecessary white space is eliminated). 
+
+In what follows, we first define the mapping between the linear and structured forms of the language; and, thereafter, we deal exclusively with the structured form.
+
+\section{Linear KIF}
+
+The alphabet of linear KIF consists of the 128 characters in the ASCII character set.  Some of these characters have standard print representations; others do not.  The characters with standard print representations (93 of the 128) are shown below.
+
+\medskip
+\beginverbatim
+        A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+        a b c d e f g h i j k l m n o p q r s t u v w x y z
+        0 1 2 3 4 5 6 7 8 9 ( ) [ ] { } < > 
+        = + - * / \ & ^ ~ ' ` " _ @ # $ % : ; , . ! ?
+\endverbatim
+\medskip
+
+KIF originated in a Lisp application and inherits its syntax from Lisp.  The relationship
+between linear KIF and structured KIF is most easily specified by appeal to the Common
+Lisp reader \cite{Steele}.  In particular, a string of ascii characters forms a legal
+expression in linear KIF if and only if (1) it is acceptable to the Common Lisp reader
+(as defined in Steele's book) and (2) the structure produced by the Common Lisp reader is
+a legal expression of structured KIF (as defined in the next section).
+
+\section{Structured KIF}
+
+In structured KIF, the notion of {\it word} is taken as primitive.  An {\it expression}
+is either a word or a finite sequence of expressions.  In our treatment here, we use
+enclosing parentheses to bound the items in a composite expression.
+
+\medskip
+{\tt <word> ::= {\it a primitive syntactic object}}
+\medskip
+{\tt <expression> ::= <word> | (<expression>*)}
+\medskip
+
+The set of all words is divided into the categories listed below.  This categorization
+is disjoint and exhaustive.  Every word is a member of one and only one category. 
+(The categories defined here are used again in the grammatical rules of subsequent
+tables.)
+
+\medskip
+{\tt <indvar> ::= {\it a word beginning with the character} ?}
+\medskip
+{\tt <seqvar> ::= {\it a word beginning with the character} @}
+\medskip
+\verbatim!<termop> ::= listof | setof | quote | if | cond |!\par
+\verbatim!             the | setofall | kappa | lambda!\par
+\medskip
+\verbatim!<sentop> ::= = | /= | not | and | or | => | <= | <=> | forall | exists!\par
+\medskip
+{\tt <ruleop> ::= =>> | <<= | consis}
+\medskip
+{\tt <defop> ::= defobject | defunction | defrelation | := | :=> | :\&}
+\medskip
+{\tt <objconst> ::= {\it a word denoting an object}}
+\medskip
+{\tt <funconst> ::= {\it a word denoting a function}}
+\medskip
+{\tt <relconst> ::= {\it a word denoting a relation}}
+\medskip
+{\tt <logconst> ::= {\it a word denoting a truth value}}
+\medskip
+
+From these fundamental categories, we can build up more complex categories, viz.
+variables, operators, and constants.
+
+\medskip
+\beginverbatim
+<variable> ::= <indvar> | <seqvar>
+
+<operator> ::= <termop> | <sentop> | <ruleop> | <defop>
+
+<constant> ::= <objconst> | <funconst> | <relconst> | <logconst>
+\endverbatim
+\medskip
+
+A {\it variable} is a word in which the first character is {\tt ?} or {\tt
+@}.  A variable that begins with {\tt ?} is called an {\it individual
+variable}.  A variable that begins with an {\tt @} is called a {\it sequence
+variable}.  Individual variables are used in quantifying over individual
+objects.  Sequence variables are used in quantifying over sequences of objects.
+
+{\it Operators} are used in forming complex expressions of various sorts.  There
+are four types of operators in KIF -- {\it term operators}, {\it sentence
+operators}, {\it rule operators}, and {\it definition operators}.  Term operators
+are used in forming complex terms.  Sentence operators are used in forming
+complex sentences.  Rule operators are using in forming rules.  Definition
+operators are used in forming  definitions.
+
+A {\it constant} is any word that is neither a variable nor an operator.  There
+are four categories of constants in KIF -- object constants, function constants,
+relation constants, and logical constants.  {\it Object constants} are used to
+denote individual objects.  {\it Function constants} denote functions on those
+objects.  {\it Relation constants} denote relations.  {\it Logical constants}
+express conditions about the world and are either true or false.
+
+Some constants are {\it basic} in that their type and meaning are fixed in the
+definition of KIF.  All other constants are {\it non-basic} in that the language
+user gets to choose the type and the meaning.  All numbers, characters, and
+strings are basic constants in KIF; the remaining basic constants are described in
+the remaining chapters of this document.
+
+KIF is unusual among logical languages in that there is no way of determining
+the category of a non-basic constant (i.e. whether it is an object, function,
+relation, or logical constant) from its inherent properties (i.e. its spelling). 
+The user selects the category of every non-basic constant for himself.  The user
+need not declare that choice explicitly.  However, the category of a constant
+determines how it can be used in forming expressions, and its category
+{\it can} be determined from this use.   Consequently, once a constant is used in
+a particular way, its category becomes fixed.  
+
+There are four special types of expressions in the language -- {\it terms}, {\it
+sentences}, {\it rules}, and {\it definitions}.  Terms are used to denote objects in the
+world being described; sentences are used to express facts about the world; rules are
+used to express legal steps of inference; and definitions are used to define constants;
+and forms are either sentences, rules, or definitions.
+
+The set of legal terms in KIF is defined below.   There are ten types of terms --
+individual variables, object constants, function constants, relation constants,
+functional terms, list terms, set terms, quotations, logical terms, and quantified
+terms.  Individual variables, object constants, function constants, and relation
+constants were discussed earlier.
+ 
+\medskip
+\beginverbatim
+<term> ::= <indvar> | <objconst> | <funconst> | <relconst>|
+           <funterm> | <listterm> | <setterm> |
+           <quoterm> | <logterm> | <quanterm>
+
+<listterm> ::= (listof <term>* [<seqvar>])
+
+<setterm> ::= (setof <term>* [<seqvar>])
+
+<funterm> ::= (<funconst> <term>* [<seqvar>])
+
+<quoterm> ::= (quote <expression>)
+
+<logterm> ::= (if <sentence> <term> [<term>])|
+              (cond (<sentence> <term>) ... (<sentence> <term>))
+
+<quanterm> ::= (the <term> <sentence>)|
+               (setofall <term> <sentence>)|
+               (kappa (<indvar>* [<seqvar>]) <sentence>*)|
+               (lambda (<indvar>* [<seqvar>]s) <term>)
+\endverbatim
+\medskip
+
+A {\it functional term} consists of a function constant and an arbitrary number
+of {\it argument} terms, terminated by an optional sequence variable.  Note that
+there is no syntactic  restriction on the number of argument terms -- the same
+function constant can be applied to different numbers of arguments; arity
+restrictions in KIF are treated semantically.
+
+A {\it list term} consists of the {\tt listof} operator and a finite list of
+terms, terminated by an optional sequence variable. 
+
+A {\it set term} consists of the {\tt setof} operator and a finite list of
+terms, terminated by an optional sequence variable. 
+
+{\it Quotations} involve the {\tt quote} operator and an arbitrary list
+expression.  The embedded expression can be an arbitrary list structure; it need
+{\it not} be a legal expression in KIF.  Remember that the Lisp reader converts
+strings of the form {\tt '$\sigma$} into {\tt (quote $\sigma$)}.
+
+{\it Logical terms} involve the {\tt if} and {\tt cond} operators.  The {\tt if}
+form allows for the testing of a single condition only, whereas the {\tt cond}
+form allows for the testing of a sequence of conditions.
+
+{\it Quantified terms} involve the operators {\tt the}, {\tt setofall}, {\tt kappa},
+and {\tt lambda}.  A {\it designator} consists of the {\tt the} operator, a term,
+and a sentence.  A {\it set-forming term} consist of the {\tt setof} operator, a
+term, and a sentence.  A {\it relation-forming term} consists of {\tt kappa}, a
+list of variables, and a sentence.  A {\it function-forming term} consists of {\tt
+lambda}, a list of variables, and a term.  Strictly speaking, we do not need {\tt
+kappa} and {\tt lambda} -- both can be defined in terms of {\tt setof}; they are
+included in KIF for the sake of convenience.
+
+The following BNF defines the set of legal sentences in KIF.  There
+are six types of sentences.  We have already mentioned logical constants.
+
+\medskip
+\beginverbatim
+<sentence> ::= <logconst>|<equation>|<inequality>|
+               <relsent>|<logsent>|<quantsent>
+
+<equation> ::= (= <term> <term>)
+
+<inequality> ::= (/= <term> <term>)
+
+<relsent> ::= (<relconst> <term>* [<seqvar>])|
+              (<funconst> <term>* <term>)
+
+<logsent> ::= (not <sentence>)|
+              (and <sentence>*)|
+              (or <sentence>*)|
+              (=> <sentence>* <sentence>)|
+              (<= <sentence> <sentence>*)|
+              (<=> <sentence> <sentence>)
+
+<quantsent> ::= (forall <indvar> <sentence>)|
+                (forall (<indvar>*) <sentence>)|
+                (exists <indvar> <sentence>)|
+                (exists (<indvar>*) <sentence>)
+\endverbatim
+\medskip
+
+An {\it equation} consists of the {\tt =} operator and two terms.
+
+An {\it inequality} consist of the {\tt /=} operator and two terms.
+
+A {\it relational sentence} consists of a relation constant and an arbitrary
+number of {\it argument} terms, terminated by an optional sequence variable. 
+As with functional terms, there is no syntactic  restriction on the number of
+argument terms in a relation sentence -- the same relation constant can be
+applied to any finite number of arguments.
+
+The syntax of {\it logical sentences} depends on the logical operator
+involved.  A sentence involving the {\tt not} operator is called a {\it
+negation}.  A sentence involving the {\tt and} operator is called a {\it
+conjunction}, and the arguments are called {\it conjuncts}.  A sentence
+involving the {\tt or} operator is called a {\it disjunction}, and the
+arguments are called {\it disjuncts}.  A sentence involving the {\tt =>}
+operator is called an {\it implication}; all of its arguments but the last are
+called {\it antecedents}; and the last argument is called the {\it
+consequent}.  A sentence involving the {\tt <=} operator is called a {\it
+reverse implication}; its first argument is called the {\it consequent}; and
+the remaining arguments are called the {\it antecedents}.  A sentence involving
+the {\tt <=>} operator is called an {\it equivalence}.
+
+There are two types of {\it quantified sentences} -- a {\it universally quantified
+sentence} is signalled by the use of the {\tt forall} operator, and an {\it
+existentially quantified sentence} is signalled by the use of the {\tt exists}
+operator.  
+
+The following BNF defines the set of legal KIF rules.
+
+\medskip
+\beginverbatim
+<rule> ::= (=>> <premise>* <sentence>) |
+           (<<= <sentence> <premise>*)
+
+<premise> ::= <sentence> | (consis <sentence>)
+\endverbatim
+\medskip
+
+The last argument in a forward rule is called the {\it consequent} of
+the rule.  Analogously, the first argument in a reverse rule is
+called the {\it consequent}.  The premises that are sentences are its {\sl
+prerequisites}, and the premises that have the form {\tt (consis $\phi$)} are
+its {\it justifications}.
+
+The following BNF defines the set of legal KIF definitions.
+
+\medskip
+\beginverbatim
+<definition> ::= <complete> | <partial>
+
+<complete> ::= 
+ (defobject <objconst> := <term>) |
+ (deffunction <funconst> (<indvar>* [<seqvar>]) := <term>) |
+ (defrelation <relconst> (<indvar>* [<seqvar>]) := <sentence>)
+
+<partial> :: <conservative> | <unrestricted>
+
+<conservative> ::= 
+ (defobject <objconst> [:conservative-axiom <sentence>]) |
+ (deffunction <funconst> [:conservative-axiom <sentence>]) |
+ (defrelation <relconst> [:conservative-axiom <sentence>])|
+ (defrelation <relconst> (<indvar>* [<seqvar>])
+   :=><sentence> [:conservative-axiom <sentence>])
+
+<unrestricted> ::=
+ (defobject <objconst> <sentence>*) |
+ (deffunction <funconst> <sentence>*) |
+ (defrelation <relconst> <sentence>*) |
+ (defrelation <relconst> (<indvar>* [<seqvar>])
+   :=> <sentence> [:axiom <sentence>])
+\endverbatim
+\medskip
+
+{\it Definitions} are used to make category declarations and specify {\it
+defining axioms} for constants (e.g. ``A triangle is a polygon with 3
+sides.'').  KIF definitions can be {\it complete} in that they specify an
+expression that defines the concept completely, or they can be {\it partial} in
+that they constrain the concept without necessarily giving a complete
+equivalence.  Partial definitions can be either {\it conservative} or {\it
+unrestricted}.  Conservative definitions are restricted in that their addition to
+a knowledge base does not result in the logical entailment of any additional
+sentences not containing the constant being defined.
+
+Object constants are defined using the {\tt defobject} operator by specifying
+(1) a term that is equivalent to the constant or (2) a sentence that provides a
+partial description of the object denoted by the constant.  Function constants
+are defined using the {\tt deffunction} operator  by specifying (1) a term that
+is equivalent to the function applied to a given set of arguments or (2) a
+sentence that provides a partial description of the function denoted by the
+constant.  Relation constants are defined using the {\tt defrelation} operator by
+specifying (1) necessary and sufficient conditions for the relation to hold,
+(2) necessary conditions for the relation to hold, or (3) arbitrary sentences
+describing the relation.
+
+A {\it form} in KIF is either a sentence, a rule, or a definition.  
+
+\medskip
+\beginverbatim
+<form> ::= <sentence> | <definition> | <rule>
+\endverbatim
+\medskip
+
+A {\it  knowledge base} is a finite set of forms.  It is important to keep in
+mind that a knowledge base is a {\it set} of sentences, not a {\it sequence};
+the order of forms within the knowledge base is unimportant.
+
+\vfill\eject
+
+\chapter{3}{Conceptualization}
+
+The formalization of knowledge in KIF, as in any declarative representation,
+requires a {\it conceptualization} of the world in terms of objects,
+functions, and relations.
+
+\section{Objects}
+
+A {\it universe of discourse} is the set of all objects presumed or
+hypothesized to exist in the world.  The notion of {\it object} used here is
+quite broad.  Objects can be concrete (e.g. a specific carbon atom, Confucius,
+the Sun) or abstract (e.g. the number 2, the set of all integers, the concept
+of justice).  Objects can be primitive or composite (e.g. a circuit that
+consists of many subcircuits).  Objects can even be fictional (e.g. a unicorn,
+Sherlock Holmes).
+
+Different users of a declarative representation language, like KIF, are likely
+to have different universes of discourse.  KIF is {\it conceptually
+promiscuous} in that it does {\it not} require every user to share the same
+universe of discourse.  On the other hand, KIF is {\it conceptually grounded}
+in that every  universe of discourse {\it is} required to include certain {\it
+basic} objects.  
+
+The following basic objects must occur in every universe of discourse.
+
+\medskip
+
+\item{$\bullet$} Words.  Yes, the words of KIF are themselves objects in the universe
+of discourse, along with the things they denote.
+
+\medskip
+
+\item{$\bullet$} All complex numbers.
+
+\medskip
+
+\item{$\bullet$} All finite lists of objects in the universe of discourse.
+
+\medskip
+
+\item{$\bullet$} All sets of objects in the universe of discourse.
+
+\medskip
+
+\item{$\bullet$} $\bot$ (pronounced ``bottom'') -- a distinguished object that
+occurs as the value of various functions when applied to arguments for which
+the functions make no sense.
+
+\medskip
+
+Remember, however, that to these basic elements, the user can
+add whatever {\it non-basic} objects seem useful.
+
+\section{Functions and Relations}
+
+A function is one kind of interrelationship among objects.  For every finite
+sequence of objects (called the {\it arguments}), a {\it function} associates a
+unique object (called the {\it value}).  More formally, a function is defined as
+a set of finite lists of objects, one for each combination of possible
+arguments.  In each list, the initial elements are the arguments, and the final
+element is the value.  For example, the $1+$ function contains the list
+$\langle 2,3\rangle$, indicating that integer successor of $2$ is $3$.
+
+A  relation is another kind of interrelationship among objects in the universe
+of discourse.  More formally, a {\it relation} is an arbitrary set of finite
+lists of objects (of possibly varying lengths).  Each list is a selection of
+objects that jointly satisfy the relation.  For example, the $<$ relation on
+numbers contains the list $\langle 2,3\rangle$, indicating that $2$ is
+less than $3$.
+
+Note that both functions and relations are defined as sets of lists.  In fact,
+every function is a relation.  However, not every relation is a function.  In a
+function, there cannot be two lists that disagree on only the last element. 
+This would be tantamount to the function having two values for one combination
+of arguments.  By contrast, in a relation, there can be any number of lists
+that agree on all but the last element.  For example, the list $\langle
+2,3\rangle$ is a member of the $1+$ function, and there is no other list of
+length 2 with $2$ as its first argument, i.e. there is only one successor for
+$2$.  By contrast, the $<$ relation contains the lists $\langle 2,3\rangle$,
+$\langle 2,4\rangle$, and so forth, indicating that $2$ is less than $3$, $4$,
+and so forth.
+
+Many mathematicians require that functions and relations have fixed arity, i.e
+they require that all of the lists comprising a function or relation have the
+same length.  The definitions here allow for functions and relations with
+variable arity, i.e. it is perfectly acceptable for a function or a relation to
+contain lists of different lengths.  For example, the $+$ function contains
+the lists $\langle 1,1,2\rangle$ and $\langle 1,1,1,3\rangle$, reflecting the
+fact that the sum of $1$ and $1$ is $2$ and the fact that the sum of $1$ and
+$1$ and $1$ is $3$.  Similarly, the relation $<$ contains the lists $\langle
+1,2\rangle$ and $\langle 1,2,3\rangle$, reflecting the fact that $1$ is less
+than $2$ and the fact that $1$ is less than $2$ and $2$ is less than $3$. 
+This flexibility is not essential, but it is extremely convenient and poses no
+significant theoretical problems.
+
+\vfill\eject
+
+\chapter{4}{Semantics}
+
+Intuitively, the semantics of KIF is very simple.  Unfortunately, the formal
+details are quite complex.  Consequently, we proceed gradually in our
+presentation.  In this chapter, we introduce the basic notions underlying the
+semantics of KIF (in particular, the notions of interpretation, variable assignment,
+semantic value, truth value, and various types of entailment).
+
+The basis for KIF semantics is a correlation between the terms and sentences of the
+language and a conceptualization of the world.  Every term denotes an object in
+the universe of discourse associated with the conceptualization, and every
+sentence is either true or false.
+
+When we encode knowledge in KIF, we select constants on the basis of our
+understanding of their meanings.  In some cases (e.g. the basic constants of the
+language), these meanings are fixed in the definition of the language.  In other
+cases (i.e. the non-basic constants), the meanings can vary from one user to another.
+
+Given exact meanings for the constants of the language (whether they are the
+meanings in the definition of the language or our own concoctions), the
+semantics of KIF tells us the meaning of its complex expressions.  We can
+unambiguously determine the referent of any term, and we can unambiguously
+determine the truth or falsity of any sentence. 
+
+Unfortunately, few of us have complete knowledge about the world.  In keeping with
+traditional logical semantics, this is equivalent to not knowing the exact referent
+for every constant in the language.  In such situations, we write sentences that
+reflect all of the meanings consistent with whatever knowledge we have.  In such
+situations, the semantics of the language cannot pick out exact meanings for all
+expressions in the language, but it does place constraints on the meanings of complex
+expressions.
+
+And, of course, the meanings we ascribe to non-basic constants may differ from
+those ascribed by others.  However, we can convey our meanings to others by
+writing sentences to constrain those meanings in accordance with our usage.  By
+writing more and more sentences, the set of possible referents for our constants is
+decreased.
+
+In the remainder of this section, we provide precise definitions for the ideas
+just introduced.  We start off with a definition for the {\it interpretation} of
+constants, and we introduce the related notion of {\it variable assignment}.  We
+then show how these concepts are used in defining the {\it semantic value} of
+terms and the {\it truth value} of sentences.  Finally, we introduce several
+approaches to {\it entailment}, which eliminates the dependence of meaning
+on the interpretation of non-basic constants.  
+
+\section{Interpretation}
+
+An {\it interpretation} is a function $i$ that associates the constants of
+KIF with the elements of a conceptualization.  In order to be an interpretation, a
+function must satisfy the following two properties.
+
+First, the function must map constants into concepts of the appropriate type.  It
+must map object constants into objects in the universe of discourse.  It must map
+function constants into functions on the universe of discourse.  It must map relation
+constants into relations on the universe of discourse.  Notice that we allow for
+functions and relations of variable, finite arity.  The function must map logical
+constants into one of the boolean values $true$ or $false$ (which may or may not be
+members of the universe of discourse).
+
+\medskip
+\item{1.} If $\sigma$ is an object constant, then $i(\sigma)\in O$.
+
+\item{2.} If $\sigma$ is a function constant, then
+$i(\sigma):O^*\longrightarrow O$.
+
+\item{3.} If $\sigma$ is a relation constant, then $i(\sigma)\subseteq O^*$.
+
+\item{3.} If $\sigma$ is a logical constant, then $i(\sigma)\in\{true,false\}$.
+\medskip
+
+Second, $i$ must ``satisfy'' the conditions and axioms given in this chapter and the
+remaining chapters of this document.  As a start, this includes the following
+conditions.
+
+Every interpretation must map every numerical constant $\sigma$ into the corresponding
+number $n$ (assuming base 10).  
+
+$$i(\sigma)=n$$ 
+
+Every interpretation must map the object constant {\tt bottom} into $\bot$.
+
+$$i(\hbox{\tt bottom})=\bot$$ 
+
+Every interpretation must map the logical constant {\tt true} into $true$ and the
+logical constant {\tt false} into $false$.
+
+$$\eqalign{i(\hbox{\tt true})&=true\cr
+\cr
+i(\hbox{\tt false})&=false\cr}$$ 
+
+Note that, even with these restrictions, KIF is only a ``partially interpreted''
+language.  Although the interpretations of some constants (the basic constants) are
+constrained in the definition of the language, the meanings of other constants
+(the non-basic constants) are left open (i.e. left to the imaginations of the language
+users).
+
+\section{Variable Assignment}
+
+A {\it variable assignment} is a function that (1) maps individual variables
+${\cal V}$ into objects in a universe of discourse $O$ and (2) maps sequence
+variables ${\cal W}$ into finite sequences of objects.
+
+$$v:{\cal V}\longrightarrow O$$
+
+$$v:{\cal W}\longrightarrow O^*$$
+
+The notion of a variable assignment is important in defining the meaning of
+quantified terms and sentences and is discussed further below.
+
+\section{Semantic Value}
+
+Given an interpretation and a variable assignment, we can assign a {\it
+semantic value} to every term in the language.  We formalize this as a
+function $s_{iv}$ from the set ${\cal T}$ of terms into the set $O$
+of objects in the universe of discourse.
+
+$$s_{iv}:{\cal T}\longrightarrow O$$
+
+If an expression is an individual variable $\nu$, the semantic value is the
+object assigned to that variable by the given variable assignment.
+
+$$s_{iv}(\nu)=v(\nu)$$
+
+The semantic value of an object constant $\sigma$ is the object assigned to
+that constant by the given interpretation.
+
+$$s_{iv}(\sigma)=i(\sigma)$$
+
+The semantic value of a function constant $\pi$ is the set of tuples in the universe
+of discourse corresponding to the function denoted by $\pi$.  Here, we use the
+operator {\tt lambda} to denote this function.  A full description of the semantics of
+expressions involving {\tt lambda} is given later.
+
+$$s_{iv}(\pi)=s_{iv}(\hbox{\tt (lambda (@l) ($\pi$ @l))})$$
+
+The semantic value of a relation constant $\rho$ is the set of tuples in the universe
+of discourse corresponding to the relation denoted by $\rho$.  Here, we use the
+operator {\tt kappa} to denote this relation.  A full description of the semantics of
+expressions involving {\tt kappa} is given later.
+
+$$s_{iv}(\rho)=s_{iv}(\hbox{\tt (kappa (@l) ($\rho$ @l))})$$
+
+In most cases, the semantic value of a function or relation constant is the same as
+its interpretation.  However, in order to avoid paradoxes, it must in some cases be
+different.  See the chapter on sets for a fuller discussion of this subject.
+
+The semantic value of a functional term without a terminating sequence
+variable is obtained by applying the function denoted by the function constant
+in the term to the objects denoted by the arguments.
+
+$$s_{iv}(\hbox{\tt ($\pi$
+$\tau_1$...$\tau_n$)})=i(\pi)[s_{iv}(\tau_1),...,s_{iv}(\tau_n)]$$
+
+If a functional term has a terminating sequence variable, the semantic
+value is obtained by applying the function to the sequence of arguments formed
+from the values of the terms that precede the sequence variable and the values
+in the sequence denoted by the sequence variable.  (The vertical bar $|$ here means
+that the objects in the sequence following the bar are appended to the sequence of
+elements before the bar.)
+
+$$s_{iv}(\hbox{\tt ($\pi$ $\tau_1$...$\tau_n$ $\omega$)})=
+i(\pi)[s_{iv}(\tau_1),...,s_{iv}(\tau_n)|s_{iv}(\omega)]$$
+
+A term that begins with {\it listof} refers to the sequence of objects denoted by
+the arguments in the term.  There is no restriction on the objects in the
+sequence.
+
+$$s_{iv}(\hbox{\tt (listof $\tau_1$ ... $\tau_k$)})=\langle
+s_{iv}(\tau_1),...,s_{iv}(\tau_k)\rangle$$
+
+If a term that begins with {\tt listof} ends with a sequence variable, the value of
+the term as a whole is the sequence consisting of the objects denoted by the terms
+prior to the sequence variable together with the objects in the sequence denoted by
+the sequence variable.
+
+$$s_{iv}(\hbox{\tt (listof $\tau_1$ ... $\tau_k$ $\omega$)})=\langle
+s_{iv}(\tau_1),...,s_{iv}(\tau_k)|s_{iv}(\omega)\rangle$$
+
+A term that begins with {\it setof} refers to the set of ``bounded'' objects denoted
+by the arguments in the term.  The concept of boundedness is discussed further in the
+chapter on sets.
+
+$$s_{iv}(\hbox{\tt (setof
+$\tau_1$ ... $\tau_k$)})=\{s_{iv}(\tau_1),...,s_{iv}(\tau_k)\}$$
+
+If a term that begins with {\tt setof} ends with a sequence variable, the value of
+the term as a whole is the set consisting of the bounded objects denoted by the terms
+prior to the sequence variable together with the bounded objects in the sequence
+denoted by the sequence variable.
+
+$$s_{iv}(\hbox{\tt (setof $\tau_1$ ... $\tau_k$ $\omega$)})=\{
+s_{iv}(\tau_1),...,s_{iv}(\tau_k)\}\cup\{x|x=s_{iv}(\omega)_n\}$$
+
+A quotation denotes the expression contained as argument of the {\tt quote}
+operator.  Remember that the universe of discourse for every interpretation
+must contain all list expressions and that the argument to {\tt quote} can be
+any list expression, whether or not it is a legal expression in KIF.
+
+$$s_{iv}(\hbox{\tt (quote $\epsilon$)})=\epsilon$$
+
+Note that any KIF expression (other than a word) is a sequence of KIF expressions. 
+Thus, there are two ways it can be denoted -- with {\tt quote} and with {\tt listof}.  This means we have the following equivalence.
+
+$$s_{iv}(\hbox{\tt (quote ($\epsilon_1$ ... $\epsilon_n$))})=
+s_{iv}(\hbox{\tt (listof (quote $\epsilon_1$) ... (quote $\epsilon_n$))})$$
+
+The semantic value of a simple conditional term depends on the truth
+value of the embedded sentence (see next section).  If the truth value of the embedded
+sentence is $true$, then the semantic value of the term as a whole is the semantic
+value of the first term; otherwise, it is the semantic value of the second term (if
+there is one).
+
+$$s_{iv}(\hbox{\tt (if $\phi$ $\tau_1$ $\tau_2$)})=\cases{
+s_{iv}(\tau_1)&$t_{iv}(\phi)=true$\cr  
+s_{iv}(\tau_2)&otherwise\cr}$$
+
+If a simple conditional has only one embedded term and the truth value of the embedded
+sentence is $true$, then the semantic value of the term is the semantic value of the
+embedded term.  Otherwise, the value is $\bot$.
+
+$$s_{iv}(\hbox{\tt (if $\phi$ $\tau_1$)})=\cases{
+s_{iv}(\tau_1)&$t_{iv}(\phi)=true$\cr  
+\bot&otherwise\cr}$$
+
+The semantic value of a complex conditional is the semantic value of the {\it
+first} term for which the truth value of the corresponding sentence is $true$. 
+If none of the sentences are true, the semantic value is $\bot$.
+
+$$s_{iv}(\hbox{\tt (cond ($\phi_1$ $\tau_1$) ... ($\phi_n$ $\tau_n$))})=\cases{
+s_{iv}(\tau_1)&$t_{iv}(\phi_1)=true$\cr
+\;\;\;...&\hfil...\hfil\cr
+s_{iv}(\tau_2)&$t_{iv}(\phi_n)=true$\cr
+\bot&otherwise\cr}$$
+
+The semantic value of a quantified term with an interpretation $i$ and
+variable assigment $v$ is determined by the semantic value of the embedded
+term or the truth value of the embedded sentence under the same interpretation
+but with various new versions of the variable assignment.  We say that a
+variable assignment $v'$ is a {\it version} of variable assignment $v$ with
+respect to variables $\nu_1$, ...., $\nu_n$ if and only if $v'$ agrees with $v$
+on all variables except for $\nu_1$, ...., $\nu_n$.  The assignments for
+$\nu_1$, ...., $\nu_n$ can be the same as those in $v$ or can be completely
+different.
+
+The referent of a designator with term $\tau$ as first argument and sentence $\phi$
+can be one of two things.  Consider all versions $v'$ of $v$ with respect to the free
+variables in $\tau$.  If there is at least one version $v'$ that makes $\phi$ true and
+the semantic value of $\tau$ is the same in every $v'$ that makes $\phi$ true, then the
+semantic value of the designator as a whole is that value.  If there is more than one
+such value, the semantic value is $\bot$.
+
+$$s_{iv}(\hbox{\tt (the $\tau$ $\phi$)})=\cases{
+s_{iv'}(\tau)&$t_{iv'}(\phi)=true$ and\cr
+             &$s_{iv''}(\tau)=s_{iv'}(\tau)$ for all $v''$ $t_{iv''}(\phi)=true$\cr 
+\bot&otherwise}$$
+
+A set-forming term with the term $\tau$ as first argument and the sentence $\phi$ as
+second argument denotes the set of objects in the universe of discourse with the
+following properties.   (1) The object must be the semantic value of $\tau$ for some
+version $v'$ of $v$ that makes $\phi$ true.  (2) The object must be {\it bounded}.  A
+term is {\it bounded} if and only if it satisfies the interpretation of the {\tt
+bounded} relation.  See the chapter on sets for the axioms characterizing this
+relation.
+
+$$s_{iv}(\hbox{\tt (setofall $\tau$ $\phi$)})=
+\{s_{iv'}(\tau)|t_{iv'}(\phi)=true,s_{iv'}(\tau)\in i(\hbox{\tt bounded})\}$$
+
+A function-forming term denotes the set of tuples of bounded objects
+corresponding to the function that maps every tuple of objects matching the
+first argument of the term into the semantic value of the second argument.
+
+$$s_{iv}(\hbox{\tt (lambda ($\nu_1$...$\nu_n$) $\tau$)})=
+s_{iv}(\hbox{\tt (setofall (listof $\nu_1$...$\nu_n$ $\nu$) (= $\tau$ $\nu$)})$$
+
+If the argument list of the function-forming term terminates in a sequence variable,
+the semantic value of the term is the union of the infinite series of sets of tuples
+corresponding to (1) the same term in which all occurrences of the sequence variable
+are dropped, (2) the same term in which all occurrences of the sequence variable are
+replaced by a single individual variable, (3) the same term in which all occurrences
+of the sequence variable are replaced by two individual variables, etc.
+
+A relation-forming term denotes the set of all tuples of bounded objects that
+satisfy the embedded sentence.
+
+$$s_{iv}(\hbox{\tt (kappa ($\nu_1$...$\nu_n$ [$\sigma$]) $\phi$)})=
+s_{iv}(\hbox{\tt (setofall (listof $\nu_1$...$\nu_n$ [$\sigma$]) $\phi$)})$$
+
+\section{Truth Value}
+
+In a manner similar to that for terms, we define the {\it truth value} for
+sentences in the language as a function $t_{iv}$ that maps sentences ${\cal S}$
+into the truth values $true$ or $false$.
+
+$$t_{iv}:{\cal S}\longrightarrow\{true,false\}$$
+
+The truth value of a logical constant is the truth value assigned by the
+corresponding interpretation.
+
+$$t_{iv}(\lambda)=i(\lambda)$$
+
+An equation is true if and only if the terms in the equation refer to the same object
+in the universe of discourse.
+
+$$t_{iv}(\hbox{\tt (= $\tau_1$ $\tau_2$)})=\cases{
+true&$s_{iv}(\tau_1)=s_{iv}(\tau_2)$\cr
+false&otherwise\cr}$$
+
+An inequality is true if and only if the terms in the equation refer to distinct
+objects in the universe of discourse.
+
+$$t_{iv}(\hbox{\tt (/= $\tau_1$ $\tau_2$)})=\cases{
+false&$s_{iv}(\tau_1)=s_{iv}(\tau_2)$\cr
+true&otherwise\cr}$$
+
+The truth value of a simple relational sentence without a terminating sequence
+variable is $true$ if and only if the relation denoted by the relation constant
+in the sentence is true of the objects denoted by the arguments.  Equivalently,
+viewing a relation as a set of tuples, we say that the truth value of a
+relational sentence is $true$ if and only if the tuple of objects formed from
+the values of the arguments is a member of the set of tuples denoted by the
+relation constant.
+
+$$t_{iv}(\hbox{\tt ($\rho$ $\tau_1$ ... $\tau_n$)})=\cases{
+true&$\langle s_{iv}(\tau_1),...,s_{iv}(\tau_n)\rangle\in i(\rho)$\cr
+false&otherwise\cr}$$
+
+If a relational sentence terminates in a sequence variable, the sentence
+is true if and only if the relation contains the tuple consisting of the values
+of the terms that precede the sequence variable together with the objects in the sequence denoted by the variable.  Remember that the vertical bar $|$ means that the objects in the sequence following the bar are appended to the sequence of elements before the bar.
+
+$$t_{iv}(\hbox{\tt ($\rho$ $\tau_1$ ... $\tau_n$ $\omega$)})=\cases{
+true&$\langle s_{iv}(\tau_1),...,s_{iv}(\tau_n)|s_{iv}(\omega)\rangle\in
+i(\rho)$\cr false&otherwise\cr}$$
+
+The truth value of a negation is $true$ if and only if the truth value of
+the negated sentence is $false$.
+
+$$t_{iv}(\hbox{\tt (not $\phi$)})=\cases{
+true&$t_{iv}(\phi)=false$\cr
+false&otherwise\cr}$$
+
+The truth value of a conjunction is $true$ if and only if the truth value of
+every conjunct is $true$.
+
+$$t_{iv}(\hbox{\tt (and $\phi_1$ ... $\phi_n$)})=\cases{
+true&$t_{iv}(\phi_j)=true$ for all $j$ $1\leq j\leq n$\cr
+false&otherwise\cr}$$
+
+The truth value of a disjunction is $true$ if and only if the truth value of at
+least one of the disjuncts is $true$.
+
+$$t_{iv}(\hbox{\tt (or $\phi_1$ ... $\phi_n$)})=\cases{
+true&$t_{iv}(\phi_j)=true$ for some $j$ $1\leq j\leq n$\cr
+false&otherwise\cr}$$
+
+If the truth value of every antecedent in an implication is $true$, then the
+the truth value of the implication as a whole is $true$ if and only if the truth
+value of the consequent is $true$.  If any of the antecedents is $false$, then
+the implication as a whole is $true$, regardless of the truth value of the
+consequent.
+
+$$t_{iv}(\hbox{\tt (=> $\phi_1$ ... $\phi_n$ $\phi$)})=\cases{
+true&for some $j$ $t_{iv}(\phi_j)=false$ or
+$t_{iv}(\phi)=true$\cr
+false&otherwise\cr}$$
+
+A reverse implication is just an implication with the consequent and antecedents
+reversed.
+
+$$t_{iv}(\hbox{\tt (<= $\phi$ $\phi_1$ ... $\phi_n$)})=\cases{
+true&$t_{iv}(\phi)=true$ or for some $j$ $t_{iv}(\phi_j)=false$\cr
+false&otherwise\cr}$$
+
+The truth value of an equivalence is $true$ if and only if the embedded
+sentences have the same truth value.
+
+$$t_{iv}(\hbox{\tt (<=> $\phi_1$ $\phi_2$)})=\cases{
+true&$t_{iv}(\phi_1)=t_{iv}(\phi_2)$\cr
+false&otherwise\cr}$$
+
+Given an interpretation $i$ and variable assignment $v$, the truth value of
+an existentially quantified sentence is $true$ if and only if the truth value of
+the second argument is $true$ for {\it some} version $v'$ of variable
+assignment $v$ with respect to the variables in the first argument.
+
+$$t_{iv}(\hbox{\tt (exists ($\nu_1$ ... $\nu_k$ $\omega$) $\phi$)})=\cases{
+true&$\exists v'\;t_{iv'}(\phi)=true$\cr
+false&otherwise\cr}$$
+
+Given an interpretation $i$ and variable assignment $v$, the truth value of a
+universally quantified sentence is $true$ if and only if the truth value of
+the second argument of the sentence is $true$ for {\it every} version $v'$ of
+$v$ with respect to variables in the first argument.
+
+$$t_{iv}(\hbox{\tt (forall ($\nu_1$ ... $\nu_k$ $\omega$) $\phi$)})=\cases{
+true&$\forall v'\;t_{iv'}(\phi)=true$\cr
+false&otherwise\cr}$$
+
+\section{Logical Entailment}
+
+The definition of truth value relies on both an interpretation for the constants
+of KIF and an assignment for its variables.  In encoding knowledge, we often
+have in mind a specific interpretation for the constants in our language, but we
+want our variables to range over the universe of discourse (either existentially
+or universally).  In order to provide a notion of semantics that is independent of
+the assignment of variables, we turn to the notion of satisfaction.
+
+An interpretation $i$ {\it logically satisfies} a sentence $\phi$ if and only if
+the truth value of the sentence is $true$ for all variable assignments.  Whenever
+this is the case, we say that $i$ is a {\it model} of $\phi$.  Extending this
+notion to sets of sentences, we say that an interpretation is a model of a set of
+sentences if and only if it is a model of every sentence in the set of sentences. 
+
+Obviously, a variable assignment has no effect on the truth value of a
+sentence without free variables (i.e. a ground sentence or one in which all
+variables are bound).  Consequently, if an interpretation satisfies such a sentence
+for one variable assignment, it satisfies it for every variable assignment.
+
+The occurrence of free variables in a sentence means that the sentence is true
+for all assignments of the variables.  For example, the sentence {\tt (p \$x)}
+means that the relation denoted by {\tt p} is true for all objects in the
+universe of discourse.  In other words, the meaning of a sentence with free
+variables is the same as the meaning of a universally quantified sentence in
+which all of the free variables are boundby the universal quantifier.  In KIF, we use
+this fact to sanction the dropping of prefix universal quantifiers that do not occur
+inside the scope of existential quantifiers.  In other words, we are permitted to
+write {\tt (=> (apple \$x) (red \$x))} in place of the more cumbersome {\tt (forall
+(\$x) (=> (apple \$x) (red \$x)))}.
+
+Unfortunately, the notion of satisfaction is disturbing in that it is relative
+to an interpretation.  As a result, different individuals and different programs
+with different interpretations may disagree on the truth of a sentence.
+
+It is true that, as we add more sentences to a knowledge base, the set of
+models generally decreases.  The goal of knowledge encoding is to write enough
+sentences so that unwanted interpretations are eliminated.  Unfortunately, this
+is not always possible.  In the light of this fact, how are we to interpret the
+expressions in such situations?  The answer is to generalize over interpretations
+as earlier we generalized over variable assignments.
+
+If $\Delta$ is a set of sentences, we say that $\Delta$ {\it logically entails} a
+sentence $\phi$ if and only every model of $\Delta$ is also a model of $\phi$.
+
+With this notion, we can rephrase the goal of knowledge representation as
+follows.  It is to encode enough sentences so that every conclusion we desire
+is logically entailed by our set of sentences.  It is a sad fact
+that this is not always possible, but it is the ideal toward which we strive.
+
+\section{Indexical Entailment}
+
+In the definition of logical entailment, all interpretations are taken into account;
+there is no constraint.  In certain situations, it is desirable to restrict the
+possible interpretations to those in which certain constants are assigned values
+having to do with the set of sentences itself.  In this case, the constants are said
+to be {\it indexical}.  An interpretation then is {\it indexical} if and only if it
+assigns these indexical constants correctly.
+
+In KIF, there is a single indexical constant, viz. the object constant {\tt
+knowedge-base}.  An indexical interpretation of a knowledge base $\Delta$ is one in which this constant is assigned $\Delta$ as value.  This one indexical makes it possible for the user to write sentences that depend on the knowledge base within which the sentences are contained.
+
+Finally, we say that a set of sentences {\it indexically entails} a conclusion if and
+only if every indexical interpretation and variable assignment that satisfies the set
+of sentences also satisfies the conclusion.
+
+\section{Nonmonotonic Entailment}
+
+Recall that the truth value of a sentence is defined relative to an interpretation $i$
+and a variable assignment $v$. To define the nonmonotonic value of a premise in a
+rule, we need to select, instead of a single interpretation $i$, a {\it set} of
+interpretations -- the interpretations that are considered ``possible''. In the
+following definition, $I$ is a set of interpretations which all have the same universe
+of discourse $O$, and $v$ is a variable assignment with this universe.  We consider
+prerequisites and justifications separately.
+
+The nonmonotonic value of a prerequisite is $true$ if and only if it is true at
+every ``possible'' intepretation.
+
+$$n_{Iv}(\phi)=\cases{
+true&$\forall i\in I\;t_{iv}(\phi)=true$\cr false&otherwise\cr}$$
+
+The nonmonotonic value of a justification is {\it true}
+if and only if its argument is true for at least one ``possible''
+intepretation.
+
+$$n_{Iv}(\hbox{\tt (consis $\phi$)})=\cases{
+true&$\exists i\in I\;t_{iv}(\phi)=true$\cr false&otherwise\cr}$$
+
+Let $\Delta$  be a knowledge base with rules. We define when a set $I$ of
+interpretations is ``a set of possible worlds'' for $\Delta$, by means
+of the following fixpoint construction. Consider a universe of discourse $O$;
+by a {\it world} we understand an interpretation with the universe $O$.
+Let $I$ be the set of all worlds that satisfy the sentences in $\Delta$. 
+Consider a maximal set $I'$ of worlds such that, for each rule
+$\delta\in\Delta$ and each variable assignment $v$ with the universe $O$, the
+following condition holds. If the nonmonotonic value of every prerequisite of
+$\delta$ for $I'$ and $v$ is $true$, and the nonmonotonic value of every
+justification of $\delta$ for $I$ and $v$ is true, then the nonmonotonic value of the
+consequent of $\delta$ for $I'$ and $v$ is $true$. (This $I'$ always exists.) If
+$I'$ is maximal, then we say that $I'$ is {\it a set of possible worlds} for
+$\Delta$. Typically, a knowledge base with rules has many sets of possible worlds; it
+is clear, for instance, that any two interpretations with different universes cannot
+belong to the same set of possible worlds.
+
+An interpretation $i$ is a {\it nonmonotonic model} of $\Delta$ if it belongs to
+some set of possible worlds for $\Delta$.  We say that a nonmonotonic knowledge base
+$\Delta$ {\it nonmonotonically entails} a sentence $\phi$ if and only every
+nonmonotonic model of $\Delta$ is also a model of $\phi$.
+
+Note that the definition of a model for nonmonotonic  knowledge bases is ``nonlocal''
+-- we cannot check whether an interpretation $i$ is a model by looking at each
+rule in isolation. This feature of the definition is responsible for the
+nonmonotonic character in this notion of entailment.
+
+\section{Definitions}
+
+The definitional operators in KIF allow us to state sentences that are true ``by
+definition'' in a way that distinguishes them from sentences that express contingent
+properties of the world.  Definitions have no truth values in the sense described
+above.  They are so because we say that they are so.  
+
+On the other hand, definitions have content -- sentences that allow us to derive
+other sentences as conclusions.  In KIF, every definition has a corresponding
+set of sentences, called the {\it content} of the definition.  In general, there are
+three parts to this content.  
+
+First of all, there is information about the category of the constant in the
+definition.  If the constant is a function constant or a relation constant, there is
+also information about its arity.  
+
+Second, there is the {\it defining axiom} associated with the definition (see
+below).  
+
+Finally, there is a sentence stating that the defining axiom associated with the
+definition is indeed a defining axiom for the associated concept (named by the
+constant $\sigma$ used in the definition).  The following sentence expresses this
+fact.  Note the use of quotes to capture the fact that this is a relationship between
+a constant and a sentence.
+
+\medskip
+{\tt (defining-axiom '$\sigma$ '$\phi$)}
+\medskip
+
+The rules for determining the defining axioms for a definition are somewhat
+complicated and are described fully in the chapter on definitions.  The following is a
+brief outline, sufficient to enable the reader to understand the use of definitional
+constructs in the intervening chapters.
+
+The {\tt defobject} operator is used to define objects.  The two simplest forms are
+shown below, together with their defining axioms.  In the first case, the defining
+axiom is the equation involving the object constant in the definition with the
+defining term.  In the second case, the defining axiom is the conjunction
+of the constituent sentences.
+
+\bigskip
+\centerline{\vbox{\halign{\strut#\hfil\quad&\quad#\hfil\cr
+\hfil Definition&\hfil Defining Axiom\cr
+\noalign{\hrule}
+{\tt (defobject $\sigma$ := $\tau$)}&{\tt (= $\sigma$ $\tau$)}\cr
+&\cr
+{\tt (defobject $\sigma$ $\phi_1$ ... $\phi_n$)}&{\tt (and $\phi_1$ ...
+$\phi_n$)}\cr}}}
+\bigskip
+
+The {\tt deffunction} operator is used to define functions.  Again, the two simplest
+forms are shown below, together with their defining axioms.  In the first case, the
+defining axiom is the equation involving (1) the term formed from the function constant
+in the definition and the variables in its argument list and (2) the defining term.  In
+the second case, as with object definitions, the defining axiom is the conjunction of
+the constituent sentences.
+
+\bigskip
+\centerline{\vbox{\halign{\strut#\hfil\quad&\quad#\hfil\cr
+\hfil Definition&\hfil Defining Axiom\cr
+\noalign{\hrule}
+{\tt (deffunction $\pi$ ($\nu_1$ ...$\nu_n$) := $\tau$)}&{\tt (= $\pi$ (lambda
+($\nu_1$ ...$\nu_n$) $\tau$))}\cr &\cr
+{\tt (deffunction $\pi$ $\phi_1$ ... $\phi_n$)}&{\tt (and $\phi_1$ ...
+$\phi_n$)}\cr}}}
+\bigskip
+
+The {\tt defrelation} operator is used to define relations.  The two simplest forms are
+shown below, together with their defining axioms.  In the first case, the defining
+axiom is the equivalence relating (1) the relational sentence formed from the relation
+constant in the definition and the variables in its argument list and (2) the defining
+sentence.  In the second case, as with object and function definitions, the defining
+axiom is the conjunction of the constituent sentences.
+
+\bigskip
+\centerline{\vbox{\halign{\strut#\hfil\quad&\quad#\hfil\cr
+\hfil Definition&\hfil Defining Axiom\cr
+\noalign{\hrule}
+{\tt (defrelation $\rho$ ($\nu_1$ ...$\nu_n$) := $\phi$)}&{\tt (= $\rho$ (kappa
+($\nu_1$ ...$\nu_n$) $\phi$))}\cr &\cr
+{\tt (defrelation $\rho$ $\phi_1$ ... $\phi_n$)}&{\tt (and $\phi_1$ ...
+$\phi_n$)}\cr}}}
+\bigskip
+
+For most purposes, a definition can be viewed as shorthand for the sentences in the content of the definition.
+
+\vfill\eject
+
+\chapter{5}{Numbers}
+
+KIF includes the following standard vocabulary for describing
+properties of numbers.  {\it A formal axiomatization of numbers and of
+the associated functions and relations is being developed for inclusion
+in later versions of this manual.  Common Lisp is being used as a guide
+in that development to determine both the types of numbers and the
+number-related functions and relations to include in the language.  The
+informal descriptions below are provided to indicate the anticipated
+vocabulary.}
+
+\section{Functions on Numbers}
+
+\defconcept{*}{}
+If $\tau_1$, ..., $\tau_n$ denote numbers, then the term {\tt (* $\tau_1
+\ldots \tau_n$)} denotes the product of those numbers.
+
+\defconcept{+}{}
+If $\tau_1$, ..., $\tau_n$ are numerical constants, then the term {\tt
+(+ $\tau_1 ... \tau_n$)} denotes the sum $\tau$ of the numbers
+corresponding to those constants.
+
+\defconcept{-}{function constant}
+If $\tau$ and $\tau_1$, ..., $\tau_n$ denote numbers, then the term {\tt
+(- $\tau$ $\tau_1 ... \tau_n$)} denotes the difference between the
+number denoted by $\tau$ and the numbers denoted by $\tau_1$ through
+$\tau_n$.  An exception occurs when $n=0$, in which case the term
+denotes the negation of the number denoted by $\tau$.
+
+\defconcept{/}{function constant}
+If $\tau_1$, ..., $\tau_n$ are numbers, then the term {\tt (/ $\tau_1
+... \tau_n$)} denotes the result $\tau$ obtained by dividing the number
+denoted by $\tau_1$ by the numbers denoted by $\tau_2$ through
+$\tau_n$.  An exception occurs when $n=1$, in which case the term
+denotes the reciprocal $\tau$ of the number denoted by $\tau_1$.
+
+\defconcept{1+}{}
+The term {\tt (1+ $\tau$)} denotes the sum of the object denoted by
+$\tau$ and 1. 
+
+\medskip
+\verbatim|(deffunction 1+ (?x) :=  (+ ?x 1))|
+\hfill(\equation)\par 
+\medskip
+
+\defconcept{1-}{}
+The term {\tt (1- $\tau$)} denotes the difference of the object denoted
+by $\tau$ and 1. 
+
+\medskip
+\verbatim|(deffunction 1- (?x) := (- ?x 1))|
+\hfill(\equation)\par 
+\medskip
+
+\defconcept{abs}{}
+The term {\tt (abs $\tau$)} denotes the absolute value of the object
+denoted by $\tau$. 
+
+\medskip
+\verbatim|(deffunction abs (?x) := (if (>= ?x 0) ?x (- ?x)))|
+\hfill(\equation)\par 
+\medskip
+
+\defconcept{acos}{function constant}
+If $\tau$ denotes a number, then the term {\tt (acos $\tau$)} denotes
+the arc cosine of that number (in radians).
+
+\defconcept{acosh}{function constant}
+{The term {\tt (acosh $\tau$)} denotes the arc cosine of the object denoted by $\tau$
+(in radians).}
+
+\defconcept{ash}{function constant}
+{The term {\tt (ash $\tau_1$ $\tau_2$)} denotes the result of arithmetically shifting
+the object denoted by $\tau_1$ by the number of bits denoted by $\tau_2$ (left
+or right shifting depending on the sign of $\tau_2$).}
+
+\defconcept{asin}{function constant}
+{The term {\tt (asin $\tau$)} denotes the arc sine of the object denoted by $\tau$ (in
+radians).}
+
+\defconcept{asinh}{function constant}
+{The term {\tt (asinh $\tau$)} denotes the hyperbolic arc sine of the object denoted by $\tau$ (in radians).}
+
+\defconcept{atan}{function constant}
+{The term {\tt (atan $\tau$)} denotes the arc tangent of the object
+denoted by $\tau$ (in radians).}
+
+\defconcept{atanh}{function constant}
+{The term {\tt (atanh $\tau$)} denotes the hyperbolic arc tangent of the object denoted by
+$\tau$ (in radians).}
+
+\defconcept{boole}{function constant}
+{The term {\tt (boole $\tau$ $\tau_1$ $\tau_2$)} denotes the result of applying
+the operation denoted by $\tau$ to the objects denoted by $\tau_1$ and
+$\tau_2$.} 
+
+\defconcept{ceiling}{function constant}
+If $\tau$ denotes a real number, then the term {\tt (ceiling $\tau$)}
+denotes the smallest integer greater than or equal to the number denoted
+by $\tau$.
+
+\defconcept{cis}{function constant}
+{The term {\tt (cis $\tau$)} denotes the complex number denoted by $cos(\tau) + i
+sin(\tau)$. The argument is any non-complex number of radians.}
+
+\defconcept{conjugate}{function constant}
+If $\tau$ denotes a complex number, then the term {\tt (conjugate
+$\tau$)} denotes the complex conjugate of the number denoted by
+$\tau$.
+
+\medskip
+\verbatim|(deffunction conjugate (?c) :=|\par
+\verbatim|  (complex-number (realpart ?c) (- (imagpart ?c))))|
+\hfill(\equation)\par
+\medskip
+
+\defconcept{cos}{function constant}
+{The term {\tt (cos $\tau$)} denotes the cosine of the object denoted by $\tau$ (in radians).}
+
+
+
+\defconcept{cosh}{function constant}
+{The term {\tt (cosh $\tau$)} denotes the hyperbolic cosine of the object denoted by $\tau$ (in radians).}
+
+
+
+\defconcept{decode-float}{function constant}
+{The term {\tt (decode-float $\tau$)} denotes the mantissa of the object denoted by $\tau$.}
+
+
+
+\defconcept{denominator}{function constant}
+{The term {\tt (denominator $\tau$)} denotes the denominator of the canonical reduced form of
+the object denoted by $\tau$.}
+
+
+
+\defconcept{exp}{function constant}
+{The term {\tt (exp $\tau$)} denotes $e$ raised to the power the
+object denoted by $\tau$.}
+
+\medskip
+\verbatim|(deffunction exp (?x) :=  (expt e ?x))|
+\hfill(\equation)\par 
+\medskip
+
+\defconcept{expt}{function constant}
+{The term {\tt (expt $\tau_1$ $\tau_2$)} denotes the object denoted by
+$\tau_1$ raised to the power the object denoted by $\tau_2$.}
+
+
+
+\defconcept{fceiling}{function constant}
+{The term {\tt (fceiling $\tau$)} denotes the smallest integer (as a floating point number) greater than
+the object denoted by $\tau$.}
+
+
+
+\defconcept{ffloor}{function constant}
+{The term {\tt (ffloor $\tau$)} denotes the largest integer (as a floating point number) less than
+the object denoted by $\tau$.}
+
+
+
+\defconcept{float}{function constant}
+{The term {\tt (float $\tau$)} denotes the floating point number equal to the object denoted by
+$\tau$.}
+
+
+
+\defconcept{float-digits}{function constant}
+{The term {\tt (float-digits $\tau$)} denotes the number of digits used in the representation
+of a floating point number denoted by $\tau$.}
+
+
+
+\defconcept{float-precision}{function constant}
+{The term {\tt (float-precision $\tau$)} denotes the number of significant digits
+in the floating point number denoted by $\tau$.}
+
+
+
+\defconcept{float-radix}{function constant}
+{The term {\tt (float-radix $\tau$)} denotes the radix of the 
+floating point number denoted by $\tau$. The most common values are 2
+and 16.}
+
+
+
+\defconcept{float-sign}{function constant}
+{The term {\tt (float-sign $\tau_1$ $\tau_2$)} denotes a floating-point
+number with the same sign as the object denoted by $\tau_1$ and
+the same absolute value as the object denoted by $\tau_2$.}
+
+
+
+\defconcept{floor}{function constant}
+{The term {\tt (floor $\tau$)} denotes the largest integer less than the object denoted by
+$\tau$.}
+
+
+
+\defconcept{fround}{function constant}
+{The term {\tt (fround $\tau$)} is equivalent to {\tt (ffloor (+ 0.5 $\tau$))}.}
+
+
+
+\defconcept{ftruncate}{function constant}
+{The term {\tt (ftruncate $\tau$)} denotes the largest integer (as a floating point number)
+less than the object denoted by $\tau$.}
+
+
+
+\defconcept{gcd}{function constant}
+{The term {\tt (gcd $\tau_1 \ldots \tau_n$)} denotes the greatest common divisor of the
+objects denoted by $\tau_1$ through $\tau_n$.}
+
+
+
+\defconcept{imagpart}{function constant}
+{The term {\tt (imagpart $\tau$)} denotes the imaginary part of the
+object denoted by $\tau$.}
+
+
+
+\defconcept{integer-decode-float}{function constant}
+{The term {\tt (integer-decode-float $\tau$)} denotes the significand
+of the object denoted by $\tau$.}
+
+
+
+\defconcept{integer-length}{function constant}
+{The term {\tt (integer-length $\tau$)} denotes the number of bits
+required to store the absolute magnitude of the object denoted by
+$\tau$.}
+
+
+
+\defconcept{isqrt}{function constant}
+{The term {\tt (isqrt $\tau$)} denotes the integer square root of the
+object denoted by $\tau$.}
+
+
+
+\defconcept{lcm}{function constant}
+{The term {\tt (lcm $\tau_1 \ldots \tau_n$)} denotes the least common
+multiple of the objects denoted by $\tau_1,\ldots,\tau_n$.}
+
+
+
+\defconcept{log}{function constant}
+{The term {\tt (log $\tau_1$ $\tau_2$)} denotes the logarithm of the
+object denoted by $\tau_1$ in the base denoted by $\tau_2$.}
+
+
+
+\defconcept{logand}{function constant}
+{The term {\tt (logand $\tau_1 \ldots \tau_n$)} denotes the bit-wise
+logical and of the objects denoted by $\tau_1$ through $\tau_n$.}
+
+
+
+\defconcept{logandc1}{function constant}
+{The term {\tt (logandc1 $\tau_1$ $\tau_2$)} is equivalent to {\tt
+(logand (lognot $\tau_1$) $\tau_2$)}.}
+
+
+
+\defconcept{logandc2}{function constant}
+{The term {\tt (logandc2 $\tau_1$ $\tau_2$)} is equivalent to {\tt
+(logand $\tau_1$ (lognot $\tau_2$))}.}
+
+
+
+\defconcept{logcount}{function constant}
+{The term {\tt (logcount $\tau$)} denotes the number of {\it on} bits in the object denoted
+by $\tau$. If the denotation of $\tau$ is positive, then the one bits are counted;
+otherwise, the zero bits in the twos-complement representation are counted.}
+
+
+
+\defconcept{logeqv}{function constant}
+{The term {\tt (logeqv $\tau_1 \ldots \tau_n$)} denotes the logical-exclusive-or of the
+objects denoted by $\tau_1,\ldots,\tau_n$.}
+
+
+
+\defconcept{logior}{function constant}
+{The term {\tt (logior $\tau_1 \ldots \tau_n$)} denotes the bit-wise logical inclusive or of the
+objects denoted by $\tau_1$ through $\tau_n$. It denotes 0 if there are no arguments.}
+
+
+
+\defconcept{lognand}{function constant}
+{The term {\tt (lognand $\tau_1$ $\tau_2$)} is equivalent to {\tt (lognot
+(logand $\tau_1$ $\tau_2$))}.}
+
+
+
+\defconcept{lognor}{function constant}
+{The term {\tt (lognor $\tau_1$ $\tau_2$)} is equivalent to {\tt (not (logior $\tau_1$
+$\tau_2$))}.}
+
+
+\defconcept{lognot}{function constant}
+{The term {\tt (lognot $\tau$)} denotes the bit-wise logical not of the object denoted by $\tau$.}
+
+
+
+\defconcept{logorc1}{function constant}
+{The term {\tt (logorc1 $\tau_1$ $\tau_2$)} is equivalent to {\tt (logior (lognot
+$\tau_1$) $\tau_2$)}.}
+
+
+
+\defconcept{logorc2}{function constant}
+{The term {\tt (logorc2 $\tau_1$ $\tau_2$)} is equivalent to {\tt (logior
+$\tau_1$ (lognot $\tau_2$))}.}
+
+
+
+\defconcept{logxor}{function constant}
+{The term {\tt (logxor $\tau_1 \ldots \tau_n$)} denotes the bit-wise logical exclusive or of
+the objects denoted by $\tau_1$ through $\tau_n$. It denotes 0 if there are no arguments.}
+
+
+
+\defconcept{max}{function constant}
+{The term {\tt (max $\tau_1 \ldots \tau_k$)} denotes the largest object
+denoted by $\tau_1$ through $\tau_n$.}
+
+
+
+\defconcept{min}{function constant}
+{The term {\tt (min $\tau_1 \ldots \tau_k$)} denotes the smallest
+object denoted by $\tau_1$ through $\tau_n$.}
+
+
+
+\defconcept{mod}{function constant}
+{The term {\tt (mod $\tau_1$ $\tau_2$)} denotes the root of the object
+denoted by $\tau_1$ modulo the object denoted by $\tau_2$.
+The result will have the same sign as denoted by $\tau_1$.}
+
+
+
+\defconcept{numerator}{function constant}
+{The term {\tt (numerator $\tau$)} denotes the numerator of the canonical reduced form of
+the object denoted by $\tau$.}
+
+
+
+\defconcept{phase}{function constant}
+{The term {\tt (phase $\tau$)} denotes the angle part of the polar representation of 
+the object denoted by $\tau$ (in radians).}
+
+
+
+\defconcept{rationalize}{function constant}
+{The term {\tt (rationalize $\tau$)} denotes the rational representation of the object
+denoted by $\tau$.}
+
+
+
+\defconcept{realpart}{function constant}
+{The term {\tt (realpart $\tau$)} denotes the real part of the object denoted by $\tau$.}
+
+
+
+\defconcept{rem}{function constant}
+{The term {\tt (rem <number> <divisor>)} denotes the remainder of the object denoted by
+{\tt <number>} divided by the object denoted by {\tt <divisor>}. The result has
+the same sign as the object denoted by {\tt <divisor>}.}
+
+
+
+\defconcept{round}{function constant}
+{The term {\tt (round $\tau$)} denotes the integer nearest to the object denoted by $\tau$.
+If the object denoted by $\tau$ is halfway between two integers (for example 3.5),
+it denotes the nearest integer divisible by 2.}
+
+
+
+\defconcept{scale-float}{function constant}
+{The term {\tt (scale-float $\tau_1$ $\tau_2$)} denotes a floating-point
+number that is the representational radix of the object denoted by
+$\tau_1$ raised to the integer  denoted by $\tau_2$.}
+
+
+
+\defconcept{signum}{function constant}
+{The term {\tt (signum $\tau$)} denotes the sign of the object denoted by $\tau$. This is one of -1,
+1, or 0 for rational numbers, and one of -1.0, 1.0, or 0.0 for floating point numbers.}
+
+
+
+\defconcept{sin}{function constant}
+{The term {\tt (sin $\tau$)} denotes the sine of the object denoted by $\tau$ (in radians).}
+
+
+
+\defconcept{sinh}{function constant}
+{The term {\tt (sinh $\tau$)} denotes the hyperbolic sine of the object denoted by $\tau$ (in radians).}
+
+
+
+\defconcept{sqrt}{function constant}
+{The term {\tt (sqrt $\tau$)} denotes the principal square root of the object denoted by $\tau$.}
+
+
+
+\defconcept{tan}{function constant}
+{The term {\tt (tan $\tau$)} denotes the tangent of the object denoted by $\tau$ (in radians).}
+
+
+
+\defconcept{tanh}{function constant}
+{The term {\tt (tanh $\tau$)} denotes the hyperbolic tangent of the object denoted by
+$\tau$ (in radians).}
+
+
+
+\defconcept{truncate}{function constant}
+{The term {\tt (truncate $\tau$)} denotes the largest integer less than the object denoted
+by $\tau$.}
+
+\section{Relations on Numbers}
+
+\defconcept{integer}{}
+The sentence {\tt (integer $\tau$)} means that the object denoted by
+$\tau$ is an integer.
+
+\defconcept{real-number}{}
+The sentence {\tt (real-number $\tau$)} means that the object denoted by
+$\tau$ is a real number.
+
+\defconcept{complex-number}{}
+The sentence {\tt (complex-number $\tau$)} means that the object denoted by
+$\tau$ is a complex number.
+
+\verbatim|(defrelation number (?x) :=|\par
+\verbatim|  (or (real-number ?x) (complex-number ?x)))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation natural (?x) :=  (and (integer ?x) (>= ?x 0)))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation rational-number (?x) :=|\par
+\verbatim|  (exists (?y) (and (integer ?y) (integer (* ?x ?y)))))|
+\hfill(\equation)\par
+\medskip
+
+%%%%%%%%%%%%%%%%
+
+\defconcept{<}{relation constant}
+{The sentence {\tt (< $\tau_1$ $\tau_2$)} is true if and only if the number denoted by
+$\tau_1$ is less than the number denoted by $\tau_2$.}
+
+\medskip
+\verbatim|(defrelation > (?x ?y) := (< ?y ?x))|
+\hfill(\equation)\par 
+\medskip
+
+\medskip
+\verbatim|(defrelation =< (?x ?y) := (or (= ?x ?y) (< ?x ?y)))|
+\hfill(\equation)\par 
+\medskip
+
+\medskip
+\verbatim|(defrelation >= (?x ?y) := (or (> ?x ?y) (= ?x ?y)))|
+\hfill(\equation)\par 
+\medskip
+
+%%%%%%%%%%%%%%%%
+
+\medskip
+\verbatim|(defrelation positive (?x) := (> ?x 0))|
+\hfill(\equation)\par 
+\medskip
+
+\medskip
+\verbatim|(defrelation negative (?x) := (< ?x 0))|
+\hfill(\equation)\par 
+\medskip
+
+\medskip
+\verbatim|(defrelation zero (?x) := (= ?x 0))|
+\hfill(\equation)\par 
+\medskip
+
+%%%%%%%%%%%%%%%%
+
+\medskip
+\verbatim|(defrelation odd-integer (?x) := (integer (/ (+ ?x 1) 2))|
+\hfill(\equation)\par 
+\medskip
+
+\medskip
+\verbatim|(defrelation even-integer (?x) := (integer (/ ?x 2))|
+\hfill(\equation)\par 
+\medskip
+
+%%%%%%%%%%%%%%%%
+
+\defconcept{logbit}{relation constant}
+{The sentence {\tt (logbit $\tau_1$ $\tau_2$)} is true if bit $\tau_2$
+of $\tau_1$ is 1.}
+
+\defconcept{logtest}{relation constant}
+{The sentence {\tt (logtest $\tau_1$ $\tau_2$)} is true if the logical
+{\it and} of the two's-complement representation of the integers
+$\tau_1$ and $\tau_2$ is not zero.}
+
+\vfill\eject
+
+\chapter{6}{Lists}
+
+A {\it list} is a finite sequence of objects.  The objects in a
+list need not be KIF expressions, though they may be. 
+In other words, it is just as acceptable to talk about a list of
+two people as it is to talk about a list of two symbols.
+
+In KIF, we use the term {\tt (listof $\tau_1$ ... $\tau_k$)} to denote the
+list of objects denoted by $\tau_1$, ..., $\tau_k$.  For example, the
+following expression denotes the list of an object named {\tt mary}, a list of
+objects named {\tt tom}, {\tt dick}, and {\tt harry}, and an object named
+{\tt sally}.
+
+\medskip
+\verbatim|(listof mary (listof tom dick harry) sally)|
+\medskip
+
+The relation {\tt list} is the type predicate for lists.  An object is a list
+if and only if there is a corresponding expression involving the {\tt listof}
+operator.
+
+\medskip
+\verbatim|(defrelation list (?x) :=|\par
+\verbatim|  (exists (@l) (= ?x (listof @l)))|
+\hfill(\equation)\par
+\medskip
+
+The object constant {\tt nil} denotes the empty list.  {\tt null} tests whether
+or not an object is the empty list.  The relation constants {\tt single},
+{\tt double}, and {\tt triple} allow us to assert the length of lists
+containing one, two, and three elements, respectively.
+
+\medskip
+\verbatim|(defobject nil := (listof))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation null (?l) := (= ?l (listof)))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation single (?l) := (exists ?x (= ?l (listof ?x))))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation double (?l) :=|\par
+\verbatim|  (exists (?x ?y) (= ?l (listof ?x ?y))))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation triple (?l) :=|\par
+\verbatim|  (exists (?x ?y ?z) (= ?l (listof ?x ?y ?z))))|
+\hfill(\equation)\par
+\medskip
+
+The functions {\tt first}, {\tt rest}, {\tt last}, and {\tt butlast} each
+take a single list as argument and select individual items or sublists from
+those lists.
+
+\medskip
+\verbatim|(deffunction first (?l) := (if (= (listof ?x @items) ?l) ?x)|
+\hfill(\equation)\par \medskip
+
+\medskip
+\verbatim|(deffunction rest (?l) :=|\par
+\verbatim|  (cond ((null ?l) ?l)|\par
+\verbatim|        ((= ?l (listof ?x @items)) (listof @items))))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(deffunction last (?l) :=|\par\nobreak
+\verbatim|  (cond ((null ?l) bottom)|\par\nobreak
+\verbatim|        ((null (rest ?l)) (first ?l))|\par\nobreak
+\verbatim|        (true (last (rest ?l)))))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(deffunction butlast (?l) :=|\par
+\verbatim|  (cond ((null ?l) bottom)|\par
+\verbatim|        ((null (rest ?l)) nil)|\par
+\verbatim|        (true (cons (first ?l) (butlast (rest ?l))))))|
+\hfill(\equation)\par \medskip
+
+The sentence {\tt (item $\tau_1$ $\tau_2$)} is true if and only if
+the object denoted by $\tau_2$ is a non-empty list and the object
+denoted by $\tau_1$ is either the first item of that list or an item in
+the rest of the list.
+
+\medskip
+\verbatim|(defrelation item (?x ?l) :=|\par
+\verbatim|  (and (list ?l)|\par
+\verbatim|       (not (null ?l))|\par
+\verbatim|       (or (= ?x (first ?l)) (item ?x (rest ?l)))))|
+\hfill(\equation)\par
+\medskip
+
+The sentence {\tt (sublist $\tau_1$ $\tau_2$)} is true if and only if
+the object denoted by $\tau_1$ is a final segment of the list denoted by
+$\tau_2$.
+
+\medskip
+\verbatim|(defrelation sublist (?l1 ?l2) :=|\par
+\verbatim|  (and (list ?l1)|\par
+\verbatim|       (list ?l2)|\par
+\verbatim|       (or (= ?l1 ?l2)|\par
+\verbatim|           (sublist ?l1 (rest ?l2)))))|
+\hfill(\equation)\par
+\medskip
+
+The function {\tt cons} adds the object specified as its first
+argument to the front of the list specified as its second argument.
+
+\medskip
+\verbatim|(deffunction cons (?x ?l) :=|\par
+\verbatim|  (if (= ?l (listof @l)) (listof ?x @l)))|
+\hfill(\equation)\par \medskip
+
+The function {\tt append} adds the items in the list specified as its first
+argument to the list specified as its second argument.  The function {\tt
+revappend} is simiar, except that it adds the items in reverse order.
+
+\medskip
+\verbatim|(deffunction append (?l1 ?l2) :=|\par
+\verbatim|  (if (null ?l1) (if (list ?l2) ?l2)|\par
+\verbatim|      (cons (first ?l1) (append (rest ?l1) ?l2))))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(deffunction revappend (?l1 ?l2) :=|\par
+\verbatim|  (if (null ?l1) (if (list ?l2) ?l2)|\par
+\verbatim|      (revappend (rest ?l1) (cons (first ?l1) ?l2))))| 
+\hfill(\equation)\par
+\medskip
+
+The function {\tt reverse} produces a list in which the order of items is the
+reverse of that in the list supplied as its single argument.
+
+\medskip
+\verbatim|(deffunction reverse (?l) := (revappend ?l (listof)))| 
+\hfill(\equation)\par
+\medskip
+
+The functions {\tt adjoin} and {\tt remove} construct lists by adding or
+removing objects from the lists specified as their arguments.
+
+\medskip
+\verbatim|(deffunction adjoin (?x ?l) := (if (item ?x ?l) ?l (cons ?x ?l)))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(deffunction remove (?x ?l) :=|\par
+\verbatim|  (cond ((null ?l) nil)|\par
+\verbatim|        ((and (= ?x (first ?l)) (listp ?l))|\par
+\verbatim|         (remove ?x (rest ?l)))|\par
+\verbatim|        ((list ?l) (cons ?x (remove ?x (rest ?l))))))|
+\hfill(\equation)\par
+\medskip
+
+The value of {\tt subst} is the object or list obtained by substituting the
+object supplied as first argument for all occurrences of the object
+supplied as second argument in the object or list supplied as third argument.
+
+\medskip
+\verbatim|(deffunction subst (?x ?y ?z) :=|\par
+\verbatim|  (cond ((= ?y ?z) ?x)|\par
+\verbatim|        ((null ?z) nil)|\par
+\verbatim|        ((list ?z) (cons (subst ?x ?y (first ?z))|\par
+\verbatim|                         (subst ?x ?y (rest ?z))))|\par
+\verbatim|        (true ?z)))|
+\hfill(\equation)\par
+
+
+The function constant {\tt length} gives the number of items in a list.  {\tt
+nth} returns the item in the list specified as its first argument in the
+position specified as its second argument.  {\tt nthrest} returns the list
+specified as its first argument minus the first $n$ items, where $n$ is
+the number specified as its second argument.
+
+\medskip
+\verbatim|(deffunction length (?l) :=|\par\nobreak
+\verbatim|   (cond ((null ?l) 0)|\par\nobreak
+\verbatim|         ((list ?l) (1+ (length (rest ?l))))))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(deffunction nth (?l ?n) :=|\par
+\verbatim|   (cond ((= ?n 1) (first ?l))|\par
+\verbatim|         ((positive ?n) (nth (rest ?l) (1- ?n)))))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(deffunction nthrest (?l ?n) :=|\par
+\verbatim|  (cond ((= ?n 0) (if (listp ?l) ?l))|\par
+\verbatim|        ((positive ?n)) (nthrest (rest ?l) (1- ?n)))))|
+\hfill(\equation)\par
+
+\vfill\eject
+
+\chapter{7}{Sets}
+
+In many applications, it is helpful to talk about sets of objects as
+objects in their own right, e.g. to specify their cardinality, to talk
+about subset relationships, and so forth.
+
+The formalization of sets of simple objects is a simple matter; but,
+when we begin to talk about sets of sets, the job becomes difficult
+due to the threat of paradoxes (like Russell's hypothesized set of all sets
+that do not contain themselves).
+
+Fortunately, there is no shortage of mathematical theories for our use in KIF
+-- various higher order logics, Zermelo-Fraenkel set theory, von
+Neuman-Bernays-G\"odel set theory, Quine's variants on the previous two
+approaches, the more recently elaborated proposals by Feferman and Aczel, and so
+forth.  In KIF, we have adopted a version of the von Neumann-Bernays-G\"odel
+set theory.
+
+In our presentation here, we first discuss the basic concepts of this
+theory -- the notions of set and membership.  Next, we look at some
+terminology for describing the properties of sets.  We then present the
+standard axioms of set theory.  Finally, we discuss the threat of paradox
+and indicate how our use of the von Neumann-Bernays-G\"odel set theory avoids
+this problem.
+
+An important word of warning for mathematicians.  In KIF, certain words are
+used nontraditionally.  Specifically, the standard notion of {\it class} is
+here called a {\it set}; the standard notion of {\it set} is replaced by the notion
+of {\it bounded} set; and the standard notion of {\it proper class} is replaced by
+{\it unbounded} set.
+
+\section{Basic Concepts}
+
+In KIF, a fundamental distinction is drawn between {\it individuals} and
+{\it sets}.  A set is a collection of objects.  An individual is any object that
+is not a set.  
+
+A distinction is also drawn between objects that are {\it bounded} and those
+that are {\it unbounded}.  This distinction is orthogonal to the distinction
+between individuals and sets.  There are bounded individuals and unbounded
+individuals.  There are bounded sets and unbounded sets.
+
+The fundamental relationship among these various types of entities is that
+of membership.  Sets can have members, but individuals cannot.  Bounded objects can
+{\it be} members of sets, but unbounded objects cannot.  (It is this condition that
+allows us to avoid the traditional paradoxes of set theory.)  
+
+In KIF, we use the unary relation constants {\tt individual} and {\tt
+set}, {\tt bounded} and {\tt unbounded} to make these distinctions; and we
+use the binary relation constant {\tt member} to talk about membership.
+
+The sentence {\tt (individual $\tau$)} is true if and only if the object
+denoted by $\tau$ is an individual.  The sentence {\tt (set $\tau$)} is
+true if and only if the object denoted by $\tau$ is a set.  As just
+described, individuals and sets are exhaustive and mutually disjoint.
+
+\medskip
+\verbatim|(or (set ?x) (individual ?x))|
+\hfill(\equation)\par
+\medskip
+\verbatim|(or (not (set ?x)) (not (individual ?x)))|
+\hfill(\equation)\par
+\medskip
+
+The sentence {\tt (bounded $\tau$)} is true if and only if the object denoted
+by $\tau$ is bounded.  The sentence {\tt (unbounded $\tau$)} is true if
+and only if the object denoted by $\tau$ is unbounded.  Boundedness and
+unboundedness are exhaustive and mutually disjoint.
+
+\medskip
+\verbatim|(or (bounded ?x) (unbounded ?x))|
+\hfill(\equation)\par
+\medskip
+\verbatim|(or (not (bounded ?x)) (not (unbounded ?x)))|
+\hfill(\equation)\par
+\medskip
+
+The sentence {\tt (member $\tau_1$ $\tau_2$)} is true if and only if the
+object denoted by $\tau_1$ is contained in the set denoted by $\tau_2$. 
+As mentioned above, an object can be a member of another object if and only
+if the former is bounded and the latter is a set.
+
+\medskip
+\verbatim|(=> (member ?x ?s)|\par
+\verbatim|    (bounded ?x))|
+\hfill(\equation)\par
+\medskip
+\verbatim|(=> (member ?x ?s)|\par
+\verbatim|    (set ?x))|
+\hfill(\equation)\par
+\medskip
+
+An important property shared by all sets is the extensionality property. 
+Two sets are identical if  and only if they have the same members.
+
+\medskip
+\verbatim|(=> (and (set ?s1) (set ?s2))|\par
+\verbatim|    (<=> (forall (?x) (<=> (member ?x ?s1) (member ?x ?s2)))|\par
+\verbatim|         (= ?s1 ?s2)))|
+\hfill(\equation)\par 
+\medskip
+
+\section{Sets}
+
+To allow us to name specific sets, KIF provides the operators {\tt
+setof} and {\tt setofall}.
+
+The term {\tt (setof $\tau_1$ ... $\tau_k$)} denotes the set consisting of
+the objects denoted by $\tau_1$, ..., $\tau_k$ that are bounded.
+
+\medskip
+\verbatim|(=> (item ?x (listof @items))|\par
+\verbatim|    (bounded ?x)|\par
+\verbatim|    (member ?x (setof @items)))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(=> (member ?x (setof @items))|\par
+\verbatim|    (item ?x (listof @items)))|
+\hfill(\equation)\par
+\medskip
+
+Note that the cardinality of the set denoted by {\tt (setof $\tau_1$ ...
+$\tau_k$)} can be less than $k$.  By definition, an object can appear in
+a set only once.  Consequently, if $\tau_i$ and $\tau_j$ (for different
+$i$ and $j$) denote the same object, the resulting set must contain
+fewer than $k$ members.
+
+The operator {\tt setofall} allows us  to define sets in terms of their
+properties.  The term {\tt (setofall $\tau$ $\phi$)} denotes the set of
+all bounded objects denoted by $\tau$ for any assignment of the free
+variables in $\tau$ that satisfies $\phi$.
+
+\medskip
+{\tt (<=> (member $\tau$ (setofall $\nu$ $\phi$))}\par
+{\tt \ \ \ \ \ (and (bounded $\tau$) $\phi_{\nu/\tau}$))}
+\hfill(\equation)\par
+\medskip
+
+Note that the first argument to {\tt setofall} must be a term,
+not a list of variables as with {\tt forall} and {\tt exists}.  The
+term can be a single variable, a functional expression, or even a
+quantified term.  If the term contains no free variables, then the
+set consists of either zero members or one member, depending on the
+truth value of the embedded sentence.
+
+The {\tt empty} relation is true of the empty set but false of all other
+objects.
+
+\medskip
+\verbatim|(defrelation empty (?x) := (= ?x (setof)))|
+\hfill(\equation)\par
+\medskip
+
+In KIF, the functions {\tt union}, {\tt intersection}, {\tt difference}, and
+{\tt complement} are defined as follows.
+
+%%% Note these must be written as lists of sets, since some of the arguments
+%%% to union might be unbounded sets!
+
+\medskip
+\verbatim|(deffunction union (@sets) :=|\par
+\verbatim|  (if (forall (?s) (=> (item ?s (listof @sets)) (set ?s)))|\par
+\verbatim|      (setofall ?x (exists (?s) (and (item ?s (listof @sets))|\par
+\verbatim|                                     (member ?x ?s)))))| 
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(deffunction intersection (@sets) :=|\par
+\verbatim|  (if (forall (?s) (=> (item ?s (listof @sets)) (set ?s)))|\par
+\verbatim|      (setofall ?x (forall (?s) (=> (item ?s (listof @sets))|\par
+\verbatim|                                    (member ?x ?s)))))| 
+\hfill(\equation)\par
+
+\medskip
+\verbatim|(deffunction difference (?set @sets) :=|\par
+\verbatim|  (if (and (set ?set)|\par
+\verbatim|           (forall (?s) (=> (item ?s (listof @sets)) (set ?s))))|\par
+\verbatim|      (setofall ?x|\par
+\verbatim|                (and (member ?x ?set)|\par
+\verbatim|                     (forall (?s) (=> (item ?s (listof @sets))|\par
+\verbatim|                                      (not (member ?x ?s))))))))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(deffunction complement (?s) :=|\par
+\verbatim|  (if (set ?s)|\par
+\verbatim|      (setofall ?x (not (member ?x ?s)))))|
+\hfill(\equation)\par
+\medskip
+
+The functions {\tt generalized-union} and {\tt generalized-intersection} allow us to
+talk about the union and intersection of the sets in a set of sets.
+
+\medskip
+\verbatim|(deffunction generalized-union (?set) :=|\par
+\verbatim|  (if (and (set ?set)|\par
+\verbatim|           (forall (?s) (=> (member ?s ?set) (set ?s)))|\par
+\verbatim|      (setofall ?x (exists (?s) (and (member ?s ?set) |\par
+\verbatim|                                     (member ?x ?s))))))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(deffunction generalized-intersection (?set) :=|\par
+\verbatim|  (if (and (set ?set)|\par
+\verbatim|           (forall (?s) (=> (member ?s ?set) (set ?s)))|\par
+\verbatim|      (setofall ?x (exists (?s) (=> (member ?s ?set) |\par
+\verbatim|                                    (member ?x ?s))))))|
+\hfill(\equation)\par
+\medskip
+
+The sentence {\tt (subset $\tau_1$ $\tau_2$)} is true if
+and only if $\tau_1$ and $\tau_2$ are sets and the objects in the set
+denoted by $\tau_1$ are contained in the set denoted by $\tau_2$.
+
+\medskip
+\verbatim|(defrelation subset (?s1 ?s2) :=|\par\nobreak
+\verbatim|  (and (set ?s1) (set ?s2)|\par\nobreak
+\verbatim|       (forall ?x (=> (member ?x ?s1) (member ?x ?s2)))))|
+\hfill(\equation)\par
+\medskip
+
+The sentence {\tt (proper-subset $\tau_1$ $\tau_2$)} is true if
+the set denoted by $\tau_1$ is a subset of the set denoted by $\tau_2$
+but not vice-versa.
+
+\medskip
+\verbatim|(defrelation proper-subset (?s1 ?s2) :=|\par
+\verbatim|  (and (subset ?s1 ?s2)|\par
+\verbatim|       (not (subset ?s2 ?s1))))|
+\hfill(\equation)\par
+\medskip
+
+Two sets are disjoint if and only if there is no object that is a
+member of both sets.  Sets are pairwise-disjoint if and only if every
+set is disjoint from every other set.  Sets are mutually-disjoint if and
+only if there is no object that is a member of all of the sets. Note
+that mutually-disjoint sets need not be pairwise disjoint; in fact, every
+pair of sets might be overlapping.  For example, the sets $\{a,b\}$ and
+$\{b,c\}$ and $\{a,c\}$ are mutually disjoint but not pairwise disjoint.
+
+\medskip
+\verbatim|(defrelation disjoint (?s1 ?s2) :=|\par
+\verbatim|  (empty (intersection ?s1 ?s2)))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation pairwise-disjoint (@sets) :=|\par
+\verbatim|  (forall (?s1 ?s2) (=> (item ?s1 (listof @sets))|\par
+\verbatim|                        (item ?s2 (listof @sets))|\par
+\verbatim|                        (or (= ?s1 ?s2) (disjoint ?s1 ?s2)))))|
+\hfill(\equation)\par
+
+\medskip
+\verbatim|(defrelation mutually-disjoint (@sets) :=|\par
+\verbatim|  (= (intersection @sets) (set)))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation set-partition (?s @sets) :=|\par
+\verbatim|  (and (= ?s (union @sets))|\par
+\verbatim|       (pairwise-disjoint @sets)))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation set-cover (?s @set) :=|\par
+\verbatim|  (subset ?s (union @sets)))|\par
+\hfill(\equation)\par
+\medskip
+
+We close this section with two axioms that allow us to conclude that sets of
+various sorts do, in fact, exist.  The first is the {\it axiom of regularity}
+-- every non-empty set has an element with which it has no members in common.
+
+\medskip
+\verbatim|(forall (?s)|\par
+\verbatim|  (=> (not (empty ?s))|\par
+\verbatim|      (exists (?u) (and (member ?u ?s) (disjoint ?u ?s)))))|
+\hfill(\equation)\par
+\medskip
+
+This axiom is not absolutely essential for set theory.  However, it makes many
+proofs a lot easier, and so it is commonly included among the axioms of set theory.
+
+The second axiom is the {\it axiom of choice}.  It asserts that there is a set that
+associates every bounded set with a distinguished element of that set.  In effect, it
+{\it chooses} an element from every bounded set.
+
+\medskip
+\verbatim|(exists (?s)|\par\nobreak
+\verbatim|  (and (set ?s)|\par\nobreak
+\verbatim|       (forall (?x) (=> (member ?x ?s) (double ?x)))|\par\nobreak
+\verbatim|       (forall (?x ?y ?z) (=> (and (member (listof ?x ?y) ?s)|\par\nobreak
+\verbatim|                                   (member (listof ?x ?z) ?s))|\par\nobreak
+\verbatim|                              (= ?y ?z)))|\par\nobreak
+\verbatim|       (forall (?u)|\par\nobreak
+\verbatim|         (=> (and (bounded ?u) (not (empty ?u)))|\par\nobreak
+\verbatim|             (exists (?v) (and (member ?v ?u)|\par\nobreak
+\verbatim|                               (member (listof ?u ?v) ?s))))))))|
+\hfill(\equation)\par
+\medskip
+
+Again, this axiom is not essential.  In some versions of set theory, the axiom of
+choice is omitted.  However, it is a highly desirable property and is included here
+for that reason.
+
+\section{Boundedness}
+
+As mentioned earlier, the key difference between bounded and unbounded objects is
+that the former can be members of other sets while the latter cannot.  This fact
+establishes a necessary and sufficient test for boundedness -- an object is bounded
+just in case it is a member of a set.  However, this is not very helpful, since
+we often need to determine whether or not an object is bounded based on other
+properties, not the sets of which it is a member.  In this section, we look at some
+axioms that help us make this determination for sets.
+
+First of all, we have the {\it finite set axiom}.  Any finite set of bounded sets
+is itself a bounded set.
+
+\medskip
+\verbatim|(bounded (setof @l))|
+\hfill(\equation)\par
+\medskip
+
+The {\it subset axiom} assures that the set of all of subsets of a bounded set is
+also a bounded set.
+
+\medskip
+\verbatim|(=> (bounded ?v) (bounded (setofall ?u (subset ?u ?v))))|
+\hfill(\equation)\par
+\medskip
+
+The {\it union axiom} tells us that the generalized union of any bounded set of
+bounded sets is also a bounded set.  Since every finite set is bounded, this allows us
+to conclude, as a special case, that the union of any finite number of bounded sets
+is a bounded set.
+
+\medskip
+\verbatim|(=> (and (bounded ?u) (forall (?x) (=> (member ?x ?u) (bounded ?x))))|\par
+\verbatim|    (bounded (generalized-union ?u)))|
+\hfill(\equation)\par
+\medskip
+
+The {\it intersection axiom} tells us that the intersection of a bounded set and any
+other set is a bounded set.  So long as one of the sets defining the intersection is
+bounded, the resulting set is bounded.
+
+\medskip
+\verbatim|(=> (and (bounded ?u) (set ?s))|\par
+\verbatim|    (bounded (intersection ?u ?s)))|
+\hfill(\equation)\par
+\medskip
+
+Finally, we have the {\it axiom of infinity}.  There is a bounded set containing a
+set, a set that properly contains that set, a third set that properly contains the
+second set, and so forth.  In short, there is at least one bounded set of infinite
+cardinality.
+
+\medskip
+\verbatim|(exists (?u)|\par\nobreak
+\verbatim|  (and (bounded ?u)|\par\nobreak
+\verbatim|       (not (empty ?u))|\par\nobreak
+\verbatim|       (forall (?x)|\par\nobreak
+\verbatim|         (=> (member ?x ?u)|\par\nobreak
+\verbatim|             (exists (?y) (and (member ?y ?u)|\par\nobreak
+\verbatim|                               (proper-subset ?x ?y)))))))|
+\hfill(\equation)\par
+\medskip
+
+\section{Paradoxes}
+
+The presence of sets in our universe of discourse does not in itself
+lead to paradoxes.  The paradoxes appear only when we try to define
+set  primitives that are too powerful.  We have defined the sentence {\tt
+(member $\tau$ $\sigma$)} to be true in exactly those cases when the object
+denoted by $\tau$ is a member of the set denoted by $\sigma$, and we might
+consider defining the term {\tt (setofall $\tau$ $\phi$)} to mean simply the
+set of all objects denoted by $\tau$ for any assignment of the free
+variables of $\tau$ that satisfies $\phi$.  Unfortunately, these two
+definitions quickly lead to paradoxes.
+
+Let $\phi_{\nu/\tau}$ be the result of substituting term $\tau$ for
+all free occurrences of $\nu$ in sentence $\phi$.  Provided that
+$\tau$ is a term not containing any free variables captured in
+$\phi_{\nu\tau}$, then the following schema follows from our informal
+definition.  This schema is called the {\it principle of unrestricted
+set abstraction}.
+
+\medskip
+{\tt (<=> (member $\tau$ (setofall $\nu$ $\phi$)) $\phi_{\nu/\tau}$)}
+\medskip
+
+Now, let us substitute the variable {\tt ?x} for $\nu$, the sentence
+{\tt (not (member ?x ?x))} for $\phi$,  and the term {\tt (setofall
+?x (not (member ?x ?x)))} for $\tau$.  The resulting instance of
+the principle of unrestricted set abstraction follows.
+
+\medskip
+\beginverbatim
+(<=> (member (setofall ?x (not (member ?x ?x)))
+             (setofall ?x (not (member ?x ?x))))
+     (not (member (setofall ?x (not (member ?x ?x))))
+                  (setofall ?x (not (member ?x ?x)))))
+\endverbatim
+\medskip
+
+This sentence has the form {\tt (<=> $\phi$ (not $\phi$))}, which
+cannot be true in any interpretation.  This is Russell's paradox, only
+one of a family of familiar absurdities following from the principle of
+unrestricted set abstraction.
+
+It is crucial that the paradoxes of set theory be avoided.  One of the
+goals in the design of KIF is that it have a clearly specified
+model-theoretic semantics in terms of which the concepts of
+entailment, equivalence, consistency, soundness and completeness can
+be defined.  If the paradoxes are allowed to persist in principle,
+even if they are easy to avoid in practice, the consequence would be
+that no KIF theory would be true in any model.  Definitions couched in
+terms of models would be trivialized, becoming useless.  All sentences
+would be entailed by any theory, any two theories would be equivalent,
+no theory would be consistent, every possible inference rule would be
+sound, and so on.
+
+In the von-Neuman-G\"odel-Bernays version of set theory, these paradoxes
+are avoided by replacing the principle of unrestricted set abstraction with
+the {\it principle of restricted set abstraction} given above.
+
+\medskip
+{\tt (<=> (member $\tau$ (setofall $\nu$ $\phi$))}\par
+{\tt \ \ \ \ \ (and (bounded $\tau$) $\phi_{\nu/\tau}$))}\par
+\medskip
+
+With this principle, there are two reasons why something may be
+excluded from a set {\tt (setofall $\nu$ $\phi$)}.  It may fail to be a
+member because it does not satisfy the defining condition $\phi$, or it
+may be excluded because it is an unbounded object. 
+Conditioning the membership of objects in this set on their boundedness effectively
+eliminates the paradoxes.
+
+\vfill\eject
+
+\chapter{8}{Functions and Relations}
+
+In KIF, we can describe specific functions and relations by naming
+them with function constants and relation constants and then writing
+sentences in which those names occur in functional or relational
+position.  For most purposes, this is adequate; but in some cases it
+is also useful to describe functions and relations more generally --
+to name their properties (such as associativity and transitivity) and
+to write axioms relating these properties (possibly quantifying over
+the functions and relations possessing these properties).  In order to
+do this, we need to treat functions and relations as objects in our
+universe of discourse.  
+
+By definition, functions and relations are sets of lists of objects
+from our universe of discourse.  The immediately preceding chapters
+offer a vocabulary for describing lists and sets in general.  However,
+functions and relations have enough special properties to warrant
+additional vocabulary.
+
+In what follows, we begin by presenting the KIF vocabulary for
+abstraction and application of functions and relations.  We then talk
+about the use of functions and relation constants in argument
+position of terms.  Finally, we present some supporting vocabulary.
+
+Note that the introduction of functions and relations into our
+universe of discourse comes with the threat of paradox, as with sets in
+general.  In KIF, we sidestep such paradoxes by defining the
+sets comprising our functions and relations in terms of the set concepts
+introduced in the preceding chapter.
+
+\section{Basic Vocabulary}
+
+As described in chapter~3, a relation is an arbitrary set of lists.  A
+collection of objects satisfies a relation if and only if the list of
+those objects is a member of this set.
+
+\medskip
+\verbatim|(defrelation relation (?r) :=|\par
+\verbatim|  (and (set ?r)|\par
+\verbatim|       (forall (?x) (=> (member ?x ?r) (list ?x)))))|
+\hfill(\equation)\par
+\medskip
+
+Since KIF allows for n-ary relations, the lists in the set need not
+be of the same length.  For example, the $<$ relation is defined on
+2-lists, 3-lists, 4-lists, and so forth.
+
+A function is a set of lists in which the items in every list
+except for the last determine the last item, i.e. there cannot be two
+lists that agree on all but the last item and disagree on the last
+item.  
+
+\medskip
+\verbatim|(defrelation function (?f) :=|\par
+\verbatim|  (and (relation ?f)|\par
+\verbatim|       (forall (?l ?m)|\par
+\verbatim|         (=> (member ?l ?f)|\par
+\verbatim|             (member ?m ?f)|\par
+\verbatim|             (= (butlast ?l) (butlast ?m))|\par
+\verbatim|             (= (last ?l) (last ?m))))))|
+\hfill(\equation)\par
+\medskip
+
+As with relations in general, the lists of a function need
+not be of the same length, to allow for functions of variable arity. 
+For example, associative functions like $+$ and $*$ functions can be
+applied to arbitrary numbers of arguments.
+
+An important difference between our treatment of functions and the
+traditional treatment is that functions need not contain lists for
+every possible combination of arguments.  If a function is undefined for
+a particular combination of objects (i.e. if its value is $\bot$), then
+we omit that list from the set.  Thus, even though our universe of
+discourse is infinite, it is possible for a function to have a finite
+number of lists.
+
+\section{Function and Relation Constants}
+
+Since function constants and relation constants denote functions and
+relations and since functions and relations are objects in our
+universe of discourse, it is natural to allow function and relation
+constants to appear as as arguments in terms and sentences.
+
+Unfortunately, in order to avoid paradoxes, it is sometimes essential
+for there to be a difference between the interpretation of a function or
+relation constant and its semantic value.  We can sidestep these
+potential difficulties by writing axioms that define function and
+relation constants, used in argument position, in terms of the {\tt
+setof} operator.
+
+As described in chapter~4, the semantic value of a function constant $\pi$ is
+the set of lists of objects corresponding to the function denoted by $\pi$. 
+The following axiom schema expresses this property.
+
+\medskip
+{\tt (= $\pi$ (setofall (listof $\nu_1$ ... $\nu_k$ $\nu$) (= ($\pi$ $\nu_1$
+... $\nu_k$) $\nu$))} 
+\hfill(\equation)
+\medskip
+
+Similarly, the semantic value of a relation constant $\rho$ is the set of
+lists of objects that satisfy the relation denoted by $\rho$.  Again, we
+have an axiom schema corresponding to this property.
+
+\medskip
+{\tt (= $\rho$ (setofall (listof $\nu_1$ ... $\nu_k$) ($\rho$ $\nu_1$ ...
+$\nu_k$)))} \hfill(\equation)
+\medskip
+
+The use of function and relation constants in argument position weakens
+the distinction between object constants on the one hand and function
+and relation constants on the other.
+
+The distinction between function and relation constants can also be
+weakened, since functions are a special class of relations.  Any
+position that requires a relation constant can also be filled by a
+function constant.  When this happens, the function denoted by the
+function constant is treated as a relation (which it is).  For instance,
+in the following sentence, the first occurrence of {\tt +} plays the
+role of a relation constant, while in the second occurrence, it plays
+the role of a function constant.  (In both cases, {\tt +} denotes the
+same entity.)  
+
+\medskip
+\verbatim|(and (+ 2 3 5) |\par
+\verbatim|     (= (+ 2 3 5) 10))|\par
+\medskip
+
+In KIF, all function constants are treated as relation constants,
+and all relation constants (and hence all function constants) are
+treated as object constants.  An object constant is still prohibited from
+occurring as the first item of a term or a sentence, and a relation constant
+that is not a function constant cannot occupy the first position in a term.
+
+The convenience afforded by the ability to use function and relation
+constants as arguments and to use function constants in relational
+position often causes concern over grammatical ambiguity.  The
+expression {\tt (+ 5 2 3)} is both a term and a sentence.  Fortunately,
+this ambiguity is always resolved when such expressions occur within
+well-formed databases.  Any expression that occurs at top level cannot
+be a term.  An expression embedded in a non-operator expression must be
+a term.  An expression embedded in an operator expression can be either
+a term or a sentence, but in either case the type of the expression is
+known from the operator's syntax.
+
+\section{Concretion}
+
+If $\tau$ denotes a relation, then the sentence {\tt (holds $\tau$
+$\tau_1$ ... $\tau_k$)} is true if and only if the list of objects
+denoted by $\tau_1$,...,$\tau_k$ is a member of that relation.
+
+\medskip
+\verbatim|(defrelation holds (?r @args) :=|\par
+\verbatim|  (and (relation ?r) (member (listof @args) ?r)))|
+\hfill(\equation)\par 
+\medskip
+
+If $\tau$ denotes a function with a value for the objects denoted by
+$\tau_1$,..., $\tau_k$, then the term {\tt (value $\tau$ $\tau_1$ ...
+$\tau_k$)} denotes the value of applying that function to the objects
+denoted by $\tau_1$,...,$\tau_k$.  Otherwise, the value is undefined.
+
+\medskip
+\verbatim|(deffunction value (?f @args) :=|\par
+\verbatim|  (if (and (function ?f)|\par
+\verbatim|           (member ?l ?f)|\par
+\verbatim|           (= (butlast ?l) (listof @args)))|\par
+\verbatim|      (last ?l)))|
+\hfill(\equation)\par 
+\medskip
+
+\medskip
+\verbatim|(deffunction apply (?f ?l) :=|\par
+\verbatim|  (if (and (function ?f) (= ?l (listof @args)))|\par
+\verbatim|      (value ?f @args)))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(deffunction map (?f ?l) :=|\par
+\verbatim|  (if (null ?l) (list)|\par
+\verbatim|      (cons (value ?f (first ?l)) (map ?f (rest ?l)))))|
+\hfill(\equation)\par
+\medskip
+
+\section{Abstraction}
+
+As described in chapter~4, the semantic value of the term {\tt (lambda
+($\nu_1$ ... $\nu_k$ [$\omega$]) $\tau$)} is the set of lists associated with
+the function that maps every list of objects ``matching'' the variable list
+to the value of $\tau$ when the variables in the variable list are assigned to
+the objects in the list.  We can capture this meaning with the following axiom
+schema.
+
+\medskip
+{\tt (= (lambda ($\nu_1$ ... $\nu_k$ [$\omega$]) $\tau$)}\par
+{\tt \ \ \ (setofall (listof $\nu_1$ ... $\nu_k$ [$\omega$] $\nu$) (= $\nu$ $\tau$)))}
+\hfill(\equation)\par
+\medskip
+
+The semantic value of the term {\tt (kappa ($\nu_1$ ... $\nu_k$
+[$\omega$]) $\phi$)} is the set of lists associated with the relation
+that holds of every list of objects ``matching'' the variable list
+for which the sentence $\phi$ is satisfied.  We can capture this meaning
+with the following axiom schema. 
+
+\medskip
+{\tt (= (kappa ($\nu_1$ ... $\nu_k$ [$\omega$]) $\phi$)}\par
+{\tt \ \ \ (setofall (listof $\nu_1$ ... $\nu_k$ [$\omega$]) $\phi$)))}
+\hfill(\equation)\par \medskip
+
+\section{Additional Concepts}
+
+The universe of a relation is the set of all objects occurring in some
+list contained in that relation.
+
+\medskip
+\verbatim|(deffunction universe (?r) :=|\par
+\verbatim|  (if (relation ?r)|\par
+\verbatim|      (setofall ?x (exists (?l) (and (member ?l ?r)|\par
+\verbatim|                                     (item ?x ?l))))))| 
+\hfill(\equation)\par
+\medskip
+
+A unary relation is a non-empty relation in which all lists have exactly one
+item.
+
+\medskip
+\verbatim|(defrelation unary-relation (?r) :=|\par
+\verbatim|  (and (not (empty ?r))|\par
+\verbatim|       (forall (?l) (=> (member ?l ?r) (single ?l)))))|
+\hfill(\equation)\par
+\medskip
+
+A binary relation is a non-empty relation in which all lists have exactly two
+items.  The inverse of a binary relation is a binary relation with all
+tuples reversed.  The composition of a binary relation $r_1$ and a binary
+relation $r_2$ is a binary relation in which an object $x$ is related to an
+object $z$ if and only if there is an object $y$ such that $x$ is related to
+$y$ by $r_1$ and $y$ is related to $z$ by $r_2$.
+
+\medskip
+\verbatim|(defrelation binary-relation (?r) :=|\par
+\verbatim|  (and (not (empty ?r))|\par
+\verbatim|       (forall (?l) (=> (member ?l ?r) (double ?l)))))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(deffunction inverse (?r) :=|\par
+\verbatim|  (if (binary-relation ?r)|\par
+\verbatim|      (setofall (listof ?y ?x) (holds ?r ?x ?y))))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(deffunction composition (?r1 ?r2) :=|\par
+\verbatim|  (if (and (binary-relation ?r1)|\par
+\verbatim|           (binary-relation ?r2)|\par
+\verbatim|      (setofall (listof ?x ?z)|\par
+\verbatim|        (exists (?y)|\par
+\verbatim|          (and (holds ?r1 ?x ?y)|\par
+\verbatim|               (holds ?r2 ?y ?z)))))))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation one-one (?r) :=|\par
+\verbatim|  (and (binary-relation ?r)|\par
+\verbatim|       (function ?r)|\par
+\verbatim|       (function (inverse ?r))))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation many-one (?r) :=|\par
+\verbatim|  (and (binary-relation ?r)|\par
+\verbatim|       (function ?r)))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation one-many (?r) :=|\par
+\verbatim|  (and (binary-relation ?r)|\par
+\verbatim|       (function (inverse ?r))))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation many-many (?r) :=|\par
+\verbatim|  (and (binary-relation ?r)|\par
+\verbatim|       (not (function ?r))|\par
+\verbatim|       (not (function (inverse ?r)))))|
+\hfill(\equation)\par
+\medskip
+
+A unary function is a function with a single argument and a single value. 
+Hence, it is also a binary relation. 
+
+\medskip
+\verbatim|(defrelation unary-function (?f) :=|\par
+\verbatim|  (and (function ?f)|\par
+\verbatim|       (binary-relation ?f)))|
+\hfill(\equation)\par
+\medskip
+
+A binary function is a function with two arguments and one value.  Hence, it
+is a relation with three arguments. 
+
+\medskip
+\verbatim|(defrelation binary-function (?f) :=|\par
+\verbatim|  (and (function ?f)|\par
+\verbatim|       (not (empty ?f))|\par
+\verbatim|       (forall (?l) (=> (member ?l ?f) (triple ?l)))))|
+\hfill(\equation)\par 
+\medskip
+
+\vfill\eject
+
+\chapter{9}{Metaknowledge}
+
+\section{Naming Expressions}
+
+In formalizing knowledge about knowledge, we use a conceptualization in which
+expressions are treated as objects in the universe of discourse and in which
+there are functions and relations appropriate to these objects.  In our
+conceptualization, we treat atoms as primitive objects (i.e. having no
+subparts).  We conceptualize complex expressions (i.e. non-atoms) as lists of
+subexpressions (either atoms or other complex expressions).  In particular, every
+complex expression is viewed as a list of its immediate subexpressions.
+
+For example, we conceptualize the sentence {\tt (not (p (+ a b c) d))} as a
+list consisting of the operator {\tt not} and the sentence {\tt (p (+ a b c)
+d)}.  This sentence is treated as a list consisting of the relation constant
+{\tt p} and the terms {\tt (+ a b c)} and {\tt d}.  The first of these terms
+is a list consisting of the function constant {\tt +} and the object constants
+{\tt a}, {\tt b}, and {\tt c}.
+
+For Lisp programmers, this conceptualization is relatively obvious, but it
+departs from the usual conceptualization of formal languages taken in the
+mathematical theory of logic.  It has the disadvantage that we cannot describe
+certain details of syntax such as parenthesization and spacing (unless we
+augment the conceptualization to include string representations of expressions
+as well).  However, it is far more convenient for expressing properties of
+knowledge and inference than string-based conceptualizations.
+
+In order to assert properties of expressions in the language, we need a way of
+referring to those expressions.  There are two ways of doing this in KIF.
+
+One way is to use the {\tt quote} operator in front of an expression.  From the
+section on semantics, we know that a quotation denotes the expression embedded
+within the term.  Therefore, to refer to the symbol {\tt john}, we use the term
+{\tt 'john} or, equivalently, {\tt (quote john)}.  To refer to the expression
+{\tt (p a b)}, we use the term {\tt '(p a b)} or, equivalently, {\tt (quote (p a
+b))}.
+
+With a way of referring to expressions, we can assert their properties.  For
+example, the following sentence ascribes to the individual named {\tt john} the
+belief that the moon is made of a particular kind of blue cheese.
+
+\medskip
+\beginverbatim
+(believes john '(material moon stilton))
+\endverbatim
+\medskip
+
+Note that, by nesting quotes within quotes, we can talk about quoted
+expressions.  In fact, we can write towers of sentences of arbitrary heights, in
+which the sentences at each level talk about the sentences at the lower levels.
+
+Since expressions are first-order objects, we can quantify over them, thereby
+asserting properties of whole classes of sentences.  For example, we could say
+that Mary believes everything that John believes.  This fact together with the
+preceding fact allows us to conclude that Mary also believes the moon to be made
+of blue cheese.
+
+\medskip
+\beginverbatim
+(=> (believes john ?p) (believes mary ?p))
+\endverbatim
+\medskip
+
+The second way of referring to expressions is KIF is to use the {\tt listof}
+function.  For example, we can denote a complex expression like {\tt (p a b)} by
+a term of the form {\tt (listof 'p 'a 'b)}, as well as {\tt '(p a b)}.
+
+The advantage of the {\tt listof} representation over the {\tt quote}
+representation is that it allows us to quantify over parts of expressions.  For
+example, let us say that Lisa is more skeptical than Mary.  She agrees with
+John, but only on the composition of things.  The first sentence below asserts
+this fact without specifically mentioning {\tt moon} or {\tt stilton}.  Thus, if
+we were to later discover that John thought the sun to be made of chili peppers,
+then Lisa would be constrained to believe this as well.
+
+\medskip
+\beginverbatim
+(=> (believes john (listof 'material ?x ?y))
+    (believes lisa (listof 'material ?x ?y)))
+\endverbatim
+\medskip
+
+While the use of {\tt listof} allows us to describe the structure of expressions
+in arbitrary detail, it is somewhat awkward.  For example, the term {\tt (listof
+'material ?x ?y)} is somewhat awkward.  Fortunately, we can eliminate this
+difficulty using backquote and comma.  Rather than using the {\tt listof}
+function constant as described above, we write the expression preceded by the
+backquote character {\tt `} and add a comma character {\tt ,} in front of any
+subexpression that is not to be taken literally.  For example, we would rewrite
+the preceding sentence as follows.
+
+\medskip
+\beginverbatim
+(=> (believes john `(material ,?x ,?y))
+    (believes lisa `(material ,?x ,?y)))
+\endverbatim
+\medskip
+
+This approach is particularly nice in that it parallels the treatment of quoting
+and unquoting in Common Lisp.  However, a warning is in order.  All Common
+Lisps translate quoted expressions into lists with {\tt quote} as the
+first element, e.g. {\tt '(f a)} translates into {\tt (quote (f a))}. 
+However, not all Common Lisps are consistent in the handling of
+backquote.  Some Lisps translate backquoted expressions into internal
+forms involving {\tt listof}, e.g. {\tt `(f ,?x)} translates into {\tt
+(listof 'f ?x)}.  Some use {\tt cons}, e.g. {\tt (cons 'f (cons ?x
+nil))}.  Some use neither or a mixture.  This does not prohibit our
+using the approach in KIF, but it means that we cannot rely on all
+Lisp readers to produce the internal form we want.
+
+\section{Formalizing Syntax}
+
+In order to facilitate the encoding of knowledge about KIF, the language
+includes type relations for the various syntactic categories defined in
+chapter~2.
+
+For every individual variable $\nu$, there is an axiom asserting that it is
+indeed an individual variable.  Each such axiom is a defining axiom for the
+{\tt indvar} relation.
+
+\medskip
+{\tt (indvar (quote $\nu$))}
+\hfill(\equation)\par
+\medskip
+
+For every sequence variable $\omega$, there is an axiom asserting that it is a
+sequence variable.  Each such axiom is a defining axiom for the {\tt seqvar}
+relation.
+
+\medskip
+{\tt (seqvar (quote $\omega$))}
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation termop (?x) :=|\par
+\verbatim|  (member ?x (setof 'quote 'if 'cond 'the 'setof|\par
+\verbatim|                    'kappa 'lambda)))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation sentop (?x) :=|\par
+\verbatim|  (member ?x (setof 'not 'and 'or '=> '<= '<=> 'forall 'exists)))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation ruleop (?x) := (member ?x (setof  '=>> '<<=)))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation defop (?x) :=|\par
+\verbatim|  (member ?x (setof 'defobject 'deffunction 'defrelation ':=|\par
+\verbatim|                    ':=> ':axiom ':conservative-axiom)))|
+\hfill(\equation)\par
+\medskip
+
+For every constant $\sigma$, there is an axiom asserting that it is a
+constant.  Each such axiom is a defining axiom for the {\tt constant}
+relation.  The category of each constant is determined from its definition
+and/or the uses of the constant in a knowledge base.
+
+\medskip
+\verbatim|(defrelation constant (constant (quote $\sigma$)))|
+\hfill(\equation)\par
+\medskip
+
+%%%%%%%%%%%%%%%%
+
+From these basic vocabulary items, we define variables, operators, words,
+and expressions.
+
+\medskip
+\verbatim|(defrelation variable (?x) := (or (indvar ?x) (seqvar ?x)))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation operator (?x) :=|\par
+\verbatim|  (or (termop ?x) (sentop ?x) (ruleop ?x) (defop ?x)))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation word (?x) :=|\par
+\verbatim|  (or (variable ?x) (operator ?x) (constant ?x)))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation expression (?x) :=|\par
+\verbatim|  (or (word ?x)|\par
+\verbatim|      (and (list ?x)|\par
+\verbatim|           (forall (?y) (=> (item ?y ?x) (expression ?y))))))|
+\hfill(\equation)\par
+\medskip
+
+%%%%%%%%%%%%%%%%
+
+The sentence {\tt (term $\tau$)} is true if and only if the
+object denoted by $\tau$ is a term, i.e. it is either a constant, a
+variable, functional term, a list term, a set term, a quoted term, a logical
+term, or a quantified term.
+
+\medskip
+\verbatim|(defrelation term (?x) :=|\par
+\verbatim|  (or (indvar ?x) (objconst ?x) (funconst ?x) (relconst ?x)|\par
+\verbatim|      (funterm ?x) (listterm ?x) (setterm ?x) (quoterm ?x)|\par
+\verbatim|      (logterm ?x) (quanterm ?x)))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation funterm (?x) :=|\par
+\verbatim|  (exists (?f ?tlist)|\par
+\verbatim|    (and (funconst ?f)|\par
+\verbatim|         (list ?tlist)|\par
+\verbatim|         (=> (item ?t  ?tlist) (term ?t))|\par
+\verbatim|         (= ?x (cons ?f ?tlist)))))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation listterm (?x) :=|\par
+\verbatim|  (exists ?tlist|\par
+\verbatim|    (and (list ?tlist)|\par
+\verbatim|         (=> (item ?t  ?tlist) (term ?t))|\par
+\verbatim|         (= ?x (cons 'listof ?tlist)))))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation setterm (?x) :=|\par
+\verbatim|  (exists ?tlist|\par
+\verbatim|    (and (list ?tlist)|\par
+\verbatim|         (=> (item ?t  ?tlist) (term ?t))|\par
+\verbatim|         (= ?x (cons 'setof ?tlist)))))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation (?x) :=|\par
+\verbatim|  (exists (?e)|\par
+\verbatim|    (and (expression ?e)|\par
+\verbatim|         (= ?x `(quote ,?e)))))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation logterm (?x) :=|\par
+\verbatim|  (or (exists (?p1 ?t1)|\par
+\verbatim|        (and (sentence ?p1) (term ?t1) (= ?x `(if ,?p1 ,?t1))))|\par
+\verbatim|      (exists (?p1 ?t1 ?t2)|\par
+\verbatim|        (and (sentence ?p1)|\par
+\verbatim|             (term ?t1)|\par
+\verbatim|             (term ?t2)|\par
+\verbatim|             (= ?x `(if ,?p1 ,?t1 ,?t2))))|\par
+\verbatim|      (exists ?clist|\par
+\verbatim|        (and (list ?clist)|\par
+\verbatim|             (=> (item ?c ?clist)|\par
+\verbatim|                 (exists (?p ?t)|\par
+\verbatim|                   (and (sentence ?p) (term ?t)|\par
+\verbatim|                        (= ?c (listof ?p ?t)))))|\par
+\verbatim|             (= ?x (cons 'cond ?clist))))))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation quanterm (?x) :=|\par
+\verbatim|  (or (exists (?t ?p)|\par
+\verbatim|        (and (term ?t) (sentence ?p)|\par
+\verbatim|             (= ?x (listof 'the ?t ?p))))|\par
+\verbatim|      (exists (?t ?p)|\par
+\verbatim|        (and (term ?t) (sentence ?p)|\par
+\verbatim|             (= ?x (listof 'setof ?t ?p))))|\par
+\verbatim|      (exists (?vlist ?p)|\par
+\verbatim|        (and (list ?vlist) (sentence ?p)|\par
+\verbatim|             (>= (length ?vlist) 1)|\par
+\verbatim|             (=> (item ?v ?vlistp) (indvar ?v))|\par
+\verbatim|             (= ?x (listof 'kappa ?vlistp ?p))))|\par
+\verbatim|      (exists (?vlist ?sv ?p)|\par
+\verbatim|        (and (list ?vlist) (seqvar ?sv) (sentence ?p)|\par
+\verbatim|             (=> (item ?v ?vlist) (indvar ?v))|\par
+\verbatim|             (= ?x (listof 'kappa (append ?vlist (listof ?sv)) ?p))))|\par
+\verbatim|      (exists (?vlist ?t)|\par
+\verbatim|        (and (list ?vlist) (term ?t)|\par
+\verbatim|             (>= (length ?vlist) 1)|\par
+\verbatim|             (=> (item ?v ?vlistp) (indvar ?v))|\par
+\verbatim|             (= ?x (listof 'lambda ?vlistp ?t))))|\par
+\verbatim|      (exists (?vlist ?sv ?t)|\par
+\verbatim|        (and (list ?vlist) (seqvar ?sv) (sentence ?t)|\par
+\verbatim|             (=> (item ?v ?vlist) (indvar ?v))|\par
+\verbatim|             (= ?x (listof 'lambda|\par
+\verbatim|                           (append ?vlist (listof ?sv))|\par
+\verbatim|                           ?t))))))|
+\hfill(\equation)\par
+\medskip
+
+%%%%%%%%%%%%%%%%
+
+The sentence {\tt (sentence $\tau$)} is true if and only if the
+object denoted by $\tau$ is a sentence, i.e. it is either a logical
+constant, a relational sentence, a logical sentence, or a quantified
+sentence.
+
+\medskip
+\verbatim|(defrelation sentence (?x) :=|\par
+\verbatim|  (or (logconst ?x) (relsent ?x) (equation ?x)|\par
+\verbatim|      (inequality ?x) (logsent ?x) (quantsent ?x)))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation relsent (?x) :=|\par
+\verbatim|  (exists (?r ?tlist)|\par
+\verbatim|    (and (or (relconst ?r) (funconst ?r)) (list ?tlist)|\par
+\verbatim|         (>= (length ?tlist) 1)|\par
+\verbatim|         (=> (item ?t ?tlist) (term ?t))|\par
+\verbatim|         (= ?x (cons ?r ?tlist)))))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation equation (?x) :=|\par
+\verbatim|  (exists (?t1 ?t2)|\par
+\verbatim|    (and (term ?t1) (term ?t2)|\par
+\verbatim|         (= ?x `(= ,?t1 ,?t2)))))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation inequality (?x) :=|\par
+\verbatim|  (exists (?t1 ?t2)|\par
+\verbatim|    (and (term ?t1) (term ?t2)|\par
+\verbatim|         (= ?x `(/= ,?t1 ,?t2)))))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation logsent (?x) :=|\par
+\verbatim|  (or (negation ?x) (conjunction ?x) (disjunction ?x)|\par
+\verbatim|      (implication ?x) (reverse-implication ?x)|\par
+\verbatim|      (equivalence ?x)))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation negation (?x) :=|\par
+\verbatim|  (exists (?p)|\par
+\verbatim|    (and (sentence ?p)|\par
+\verbatim|         (= ?x `(not ,?p)))))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation conjunction (?x) :=|\par
+\verbatim|  (exists ?plist|\par
+\verbatim|    (and (list ?plist)|\par
+\verbatim|         (>= (length ?plist) 1)|\par
+\verbatim|         (=> (item ?p ?plist) (sentence ?p))|\par
+\verbatim|         (= ?x (cons 'and ?plist)))))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation disjunction (?x) :=|\par
+\verbatim|  (exists ?plist|\par
+\verbatim|    (and (list ?plist)|\par
+\verbatim|         (>= (length ?plist) 1)|\par
+\verbatim|         (=> (item ?p ?plist) (sentence ?p))|\par
+\verbatim|         (= ?x (cons 'or ?plist)))))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation implication (?x) :=|\par
+\verbatim|  (exists (?plist)|\par
+\verbatim|    (and (list ?plist)|\par
+\verbatim|         (>= (length ?plist) 2)|\par
+\verbatim|         (=> (item ?p ?plist) (sentence ?p))|\par
+\verbatim|         (= ?x (cons '=> ?plist)))))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation reverse-implication (?x) :=|\par
+\verbatim|  (exists (?plist)|\par
+\verbatim|    (and (list ?plist)|\par
+\verbatim|         (>= (length ?plist) 2)|\par
+\verbatim|         (=> (item ?p ?plist) (sentence ?p))|\par
+\verbatim|         (= ?x (cons '<= ?plist)))))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation equivalence (?x) :=|\par
+\verbatim|  (exists (?p1 ?p2)|\par
+\verbatim|    (and (sentence ?p1)|\par
+\verbatim|         (sentence ?p2)|\par
+\verbatim|         (= ?x `(<=> ,?p1 ,?p2)))))|
+\hfill(\equation)\par
+\medskip
+
+\medskip
+\verbatim|(defrelation quantsent (?x) :=|\par
+\verbatim|  (or (exists (?v ?p)|\par
+\verbatim|        (and (indvar ?v) (sentence ?p)|\par
+\verbatim|             (or (= ?x (listof 'forall ?v ?p))|\par
+\verbatim|                 (= ?x (listof 'exists ?v ?p)))))|\par
+\verbatim|      (exists (?vlist ?p)|\par
+\verbatim|        (and (list ?vlist) (sentence ?p)|\par
+\verbatim|             (>= (length ?vlist) 1)|\par
+\verbatim|             (=> (item ?v ?vlist) (indvar ?v))|\par
+\verbatim|             (or (= ?x (listof 'forall ?vlist ?p))|\par
+\verbatim|                 (= ?x (listof 'exists ?vlist ?p)))))))|
+\hfill(\equation)\par
+\medskip
+
+\section{Changing Levels of Denotation}
+
+The vocabulary introduced in the preceding subsection allows us to encode
+properties of expressions in and of themselves.  In this section, we add some
+vocabulary that allows us to change levels of denotation, i.e. to relate
+expressions about expressions with the expressions they denote.
+
+The term {\tt (denotation $\tau$)} denotes the object denoted by the object
+denoted by $\tau$.  A quotation denotes the quoted expression; the denotation
+of any other object is $\bot$.
+
+The term {\tt (name $\tau$)} denotes the standard name for the object denoted
+by the term $\tau$.  The standard name for an expression $\tau$ is
+{\tt (quote $\tau$)}; the standard name for a non-expression is at the
+discretion of the user.  (Note that there are only a countable number of
+terms in KIF, but there can be models with uncountable cardinality;
+consequently, it is not always possible for every object in the universe of
+discourse to have a unique name.)
+
+The final level-crossing vocabulary item is the relation constant {\tt true}. 
+For example, we can say that a sentence of the form {\tt (=> (p ?x) (q ?x))}
+is true by writing the following sentence.
+
+\medskip
+\beginverbatim
+(true '(=> (p ?x) (q ?x)))
+\endverbatim
+\medskip
+
+This may seem of limited utility, since we can just write the sentence denoted by
+the argument as a sentence in its own right.  The advantage of the metanotation
+becomes clear when we need to quantify over sentences, as in the encoding of axiom
+schemas.  For example, we can say that every sentence of the form {\tt
+(=> $\phi$ $\phi$)} is true with the following sentence.
+
+\medskip
+\beginverbatim
+(=> (sentence ?p) (true `(=> ,?p ,?p)))
+\endverbatim
+\medskip
+
+Semantically, we would like to say that a sentence of the form {\tt (true
+'$\phi$)} is true if and only if the sentence $\phi$ is true.  In other
+words, for any interpretation and variable assignment, the truth value
+$t_{iv}(\hbox{\tt (true '$\phi$)})$ is the same as the truth value
+$t_{iv}(\phi)$.  In other words, for every truth function $t_{iv}$, {\tt
+true} is our language's name for $t_{iv}$.
+
+Unfortunately, this causes serious problems.  Equating a truth function with
+the meaning it ascribes to {\tt true} quickly leads to paradoxes.  The
+English sentence ``This sentence is false.'' illustrates the paradox.  We
+can write this sentence in KIF as shown below.  The sentence, in effect,
+asserts its own negation.
+
+\medskip
+\beginverbatim
+(true (subst (name `(subst (name x) `x `(true ,x)))
+             `x
+             `(not (true (subst (name x) `x `(not (true ,x)))))))
+\endverbatim
+\medskip
+
+For any truth function $t_{iv}$ that maps {\tt true} to itself, we get a
+contradiction.  If $t_{iv}$ of this sentence is $true$, then by the
+rules for assignment of the logical operators contained in the sentence, we see
+that $t_{iv}$ must make the sentence $false$.  If $t_{iv}$ assigns the value
+$false$, then, again by the rules for assignment of the logical operators, we
+see that it must assign it the value $true$.  In either case, we get a
+contradication.
+
+Fortunately, we can circumvent such paradoxes by slightly modifying the
+definition of {\tt true}.  The treatment here follows that of Kripke,
+Gilmore, and Perlis.  Although the approach is a little complicated, it
+is nice in that the intuitive interpretation of {\tt true} is in all
+important cases exactly what we would guess, yet paradoxes are completely
+avoided.
+
+\medskip
+{\tt (<=> (true $\phi$) $\phi^*$)}\hfill(\equation)\par
+\medskip
+
+Given a sentence $\phi$, we define $\phi^*$ to be the sentence obtained from
+$\phi$ as follows.  If the sentence is logical, then all occurrences of
+{\tt not} are pushed inside other operators.  If the sentence is {\tt (not
+(true $\tau$))}, the $\phi^*$ is {\tt (true (listof 'not $\tau$))}.
+
+Since the truth of a sentence {\tt (true $\phi$)} is determined by the truth
+value of $\phi^*$, not $\phi$, the potential for paradoxes is eliminated.  
+For most sentences, $\phi^*$ and $\phi$ are the same.  For apparently
+paradoxical sentences, the two differ and so no contradiction arises.
+(See Perlis for the description of a model for databases containing this
+axiom schema.)
+
+\vfill\eject
+
+\chapter{10}{Nonmonotonicity}
+
+Many knowlege representation and reasoning systems are capable of drawing
+conclusions based on the absence of knowedge from a database.  This is
+nonmonotonic reasoning.  The addition of new sentences to the database
+may be cause for the system to retract earlier conclusions.
+
+In some systems, the exact policy for deriving nonmonotonic conclusions is
+built into the system.  In other systems, the policy can be modified
+by its user, though rarely within the system's knowledge representation
+language (e.g. by selecting which predicates to circumscribe).  Since KIF
+is a knowledge representation language and not a system, it is necessary
+to provide means for its user to express his nomonotonic reasoning policy
+within the language itself.
+
+We use default rules for this purpose.  For instance, the following default
+rule expresses that an object can be assumed to fly if this object is known to
+be a bird and it is consistent to assume that it flies.
+
+\medskip
+\beginverbatim
+(<<= (flies ?x) (bird ?x) (consis (flies ?x)))
+\endverbatim
+\medskip
+
+The use of {\tt consis} is the only source of nonmonotonicity in KIF.
+Accordingly, a rule without justifications will be called
+{\it monotonic}. This particularly simple case will be discussed first.
+
+\section{Monotonic Rules}
+
+A {\it monotonic rule} is an expression of the following form or its
+reverse (using {\tt =>>}, where $\phi$, $\phi_1,\dots,\phi_n$ are
+sentences.
+
+$$(\hbox{\tt <<= $\phi$ $\phi_1$ $\dots$ $\phi_n$}),$$
+
+Such an expression should be distinguished from an implication like
+the following.
+
+$$(\hbox{\tt <= $\phi$ $\phi_1$ $\dots$ $\phi_n$})$$
+
+Athough sentences can be monotonic rules, monotonic rules are not
+sentences; they are similar to {\it inference rules}, familiar from
+elementary logic. If, for instance, $\Delta$ consists of some sentences
+$\Delta_0$ and one rule ({\tt <<=} $\psi$ $\phi$), where $\phi$ and
+$\psi$ are sentences without free variables, then the set of sentences
+entailed by  $\Delta$ is the smallest set of sentences which (i)
+contains $\Delta_0$, (ii) is closed under logical entailment, and (iii)
+contains $\psi$ provided that it contains $\phi$.  It is not generally
+true that this set contains the implication ({\tt <=} $\psi$ $\phi$).
+
+The rationale for using monotonic rules in knowledge representation,
+instead of implications, is twofold. On the one hand, the ``directed''
+character of rules can simplify the task of developing efficient inference
+procedures. On the other hand, in some cases, replacing {\tt <<=} by
+{\tt <=} would be semantically unacceptable. For instance, the rules
+
+\medskip
+\beginverbatim
+(<<= (status-known ?x) (citizen ?x))
+
+(<<= (status-known ?x) (not (citizen ?x)))
+\endverbatim
+\medskip
+
+\noindent
+allow us to infer {\tt (status-known Joe)} only if one of the sentences
+
+\medskip
+\beginverbatim
+(citizen Joe),  (not (citizen Joe))
+\endverbatim
+\medskip
+
+\noindent
+can be inferred.
+Replacing the rules by implications would make {\tt (status-known ?x)}
+identically true.
+
+\section{Logic Programs}
+
+A pure Prolog rule
+$$\phi\hbox{\tt :-}\phi_1,\dots,\phi_n$$
+where $\phi,\phi_1,\dots,\phi_n$ are atoms,
+can be viewed as a syntactic variant of the monotonic rule
+$$(\hbox{\tt <<= $\phi$ $\phi_1$ $\dots$ $\phi_n$})$$
+except for two important details. First, the declarative semantics of
+Prolog applies the {\it unique names assumption} to its ground
+terms. If, for example, the program contains no function constants, then this
+assumption can be expressed by the sentences
+$$(\hbox{\tt not ($=$ $\sigma_1$ $\sigma_2$))}$$
+for all distinct object constants $\sigma_1$, $\sigma_2$ in the language
+of the program. Second, this semantics
+applies the {\it closed world assumption} to each relation. For
+a relation constant $\sigma$, this assumption can be expressed by the
+following rule.
+
+$$(\hbox{\tt <<= (not ($\sigma$ @l)) (consis (not ($\sigma$ @l)))})$$
+
+A pure Prolog program can be translated into KIF by appending to it (i) the
+sentences expressing the unique names assumption, and (ii) the default rules
+expressing the closed world assumption.
+
+This method can be easily extended to programs with negation as failure.
+A negative subgoal {\tt not}$\,\phi$ is represented in KIF by the premise
+{\tt (consis (not $\phi$))}. (Adding {\tt consis} is necessary because,
+in KIF, {\tt not} represents classical negation, rather than negation as
+failure.)
+
+\section{Circumscribing Abnormality}
+
+Extending a set of sentences by the closed world assumption for some relation
+constant $\sigma$, expressed by a default rule as shown above,
+has the same effect as circumscribing $\sigma$ (with all object, function
+and relation constants varied).  In particular, circumscribing
+abnormality can be expressed by the default rule
+
+\medskip
+\beginverbatim
+(<<= (not (ab ?aspect ?x)) (consis (not (ab ?aspect ?x))))
+\endverbatim
+\medskip
+
+Consider, for instance, the nonmonotonic database that contains, in addition
+to this standard default, two facts.
+
+\medskip
+\beginverbatim
+(bird tweety)
+
+(<= (flies ?x) (bird ?x) (not (ab aspect1 ?x)))
+\endverbatim
+\medskip
+
+Birds fly unless they are abnormal in {\tt aspect1}).
+This database nonmonotonically entails the conclusion
+that everything is {\it not} abnormal, including {\tt tweety}:
+
+\medskip
+\beginverbatim
+(not (ab ?x))
+\endverbatim
+\medskip
+
+From this, we can conclude that {\tt tweety} flies.
+
+Suppose, on the other hand, that our database includes also the fact
+that {\tt tweety} is abnormal in {\tt aspect1}:
+
+\medskip
+\beginverbatim
+(ab aspect1 Tweety)
+\endverbatim
+\medskip
+
+In this case, we can no longer infer that {\tt tweety} is not abnormal, and,
+therefore, we cannot conclude that {\tt tweety} is a flier.  Note, however,
+that we have {\it not} asserted that {\tt tweety} cannot fly; we have only
+prevented the default rule from taking effect in this case.
+
+\vfill\eject
+
+\chapter{11}{Definitions}
+
+KIF includes a set of definition operators for declaring the category and 
+defining axioms (e.g. ``Triangles have 3 sides.'') for constants.  Such {\it 
+analytic definitions} are intended for use in specifying representation and 
+domain ontologies, and are in contrast to metalinguistic {\it substitutional 
+definitions} that specify new object level syntax in a macro-like 
+fashion.\footnote*{KIF 3.0 does not provide facilities for substitutional 
+definitions.  Consideration is being given to including them in later versions
+of the language.}  KIF definitions can be {\it complete} in that they specify an 
+expression that is equivalent to the constant, or {\it partial} in that they 
+specify a defining axiom that restricts the possible denotations of the
+constant.  Partial definitions can be either {\it unrestricted} or {\it conservative} 
+extensions to the language.  Conservative definitions are restricted in that
+adding the defining axioms they specify to any given collection of sentences
+not containing the constant being defined does not logically entail any
+additional sentences not containing the constant being defined. [Enderton 
+72].
+
+An analytic definition associates with the constant being defined a {\it 
+defining axiom}.  Intuitively, the meaning of a definition is that its
+defining 
+axiom is true and that its defining axiom is an {\it analytic truth}. 
+Analytic 
+truths are considered to be those sentences that are logically entailed from 
+defining axioms.  For example, term subsumption in the KL-ONE family of 
+representation languages is an analytic truth in that it is determined solely
+on 
+the basis of term definitions.  The notions of defining axiom and analytic
+truth are formally defined as follows.  
+
+Given a knowledge base $\Delta$, the sentence {\tt (defining-axiom '$\sigma$ 
+'$\phi$)} means that there is in $\Delta$ an analytic definition of constant 
+$\sigma$ which specifies sentence $\phi$ as a defining axiom of constant $\sigma$.  
+Moreover, defining axioms are true.  That is, the following axiom schema 
+holds:
+
+\medskip
+{\tt (=> (defining-axiom '$\sigma$ '$\phi$) $\phi$)}
+\medskip
+
+Given a knowledge base $\Delta$, the sentence {\tt (analytic-truth '$\phi$)} 
+means that the sentence $\phi$ is logically entailed by the defining axioms of
+the definitions in knowledge base $\Delta$.
+
+\section{Complete Definitions}
+
+Complete definitions specify an equivalent term or sentence for the constant 
+being defined as described below.  If a constant has a complete definition in
+a 
+knowledge base, then no other definition for that constant may occur in the 
+knowledge base.  Complete definitions are guaranteed to be conservative 
+extensions of the language.
+
+The following table shows the defining axiom specified by each form of
+complete definition:
+
+\medskip
+\centerline{\vbox{\halign{\strut#\hfil\quad&\quad#\hfil\cr
+\hfil Definition&\hfil Defining Axiom\cr
+\noalign{\hrule}
+{\tt (defobject $\sigma$ := $\tau$)}&{\tt (= $\sigma$ $\tau$)}\cr
+&\cr
+{\tt (deffunction $\pi$ ($\nu_1$ ... $\nu_n$ [$\omega$]) := $\tau$)}&{\tt (=
+$\pi$ (lambda ($\nu_1$ ... $\nu_n$ [$\omega$]) $\tau$))}\cr
+&\cr
+{\tt (defrelation $\rho$ ($\nu_1$ ... $\nu_n$ [$\omega$]) := 
+$\phi$)}&{\tt (= $\rho$ (kappa ($\nu_1$ ... $\nu_n$ [$\omega$])
+$\phi$))}\cr}}}\medskip
+
+Object constants are defined using the {\tt defobject} operator.  In the
+complete definition of an object constant, the first argument, $\sigma$, is
+the constant being defined, and the argument, $\tau$, following the {\tt :=}
+keyword, is a term.  For example, the following definition defines the
+constant {\tt origin} to be the list (0,0,0).
+
+\medskip
+{\tt (defobject origin := (listof 0 0 0))}
+\medskip
+
+The defining axiom specified by this definition of {\tt origin} is:
+
+\medskip
+{\tt (= origin (listof 0 0 0))}
+\medskip
+
+Function constants are defined using the {\tt deffunction} operator.  In the
+complete definition of a function constant, the first argument, $\pi$, is the
+constant being defined, the second argument is a list of individual variables
+with an optional final sequence variable specifying the arguments of the
+function, and the argument, $\tau$, following the {\tt :=} keyword is a term. 
+For example, the following definition defines the function {\tt
+paternal-grandfather} in terms of the {\tt father} function.
+
+\medskip
+{\tt (deffunction paternal-grandfather (?x) := (father (father ?x)))}
+\medskip
+
+The defining axiom specified by this definition of {\tt paternal-grandfather} 
+is:
+
+\medskip
+{\tt (= paternal-grandfather (lambda (?x) (father (father ?x))))}
+\medskip
+
+Relation constants are defined using the {\tt defrelation} operator.  In the
+complete definition of a relation constant, the first argument, $\rho$, is the
+constant being defined, the second argument is a list of individual variables
+with an optional final sequence variable specifying the arguments of the
+relation; and the argument, $\phi$, following the {\tt :=} keyword, is a
+sentence.  For example, the following sentence defines a {\tt bachelor} to be
+an unmarried man.
+
+\medskip 
+{\tt (defrelation bachelor (?x) := (and (man ?x) (not (married ?x))))}
+\medskip
+
+The defining axiom specified by this definition of {\tt bachelor} is:
+
+\medskip
+{\tt (= bachelor (kappa (?x) (and (man ?x) (not (married ?x)))))}
+\medskip
+
+\section{Partial Definitions}
+
+A constant can have multiple partial definitions, each of which restricts the 
+possible denotations of the constant.  All the definitions of a constant must 
+declare the constant to be the same category; i.e., they must all use the same
+operator -- {\tt defobject}, {\tt deffunction}, or {\tt defrelation}.  The defining 
+axioms specified by partial definitions can be either unrestricted or optionally 
+required to be conservative extensions to the language.  
+
+\subsection{Unrestricted Partial Definitions}
+
+Unrestricted partial definitions can specify any sentence as a defining axiom,
+as described below.  The following table shows the defining axiom specified by
+each form of unrestricted partial definition:
+
+\medskip
+\centerline{\vbox{\halign{\strut#\hfil\quad&\quad#\hfil\cr
+\hfil Definition&\hfil Defining Axiom\cr
+\noalign{\hrule}
+{\tt (defobject $\sigma$ $\phi_1$ ... $\phi_n$)}&{\tt (and $\phi_1$ ...
+$\phi_n$)}\cr
+&\cr
+{\tt (deffunction $\pi$ $\phi_1$ ... $\phi_n$)}&{\tt (and $\phi_1$ ...
+$\phi_n$)}\cr
+&\cr
+{\tt (defrelation $\rho$ $\phi_1$ ... $\phi_n$)}&{\tt (and $\phi_1$ ...
+$\phi_n$)}\cr
+&\cr
+{\tt (defrelation $\rho$ ($\nu_1$ ... $\nu_n$)}&{\tt (and (=> (member ?x
+$\rho$) (= (length ?x) n))}\cr
+{\tt \ \ \ \  :=> $\phi_1$ :axiom $\phi_2$)}&{\tt \ \ \ \ \ (=> ($\rho$
+$\nu_1$ ... $\nu_n$) $\phi_1$)}\cr
+&{\tt \ \ \ \ \ $\phi_2$)}\cr
+&\cr
+{\tt (defrelation $\rho$ ($\nu_1$ ... $\nu_n$ $\omega$)}&{\tt (and (=> (member ?x $\rho$) (>= (length ?x) n))}\cr
+{\tt \ \ \ \  :=> $\phi_1$ :axiom $\phi_2$)}&{\tt \ \ \ \ \ (=> ($\rho$
+$\nu_1$ ... $\nu_n$ $\omega$) $\phi_1$)}\cr
+&{\tt \ \ \ \ \ $\phi_2$)}\cr}}}\medskip
+
+In an unrestricted partial definition of an object constant, the first
+argument, $\sigma$, is the constant being defined, and the remaining
+arguments, $\phi_1$ ... $\phi_n$, are sentences.  For example, the following
+definition defines the constant {\tt id} to be a left and right identity for
+the binary function {\tt f}.
+
+\medskip
+{\tt (defobject id (= (f ?x id) ?x) (= (f id ?x) ?x))}
+\medskip
+
+The defining axiom specified by this definition of {\tt id} (which is just the
+
+conjunction of the second and third arguments in the definition) is
+unrestricted in that it may contradict other partial definitions of {\tt id}
+and {\tt f} may not have a left and right identity.
+
+In an unrestricted partial definition of a function constant, the first
+argument, $\pi$, is the constant being defined and the remaining arguments,
+$\phi_1$ ... $\phi_n$, are sentences.  For example, the following definition
+defines {\tt f} to be a function which has a value that is greater than 1 for
+all numbers.
+
+\medskip
+{\tt (deffunction f (=> (number ?y) (> (f ?y) 1)))}
+\medskip
+
+The defining axiom specified by this definition of {\tt f} is just the
+implication that is the second argument in the definition.
+
+There are two basic forms of unrestricted partial definitions for relations. 
+Both forms allow inclusion of an arbitrary sentence to be a defining axiom for
+the constant being defined.  The second form additionally provides for the
+specification of necessary conditions for the relation to hold.  The second
+form has two variants, depending on whether a sequence variable is included in the function's argument list.
+
+In the first form of unrestricted partial definition of a relation constant,
+the first argument, $\rho$, is the constant being defined and the remaining
+arguments, $\phi_1$ ... $\phi_n$, are sentences.  For example, the following
+definition defines {\tt R} to be a relation that holds for all single
+arguments that are positive numbers.
+
+\medskip
+{\tt (defrelation R (=> (> ?z 0) (R ?z)))}
+\medskip
+
+The defining axiom specified by this definition of {\tt R} is just the
+implication that is the second argument in the definition.
+
+In the second form of unrestricted partial definition of a relation constant,
+the first argument, $\rho$, is the constant being defined, the second argument
+is a list of individual variables specifying the arguments of the relation,
+and the arguments, $\phi_1$ and $\phi_2$, following the {\tt :=>} and {\tt
+:axiom} keywords, are sentences.  The form has two variants, depending on
+whether the argument list includes a sequence variable.  The following is an
+example of this form of definition in which {\tt above} is defined to be a
+binary transitive relation that holds only for "located objects".
+
+\medskip
+\beginverbatim
+(defrelation above (?b1 ?b2)
+     :=> (and (located-object ?b1) (located-object ?b2))
+     :axiom (transitive above))
+
+\endverbatim
+\medskip
+
+The defining axiom specified by this definition of {\tt above} is:
+
+\medskip
+\beginverbatim
+(and (=> (member ?x above) (= (length ?x) 2))
+     (=> (above ?b1 ?b2)
+         (and (located-object ?b1) (located-object ?b2)))
+     (transitive above))
+\endverbatim
+\medskip
+
+\subsection{Conservative Partial Definitions}
+
+Conservative partial definitions specify defining axioms that are conservative
+extensions of the language.  A defining axiom is a conservative extension if
+adding it to any given collection of sentences not containing the constant
+being defined does not logically entail any additional sentences not
+containing the constant being defined.  The defining axioms specified by
+complete definitions and the defining axioms produced directly from some forms of partial definitions are necessarily conservative extensions.  However, the arbitrary sentences that can be included in partial definitions are not in
+general conservative extensions of the language and therefore must be
+transformed into a conditional form of defining axiom that is guaranteed to be
+conservative.  If a knowledge base contains conservative partial definitions
+containing arbitrary sentences for a given constant, then those definitions
+specify a single {\it conditional defining axiom} for that constant as
+described below.
+
+The following table shows the defining axiom(s) specified by each form of
+conservative partial definition:
+
+\medskip
+\centerline{\vbox{\halign{\strut#\hfil\quad&\quad#\hfil\cr
+\hfil Definition&\hfil Defining Axiom\cr
+\noalign{\hrule}
+{\tt (defobject $\sigma$)}&{\tt (objconst (quote $\sigma$))}\cr
+&\cr
+{\tt (defobject $\sigma$ :conservative-axiom $\phi$)}&{\it The conditional
+defining axiom for $\sigma$}\cr
+&\cr
+{\tt (deffunction $\pi$)}&{\tt (funconst (quote $\pi$))}\cr
+&\cr
+{\tt (deffunction $\pi$ :conservative-axiom $\phi$)}&{\it The conditional
+defining axiom for $\pi$}\cr
+&\cr
+{\tt (defrelation $\rho$)}&{\tt (relconst (quote $\rho$))}\cr
+&\cr
+{\tt (defrelation $\rho$ :conservative-axiom $\phi$)}&{\it The conditional
+defining axiom for $\rho$}\cr
+&\cr
+{\tt (defrelation $\rho$ ($\nu_1$ ... $\nu_n$) :=> 
+$\phi_1$)}&{\tt (and (=> (member ?x $\rho$)}\cr
+&{\tt \ \ \ \ \ \ \ \ \ (= (length ?x) n))}\cr
+&{\tt \ \ \ \ \ (=> ($\rho$ $\nu_1$ ... $\nu_n$) $\phi_1$))}\cr
+&\cr
+{\tt (defrelation $\rho$ ($\nu_1$ ... $\nu_n$ $\omega$) :=> 
+$\phi_1$)}&{\tt (and (=> (member ?x $\rho$)}\cr
+&{\tt \ \ \ \ \ \ \ \ \ (>= (length ?x) n))}\cr
+&{\tt \ \ \ \ \ (=> ($\rho$ $\nu_1$ ... $\nu_n$ $\omega$) $\phi_1$))}\cr
+&\cr
+{\tt (defrelation $\rho$ ($\nu_1$ ... $\nu_n$)}&{\tt (and (=> (member ?x
+$\rho$)}\cr
+{\tt \ \ \ :=> $\phi_1$ :conservative-axiom $\phi_2$)}&{\tt \ \ \ \ \ \ \ \ \
+(= (length ?x) n))}\cr
+&{\tt \ \ \ \ \ (=> ($\rho$ $\nu_1$ ... $\nu_n$) $\phi_1$))}\cr
+&{\it The conditional defining axiom for $\rho$}\cr
+&\cr
+{\tt (defrelation $\rho$ ($\nu_1$ ... $\nu_n$ $\omega$)}&{\tt (and (=> (member
+?x $\rho$)}\cr
+{\tt \ \ \ :=> $\phi_1$ :conservative-axiom $\phi_2$)}&{\tt \ \ \ \ \ \ \ \ \
+(>= (length ?x) n))}\cr
+&{\tt \ \ \ \ \ (=> ($\rho$ $\nu_1$ ... $\nu_n$ $\omega$) $\phi_1$))}\cr
+&{\it The conditional defining axiom for $\rho$}\cr
+}}}\medskip
+
+There are two forms of conservative partial definitions for objects.  In the
+first form, the argument, $\sigma$, is the constant being defined, and the
+definition simply declares that the constant denotes an object.  In the second
+form, the first argument, $\sigma$, is the constant being defined, and the
+argument, $\phi$, following the {\tt :conservative-axiom} keyword is a
+sentence.  The second form of definition provides a sentence to be included in
+the conditional defining axiom for $\sigma$, as described below.
+
+There are two forms of conservative partial definitions for functions.  In the
+first form, the argument, $\pi$, is the constant being defined, and the
+definition simply declares that the constant denotes a function.  In the
+second form, the first argument, $\pi$, is the constant being defined and the
+argument, $\phi$, following the {\tt :conservative-axiom} keyword is a
+sentence.  The second form of definition provides a sentence to be included in
+the conditional defining axiom for $\pi$, as described below.
+
+There are three basic forms of conservative partial definitions for relations.
+ In the first form, the argument, $\rho$, is the constant being defined, and
+the definition simply declares that the constant denotes a relation.  In the
+second form, the first argument, $\rho$, is the constant being defined and the
+argument, $\phi$, following the {\tt :conservative-axiom} keyword is a
+sentence.  The second form of definition provides a sentence to be included in
+the conditional defining axiom for $\rho$ as described below.
+
+The third form of conservative partial definition of a relation constant
+provides for the specification of necessary conditions for the relation to
+hold and optionally provides an arbitrary sentence to be included in the
+constant's conditional defining axiom.  The third form has four variants,
+depending on whether the optional sentence is included and whether a sequence variable is included in the function's argument list.
+
+In the third form of conservative partial definition of a relation constant,
+the first argument, $\rho$, is the constant being defined; the second argument
+is a list of individual variables with an optional final sequence variable,
+$\omega$, specifying the arguments of the relation; $\phi_1$, in the
+keyword-argument pair, {\tt :=>} $\phi_1$, is a sentence; and $\phi_2$, in the
+optional final keyword-argument pair, {\tt :conservative-axiom} $\phi_2$, is a
+sentence.  For example, the following definition defines a person to
+necessarily be a mammal.
+
+\medskip
+{\tt (defrelation person (?x) :=> (mammal ?x))}
+\medskip
+
+The defining axiom produced by this definition of {\tt person} is:
+
+\medskip
+\beginverbatim
+(and (=> (member ?x person) (= (length ?x) 1))
+     (=> (person ?x) (mammal ?x)))
+\endverbatim
+\medskip
+
+The sentences following the keyword {\tt :conservative-axiom} in all of the 
+partial definitions for a given constant are used to form a single
+conservative defining axiom for that constant.  The defining axiom essentially states that if an entity exists in the domain of discourse having all the properties ascribed to the constant by its definitions, then the constant denotes such an entity and the sentences in the constant's definitions following the keyword {\tt :conservative-axiom} are true.  That defining axiom is formed as follows.
+
+For a given knowledge base $\Delta$ and a given constant $\sigma$, let 
+$\phi_1$,...,$\phi_i$ be the sentences following the keyword
+{\tt :conservative-axiom} in partial definitions of $\sigma$ in $\Delta$, and 
+$\phi_{i+1}$,...,$\phi_n$ be the defining axioms otherwise specified in
+partial definitions of $\sigma$ in $\Delta$.  The sentences
+$\phi_1$,...,$\phi_i$ specify the following conservative defining axiom:
+
+\medskip
+{\tt (=> (exists ?x  $\phi_{1(\sigma \rightarrow ?x)}$ ... $\phi_{n(\sigma \rightarrow ?x)}$)}\par
+{\tt \ \ \ \ (and $\phi_1$ ... $\phi_i$)),}
+\medskip
+
+where ?x is an individual variable that does not occur in any $\phi_j$, and
+for each {\tt j = 1,...,n}, $\phi_{j(\sigma \rightarrow ?x)}$ is $\phi_j$ with the
+following substitutions:
+
+\medskip
+
+\item {$\bullet$}Each occurrence of $\sigma$ as a term is replaced by {\tt
+?x}.
+
+\item {$\bullet$}Each occurrence of {\tt ($\sigma$ <args>)} as a function term
+is replaced by {\tt (value ?x <args>)}.
+
+\item {$\bullet$}Each occurrence of {\tt ($\sigma$ <args>)} as a relational
+sentence is replaced by {\tt (holds ?x <args>)}.
+
+\medskip
+
+This form of defining axiom cannot introduce an inconsistency into a knowledge base since any inconsistency will occur in the antecedent of the implication, thus making the antecedent false and blocking the entailment of the consequent.  Also, this form of defining axiom cannot introduce a new domain fact about other constants (e.g., {\tt (color Clyde grey)}), since such a domain fact will occur in the antecedent of the defining axiom and will therefore block the implication of the consequent if it is not already true.
+
+Note that, in general, a constant can have infinitely many partial definitions
+(meta-linguistically specified by a definition schema).  However, if any of
+the partial definitions of a constant contain a sentence following the keyword 
+{\tt :conservative-axiom}, then the constant must have only a finite number of
+definitions.  Otherwise, the conditional defining axiom for that constant
+would be an infinitely long sentence, which is not allowed in KIF.
+
+As an example of conservative partial definitions containing arbitrary 
+sentences, consider the following conservative version of the definition given
+above of {\tt id}, a left and right identity for {\tt f}.  
+
+\medskip
+{\tt (defobject id :conservative-axiom (= (f ?x id) ?x))}
+\medskip
+
+\medskip
+{\tt (defobject id :conservative-axiom (= (f id ?x) ?x))}
+\medskip
+
+Assuming there are no other definitions of {\tt id} in the knowledge base,
+these two partial definitions produce a single defining axiom for {\tt id} as 
+follows:
+
+\medskip
+\beginverbatim
+(=> (exists ?y (and (= (f ?x ?y) ?x) (= (f ?y ?x) ?x)))
+    (and (= (f ?x id) ?x) (= (f id ?x) ?x)))
+\endverbatim
+\medskip
+
+This axiom states that if there exists a left and right identity for {\tt f},
+then 
+{\tt id} is that identity.
+
+The following table summarizes all the forms of KIF definitions and the
+defining axioms specified by each.
+
+\vfill\eject
+
+\medskip
+\centerline{\vbox{\halign{\strut#\hfil\quad&\quad#\hfil\cr
+\hfil Definition&\hfil Defining Axiom\cr
+\noalign{\hrule}
+{\tt (defobject $\sigma$ := $\tau$)}&{\tt (= $\sigma$ $\tau$)}\cr
+&\cr
+{\tt (defobject $\sigma$ $\phi_1$ ... $\phi_n$)}&{\tt (and $\phi_1$ ...
+$\phi_n$)}\cr
+&\cr
+{\tt (defobject $\sigma$)}&{\tt (objconst (quote $\sigma$))}\cr
+&\cr
+{\tt (defobject $\sigma$ :conservative-axiom $\phi$)}&{\it The conditional
+defining axiom for $\sigma$}\cr
+&\cr
+&\cr
+{\tt (deffunction $\pi$ ($\nu_1$ ... $\nu_n$ [$\omega$]) := $\tau$)}&{\tt (=
+$\pi$ (lambda ($\nu_1$ ... $\nu_n$ [$\omega$]) $\tau$))}\cr
+&\cr
+{\tt (deffunction $\pi$ $\phi_1$ ... $\phi_n$)}&{\tt (and $\phi_1$ ...
+$\phi_n$)}\cr
+&\cr
+{\tt (deffunction $\pi$)}&{\tt (funconst (quote $\pi$))}\cr
+&\cr
+{\tt (deffunction $\pi$ :conservative-axiom $\phi$)}&{\it The conditional
+defining axiom for $\pi$}\cr
+&\cr
+&\cr
+{\tt (defrelation $\rho$ ($\nu_1$ ... $\nu_n$ [$\omega$]) := 
+$\phi$)}&{\tt (= $\rho$ (kappa ($\nu_1$ ... $\nu_n$ [$\omega$]) $\phi$))}\cr
+&\cr
+{\tt (defrelation $\rho$ $\phi_1$ ... $\phi_n$)}&{\tt (and $\phi_1$ ...
+$\phi_n$)}\cr
+&\cr
+{\tt (defrelation $\rho$)}&{\tt (relconst (quote $\rho$))}\cr
+&\cr
+{\tt (defrelation $\rho$ :conservative-axiom $\phi$)}&{\it The conditional
+defining axiom for $\rho$}\cr
+&\cr
+{\tt (defrelation $\rho$ ($\nu_1$ ... $\nu_n$)}&{\tt (and (=> (member ?x
+$\rho$) (= (length ?x) n))}\cr
+{\tt \ \ \ \  :=> $\phi_1$ [:axiom $\phi_2$])}&{\tt \ \ \ \ \ (=> ($\rho$
+$\nu_1$ ... $\nu_n$) $\phi_1$))}\cr
+&{\tt \ \ \ \ \ [$\phi_2$])}\cr
+&\cr
+{\tt (defrelation $\rho$ ($\nu_1$ ... $\nu_n$ $\omega$)}&{\tt (and (=> (member
+?x $\rho$) (>= (length ?x) n))}\cr
+{\tt \ \ \ \  :=> $\phi_1$ [:axiom $\phi_2$])}&{\tt \ \ \ \ \ (=> ($\rho$
+$\nu_1$ ... $\nu_n$ $\omega$) $\phi_1$))}\cr
+&{\tt \ \ \ \ \ [$\phi_2$])}\cr
+&\cr
+{\tt (defrelation $\rho$ ($\nu_1$ ... $\nu_n$)}&{\tt (and (=> (member ?x
+$\rho$) (= (length ?x) n))}\cr
+{\tt \ \ \ :=> $\phi_1$ [:conservative-axiom $\phi_2$])}&{\tt \ \ \ \ \ (=>
+($\rho$ $\nu_1$ ... $\nu_n$) $\phi_1$))}\cr
+&{\tt [{\it The conditional defining axiom for $\rho$}]}\cr
+&\cr
+{\tt (defrelation $\rho$ ($\nu_1$ ... $\nu_n$ $\omega$)}&{\tt (and (=> (member
+?x $\rho$) (>= (length ?x) n))}\cr
+{\tt \ \ \ :=> $\phi_1$ [:conservative-axiom $\phi_2$])}&{\tt \ \ \ \ \ (=>
+($\rho$ $\nu_1$ ... $\nu_n$ $\omega$) $\phi_1$))}\cr
+&{\tt [{\it The conditional defining axiom for $\rho$}]}\cr}}}\medskip
+
+\vfill\eject
+
+\chapter{A}{Abstract Algebra}
+
+This appendix contains an ontology for the basic concepts in abstract
+algebra.  The first section gives properties of binary functions. 
+The second section does the same for binary relations.  In the third
+section, these properties are used in defining the a variety of common algebraic
+structures.
+
+\section{Binary Operations}
+
+\verbatim|(defrelation binop (?f ?s) :=|\par
+\verbatim|  (and (binary-function ?f)|\par
+\verbatim|       (subset (universe ?f) ?s)))|
+\hfill(\equation)\par
+\bigskip
+\verbatim|(defrelation associative (?f ?s) :=|\par
+\verbatim|  (forall (?x ?y ?z)|\par
+\verbatim|    (=> (member ?x ?s) (member ?y ?s) (member ?z ?s)|\par
+\verbatim|        (= (value ?f ?x (value ?f ?y ?z))|\par
+\verbatim|           (value ?f (value ?f ?x ?y) ?z)))))|
+\hfill(\equation)\par
+\bigskip
+\verbatim|(defrelation commutative (?f ?s) :=|\par
+\verbatim|  (forall (?x ?y)|\par
+\verbatim|    (=> (member ?x ?s) (member ?y ?s)|\par
+\verbatim|        (= (value ?f ?x ?y) (value ?f ?y ?x)))))|
+\hfill(\equation)\par
+\bigskip
+\verbatim|(defrelation invertible (?f ?o ?s) :=|\par
+\verbatim|  (forall (?x)|\par
+\verbatim|    (=> (memberp ?x ?s)|\par
+\verbatim|        (exists (?y)|\par
+\verbatim|          (and (member ?y ?s)|\par
+\verbatim|               (= (value ?x ?y) ?o) (= (value ?y ?x) ?o))))))|
+\hfill(\equation)\par
+\bigskip
+\verbatim|(defrelation distributes (?f ?g ?s) :=|\par
+\verbatim|  (and (binop ?f ?s) (binop ?g ?s)|\par
+\verbatim|       (forall (?x ?y ?z)|\par
+\verbatim|         (=> (member ?x ?s) (member ?y ?s) (member ?z ?s)|\par
+\verbatim|             (= (value ?f (value ?g ?x ?y) ?z)|\par
+\verbatim|                (value ?g (value ?f ?x ?z)|\par
+\verbatim|                          (value ?f ?y ?z)))))))|
+\hfill(\equation)\par
+\bigskip
+
+\section{Binary Relations}
+
+\verbatim|(defrelation binrel (?r ?s) :=|\par
+\verbatim|  (and (binary-relation ?r)|\par
+\verbatim|       (subset (universe ?r) ?s)))|
+\hfill(\equation)\par
+\bigskip
+\verbatim|(defrelation reflexive (?r ?s) :=|\par
+\verbatim|  (and (binrel ?r ?s)|\par
+\verbatim|       (forall ?x (=> (member ?x ?s)|\par
+\verbatim|                      (holds ?r ?x ?x)))))|
+\hfill(\equation)\par
+\bigskip
+\verbatim|(defrelation irreflexive (?r ?s) :=|\par
+\verbatim|  (and (binrel ?r ?s)|\par
+\verbatim|       (forall (?x)|\par
+\verbatim|               (=> (member ?x ?s) (not (holds ?r ?x ?x))))))|
+\hfill(\equation)\par
+\bigskip
+\verbatim|(defrelation symmetric (?r ?s) :=|\par
+\verbatim|  (and (binrel ?r ?s)|\par
+\verbatim|       (forall (?x ?y) (=> (holds ?r ?x ?y) (holds ?r ?y ?x)))))|
+\hfill(\equation)\par
+\bigskip
+\verbatim|(defrelation asymmetric (?r ?s) :=|\par
+\verbatim|  (and (binrel ?r ?s)|\par
+\verbatim|       (forall (?x ?y) (=> (holds ?r ?x ?y))|\par
+\verbatim|                           (not (holds ?r ?y ?x))))))|
+\hfill(\equation)\par
+\bigskip
+\verbatim|(defrelation antisymmetric (?r ?s) :=|\par
+\verbatim|  (and (binrel ?r ?s)|\par
+\verbatim|       (forall (?x ?y)|\par
+\verbatim|         (=> (holds ?r ?x ?y) (holds ?r ?y ?x) (= ?x ?y)))))|
+\hfill(\equation)\par
+\bigskip
+\verbatim|(defrelation trichotomizes (?r ?s) :=|\par
+\verbatim|  (and (binrel ?r ?s)|\par
+\verbatim|       (forall (?x ?y)|\par
+\verbatim|         (=> (member ?x ?s) (member ?y ?s)|\par
+\verbatim|             (or (holds ?r ?x ?y)|\par
+\verbatim|                 (= ?x ?y)|\par
+\verbatim|                 (holds ?r ?y ?x))))))|
+\hfill(\equation)\par
+\bigskip
+\verbatim|(defrelation transitive (?r ?s) :=|\par
+\verbatim|  (and (binrel ?r ?s)|\par
+\verbatim|       (forall (?x ?y ?z)|\par
+\verbatim|         (=> (holds ?r ?x ?y) (holds ?r ?y ?z)|\par
+\verbatim|             (holds ?r ?x ?z)))))|
+\hfill(\equation)\par
+\bigskip
+
+\section{Algebraic Structures}
+
+\verbatim|(defrelation semigroup (?s ?f ?o) :=|\par
+\verbatim|  (and (binop ?f ?s)|\par
+\verbatim|       (associative ?f ?s)|\par
+\verbatim|       (identity ?o ?f ?s)))|
+\hfill(\equation)\par
+\bigskip
+\verbatim|(defrelation abelian-semigroup (?s ?f ?o) :=|\par
+\verbatim|  (and (semigroup ?s ?f ?o)|\par
+\verbatim|       (commutative ?f ?s)))|
+\hfill(\equation)\par
+\bigskip
+\verbatim|(defrelation group (?s ?f ?o) :=|\par
+\verbatim|  (and (binop ?f ?s)|\par
+\verbatim|       (associative ?f ?s)|\par
+\verbatim|       (identity ?o ?f ?s)|\par
+\verbatim|       (invertible ?f ?o ?s)))|
+\hfill(\equation)\par
+\bigskip
+\verbatim|(defrelation abelian-group (?s ?f ?o) :=|\par
+\verbatim|  (and (group ?s ?f ?o)|\par
+\verbatim|       (commutative ?f ?s)))|
+\hfill(\equation)\par
+\bigskip
+\verbatim|(defrelation ring (?s ?f ?o ?g ?i) :=|\par
+\verbatim|  (and (abelian-group ?s ?f ?o)|\par
+\verbatim|       (semigroup ?s ?g ?i)|\par
+\verbatim|       (distributes ?g ?f ?s)))|
+\hfill(\equation)\par
+\bigskip
+\verbatim|(defrelation commutative-ring (?s ?f ?o ?g ?i) :=|\par
+\verbatim|  (and (abelian-group ?s ?f ?o)|\par
+\verbatim|       (abelian-semigroup ?s ?g ?i)|\par
+\verbatim|       (distributes ?g ?f ?s)))|
+\hfill(\equation)\par
+\bigskip
+\verbatim|(defrelation integral-domain (?s ?f ?o ?g ?i) :=|\par
+\verbatim|  (and (commutative-ring ?s ?f ?o ?g ?i)|\par
+\verbatim|       (operation ?g (difference ?s (setof ?o)))))|
+\hfill(\equation)\par
+\bigskip
+\verbatim|(defrelation division-ring (?s ?f ?o ?g ?i) :=|\par
+\verbatim|  (and (ring ?s ?f ?o ?g ?i)|\par
+\verbatim|       (binop ?g (difference ?s (setof ?o)))|\par
+\verbatim|       (invertible ?g (difference ?s (setof ?o)))))|
+\hfill(\equation)\par
+\bigskip
+\verbatim|(defrelation field (?s ?f ?o ?g ?i) :=|\par
+\verbatim|  (and (division-ring ?s ?f ?o ?g ?i)|\par
+\verbatim|       (commutative ?f ?s)))|
+\hfill(\equation)\par
+\bigskip
+%%%%%%%%%%%%%%%%
+
+\verbatim|(defrelation partial-order (?s ?r) :=|\par
+\verbatim|  (and (irreflexive ?r ?s)|\par
+\verbatim|       (asymmetric ?r ?s)|\par
+\verbatim|       (transitive ?r ?s)))|
+\hfill(\equation)\par
+\bigskip
+\verbatim|(defrelation linear-order (?s ?r) :=|\par
+\verbatim|  (and (irreflexive ?r ?s)|\par
+\verbatim|       (asymmetric ?r ?s)|\par
+\verbatim|       (transitive ?r ?s)|\par
+\verbatim|       (trichotomizes ?r ?s)))|
+\hfill(\equation)\par
+
+\bye
+
+

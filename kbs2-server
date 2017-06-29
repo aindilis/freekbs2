@@ -1,0 +1,24 @@
+#!/usr/bin/perl -w
+
+use KBS2;
+
+use UniLang::Agent::Agent;
+use UniLang::Util::Message;
+
+use Data::Dumper;
+
+# $UNIVERSAL::debug = 1;
+
+$UNIVERSAL::agent = UniLang::Agent::Agent->new
+  (Name => "KBS2",
+   ReceiveHandler => \&Receive);
+$UNIVERSAL::agent->DoNotDaemonize(1);
+$UNIVERSAL::kbs2 = KBS2->new();
+
+sub Receive {
+  my %args = @_;
+  $UNIVERSAL::kbs2->ProcessMessage
+    (Message => $args{Message});
+}
+
+$UNIVERSAL::kbs2->Execute();

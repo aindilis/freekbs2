@@ -1,0 +1,216 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.15.1" />
+		<meta name="keywords" content="SPEAK!,Bateman,KPML,SFG,Stein,Hagen,Teich,Grote,Thiel" />
+		<link rel="alternate" type="application/x-wiki" title="Edit" href="/sys/index.php?title=SPEAK!&amp;action=edit" />
+		<link rel="edit" title="Edit" href="/sys/index.php?title=SPEAK!&amp;action=edit" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="/sys/opensearch_desc.php" title="NLG Systems Wiki (en)" />
+		<link title="Creative Commons" type="application/rdf+xml" href="/sys/index.php?title=SPEAK!&amp;action=creativecommons" rel="meta" />
+		<link rel="copyright" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" />
+		<link rel="alternate" type="application/rss+xml" title="NLG Systems Wiki RSS Feed" href="/sys/index.php?title=Special:RecentChanges&amp;feed=rss" />
+		<link rel="alternate" type="application/atom+xml" title="NLG Systems Wiki Atom Feed" href="/sys/index.php?title=Special:RecentChanges&amp;feed=atom" />
+		<title>SPEAK! - NLG Systems Wiki</title>
+		<link rel="stylesheet" href="/sys/skins/common/shared.css?207" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/sys/skins/common/commonPrint.css?207" type="text/css" media="print" />
+		<link rel="stylesheet" href="/sys/skins/monobook/main.css?207" type="text/css" media="screen" />
+		<!--[if lt IE 5.5000]><link rel="stylesheet" href="/sys/skins/monobook/IE50Fixes.css?207" type="text/css" media="screen" /><![endif]-->
+		<!--[if IE 5.5000]><link rel="stylesheet" href="/sys/skins/monobook/IE55Fixes.css?207" type="text/css" media="screen" /><![endif]-->
+		<!--[if IE 6]><link rel="stylesheet" href="/sys/skins/monobook/IE60Fixes.css?207" type="text/css" media="screen" /><![endif]-->
+		<!--[if IE 7]><link rel="stylesheet" href="/sys/skins/monobook/IE70Fixes.css?207" type="text/css" media="screen" /><![endif]-->
+		<link rel="stylesheet" href="/sys/index.php?title=MediaWiki:Common.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" type="text/css" />
+		<link rel="stylesheet" href="/sys/index.php?title=MediaWiki:Print.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" type="text/css" media="print" />
+		<link rel="stylesheet" href="/sys/index.php?title=MediaWiki:Monobook.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" type="text/css" />
+		<link rel="stylesheet" href="/sys/index.php?title=-&amp;action=raw&amp;maxage=18000&amp;gen=css" type="text/css" />
+		<!--[if lt IE 7]><script type="text/javascript" src="/sys/skins/common/IEFixes.js?207"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
+		<script type= "text/javascript">/*<![CDATA[*/
+		var skin = "monobook";
+		var stylepath = "/sys/skins";
+		var wgArticlePath = "/systems/$1";
+		var wgScriptPath = "/sys";
+		var wgScript = "/sys/index.php";
+		var wgVariantArticlePath = false;
+		var wgActionPaths = {};
+		var wgServer = "http://www.nlg-wiki.org";
+		var wgCanonicalNamespace = "";
+		var wgCanonicalSpecialPageName = false;
+		var wgNamespaceNumber = 0;
+		var wgPageName = "SPEAK!";
+		var wgTitle = "SPEAK!";
+		var wgAction = "view";
+		var wgArticleId = "233";
+		var wgIsArticle = true;
+		var wgUserName = null;
+		var wgUserGroups = null;
+		var wgUserLanguage = "en";
+		var wgContentLanguage = "en";
+		var wgBreakFrames = false;
+		var wgCurRevisionId = 1024;
+		var wgVersion = "1.15.1";
+		var wgEnableAPI = true;
+		var wgEnableWriteAPI = true;
+		var wgSeparatorTransformTable = ["", ""];
+		var wgDigitTransformTable = ["", ""];
+		var wgRestrictionEdit = [];
+		var wgRestrictionMove = [];
+		/*]]>*/</script>
+
+		<script type="text/javascript" src="/sys/skins/common/wikibits.js?207"><!-- wikibits js --></script>
+		<!-- Head Scripts -->
+		<script type="text/javascript" src="/sys/skins/common/ajax.js?207"></script>
+		
+<style type="text/css">
+<!--
+.highlight {
+    background-color: yellow;
+}
+.blockquote {
+	border-left: 12px solid #BBBBBB;
+	margin:5px 0 5px -25px;
+	padding:0;
+	padding-left: 15px;
+}
+-->
+</style>				<link rel="alternate" type="application/rdf+xml" title="SPEAK!" href="/sys/index.php?title=Special:ExportRDF/SPEAK!&amp;xmlmime=rdf" />
+
+				<link rel="stylesheet" type="text/css" href="/sys/extensions/SemanticMediaWiki/skins/SMW_custom.css" />
+
+		<script type="text/javascript" src="/sys/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-SPEAK skin-monobook">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 id="firstHeading" class="firstHeading">SPEAK!</h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From NLG Systems Wiki</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content -->
+			<a name="Summary" id="Summary"></a><h2><span class="editsection">[<a href="/sys/index.php?title=Template:System&amp;action=edit&amp;section=T-1" title="Template:System">edit</a>]</span> <span class="mw-headline"> Summary </span></h2>
+<ul><li> <i>System Name: </i>SPEAK!
+</li><li> <i>Short Description: </i>spoken language generation for supporting database access
+</li><li> <i>System Builders: </i><a href="/systems/Bateman" title="Bateman">Bateman</a>, <a href="/sys/index.php?title=Stein&amp;action=edit&amp;redlink=1" class="new" title="Stein (page does not exist)">Stein</a>, <a href="/sys/index.php?title=Hagen&amp;action=edit&amp;redlink=1" class="new" title="Hagen (page does not exist)">Hagen</a>, <a href="/sys/index.php?title=Teich&amp;action=edit&amp;redlink=1" class="new" title="Teich (page does not exist)">Teich</a>, <a href="/sys/index.php?title=Grote&amp;action=edit&amp;redlink=1" class="new" title="Grote (page does not exist)">Grote</a>, <a href="/sys/index.php?title=Thiel&amp;action=edit&amp;redlink=1" class="new" title="Thiel (page does not exist)">Thiel</a><sup id="_ref-batemanzock.bib.2Fteich-etal97-specom_0" class="reference"><a href="#_note-batemanzock.bib.2Fteich-etal97-specom" title="">[1]</a></sup><sup id="_ref-batemanzock.bib.2Fgrote-etal96_0" class="reference"><a href="#_note-batemanzock.bib.2Fgrote-etal96" title="">[2]</a></sup><sup id="_ref-batemanzock.bib.2Fgrote-etal97-speak_0" class="reference"><a href="#_note-batemanzock.bib.2Fgrote-etal97-speak" title="">[3]</a></sup><sup id="_ref-batemanzock.bib.2Fhagenstein96_0" class="reference"><a href="#_note-batemanzock.bib.2Fhagenstein96" title="">[4]</a></sup><sup id="_ref-batemanzock.bib.2Fspeak-description98_0" class="reference"><a href="#_note-batemanzock.bib.2Fspeak-description98" title="">[5]</a></sup><sup id="_ref-batemanzock.bib.2Fstein98-speakeval_0" class="reference"><a href="#_note-batemanzock.bib.2Fstein98-speakeval" title="">[6]</a></sup>
+</li><li> <i>Development Period: </i>1995&ndash;1996
+</li><li> <i>Languages: </i>German
+</li><li> <i>Domain: </i>metadialog
+</li><li> <i>Theoretical framework: </i><a href="/systems/SFG" title="SFG">SFG</a>
+</li><li> <i>Forerunner: </i><a href="/systems/KPML" title="KPML">KPML</a>
+</li></ul>
+<a name="Description" id="Description"></a><h2> <span class="mw-headline"> Description </span></h2>
+<p>spoken language generation for supporting database access
+</p>
+<a name="References" id="References"></a><h2> <span class="mw-headline"> References </span></h2>
+<ol class="references">
+<li id="_note-batemanzock.bib.2Fteich-etal97-specom"><a href="#_ref-batemanzock.bib.2Fteich-etal97-specom_0" title="">↑</a> Teich, E., Hagen, E., Grote, B., &amp; Bateman, J. A. (1997). From communicative context to speech: integrating dialogue processing, speech production and natural language generation. <em>Speech Communication</em><em>, 21</em>(1&ndash;2), 73. <sup><a href="/systems/Special:Bibliography/batemanzock.bib/teich-etal97-specom" title="Special:Bibliography/batemanzock.bib/teich-etal97-specom">Bib</a></sup></li>
+<li id="_note-batemanzock.bib.2Fgrote-etal96"><a href="#_ref-batemanzock.bib.2Fgrote-etal96_0" title="">↑</a> Grote, B., Hagen, E., &amp; Teich, E. (1996). <em>Matchmaking: dialogue modelling and speech generation meet</em>. Paper presented at Proceedings of the 1996 International Workshop on Natural Language Generation, Herstmonceux, England. <sup><a href="/systems/Special:Bibliography/batemanzock.bib/grote-etal96" title="Special:Bibliography/batemanzock.bib/grote-etal96">Bib</a></sup></li>
+<li id="_note-batemanzock.bib.2Fgrote-etal97-speak"><a href="#_ref-batemanzock.bib.2Fgrote-etal97-speak_0" title="">↑</a> Grote, B., Hagen, E., Stein, A., &amp; Teich, E. 1997. <em>Speech production in Human-Machine dialogue: a natural language generation perspective</em>. <sup><a href="/systems/Special:Bibliography/batemanzock.bib/grote-etal97-speak" title="Special:Bibliography/batemanzock.bib/grote-etal97-speak">Bib</a></sup></li>
+<li id="_note-batemanzock.bib.2Fhagenstein96"><a href="#_ref-batemanzock.bib.2Fhagenstein96_0" title="">↑</a> Hagen, E., &amp; Stein, A. 1996. <em>Automatic Generation of a Complex Dialogue History</em>. <sup><a href="/systems/Special:Bibliography/batemanzock.bib/hagenstein96" title="Special:Bibliography/batemanzock.bib/hagenstein96">Bib</a></sup></li>
+<li id="_note-batemanzock.bib.2Fspeak-description98"><a href="#_ref-batemanzock.bib.2Fspeak-description98_0" title="">↑</a> Bateman, J. A., Teich, E., &amp; Stein, A. 1998. <em>Speech generation in a multimodal interface for information retrieval: The &lt;i&gt;SPEAK&lt;/i&gt;! system</em>. <sup><a href="/systems/Special:Bibliography/batemanzock.bib/speak-description98" title="Special:Bibliography/batemanzock.bib/speak-description98">Bib</a></sup></li>
+<li id="_note-batemanzock.bib.2Fstein98-speakeval"><a href="#_ref-batemanzock.bib.2Fstein98-speakeval_0" title="">↑</a> Stein, A. (1998). Usability and Assessments of Multimodal Interaction in the SPEAK! System: an experimental case study. <em>New Review of Multimedia and Hypermedia</em><em>, 4</em>. <sup><a href="/systems/Special:Bibliography/batemanzock.bib/stein98-speakeval" title="Special:Bibliography/batemanzock.bib/stein98-speakeval">Bib</a></sup></li></ol>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 177/1000000
+Post-expand include size: 1867/2097152 bytes
+Template argument size: 1354/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key nlgwikidb:pcache:idhash:233-0!1!0!!en!2 and timestamp 20100111135718 -->
+<div class="printfooter">
+Retrieved from "<a href="http://www.nlg-wiki.org/systems/SPEAK!">http://www.nlg-wiki.org/systems/SPEAK!</a>"</div>
+			<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks"><a href="/systems/Special:Categories" title="Special:Categories">Category</a>:&#32;<span dir='ltr'><a href="/systems/Category:NLG_system" title="Category:NLG system">NLG system</a></span></div></div>			<!-- end content -->
+			<div id='mw-data-after-content'>
+	<div class="smwfact"><span class="smwfactboxhead">Facts about <span class="swmfactboxheadbrowse"><a href="/systems/Special:Browse/SPEAK!" title="Special:Browse/SPEAK!">SPEAK!</a></span></span><span class="smwrdflink"><span class="rdflink"><a href="/systems/Special:ExportRDF/SPEAK!" title="Special:ExportRDF/SPEAK!">RDF feed</a></span></span><table class="smwfacttable">
+<tr><td class="smwpropname"><a href="/systems/Property:Description" title="Property:Description">Description</a></td><td class="smwprops">spoken language generation for supporting database access&nbsp;&nbsp;<span class="smwsearch"><a href="/systems/Special:SearchByProperty/Description/spoken-20language-20generation-20for-20supporting-20database-20access" title="Special:SearchByProperty/Description/spoken-20language-20generation-20for-20supporting-20database-20access">+</a></span></td></tr><tr><td class="smwpropname"><a href="/systems/Property:Domain" title="Property:Domain">Domain</a></td><td class="smwprops">metadialog&nbsp;&nbsp;<span class="smwsearch"><a href="/systems/Special:SearchByProperty/Domain/metadialog" title="Special:SearchByProperty/Domain/metadialog">+</a></span></td></tr><tr><td class="smwpropname"><a href="/systems/Property:Ended" title="Property:Ended">Ended</a></td><td class="smwprops">1996&nbsp;&nbsp;<span class="smwsearch"><a href="/systems/Special:SearchByProperty/Ended/1996" title="Special:SearchByProperty/Ended/1996">+</a></span></td></tr><tr><td class="smwpropname"><a href="/systems/Property:Forerunner" title="Property:Forerunner">Forerunner</a></td><td class="smwprops"><a href="/systems/KPML" title="KPML">KPML</a>&nbsp;&nbsp;<span class="smwsearch"><a href="/systems/Special:SearchByProperty/Forerunner/KPML" title="Special:SearchByProperty/Forerunner/KPML">+</a></span></td></tr><tr><td class="smwpropname"><a href="/systems/Property:Framework" title="Property:Framework">Framework</a></td><td class="smwprops"><a href="/systems/SFG" title="SFG">SFG</a>&nbsp;&nbsp;<span class="smwsearch"><a href="/systems/Special:SearchByProperty/Framework/SFG" title="Special:SearchByProperty/Framework/SFG">+</a></span></td></tr><tr><td class="smwpropname"><a href="/systems/Property:Language" title="Property:Language">Language</a></td><td class="smwprops">German&nbsp;&nbsp;<span class="smwsearch"><a href="/systems/Special:SearchByProperty/Language/German" title="Special:SearchByProperty/Language/German">+</a></span></td></tr><tr><td class="smwpropname"><a href="/systems/Property:Name" title="Property:Name">Name</a></td><td class="smwprops"><strong class="selflink">SPEAK!</strong>&nbsp;&nbsp;<span class="smwsearch"><a href="/systems/Special:SearchByProperty/Name/SPEAK!" title="Special:SearchByProperty/Name/SPEAK!">+</a></span></td></tr><tr><td class="smwpropname"><a href="/systems/Property:Started" title="Property:Started">Started</a></td><td class="smwprops">1995&nbsp;&nbsp;<span class="smwsearch"><a href="/systems/Special:SearchByProperty/Started/1995" title="Special:SearchByProperty/Started/1995">+</a></span></td></tr><tr><td class="smwpropname"><a href="/systems/Property:Worker" title="Property:Worker">Worker</a></td><td class="smwprops"><a href="/systems/Bateman" title="Bateman">Bateman</a>&nbsp;&nbsp;<span class="smwsearch"><a href="/systems/Special:SearchByProperty/Worker/Bateman" title="Special:SearchByProperty/Worker/Bateman">+</a></span>, <a href="/sys/index.php?title=Stein&amp;action=edit&amp;redlink=1" class="new" title="Stein (page does not exist)">Stein</a>&nbsp;&nbsp;<span class="smwsearch"><a href="/systems/Special:SearchByProperty/Worker/Stein" title="Special:SearchByProperty/Worker/Stein">+</a></span>, <a href="/sys/index.php?title=Hagen&amp;action=edit&amp;redlink=1" class="new" title="Hagen (page does not exist)">Hagen</a>&nbsp;&nbsp;<span class="smwsearch"><a href="/systems/Special:SearchByProperty/Worker/Hagen" title="Special:SearchByProperty/Worker/Hagen">+</a></span>, <a href="/sys/index.php?title=Teich&amp;action=edit&amp;redlink=1" class="new" title="Teich (page does not exist)">Teich</a>&nbsp;&nbsp;<span class="smwsearch"><a href="/systems/Special:SearchByProperty/Worker/Teich" title="Special:SearchByProperty/Worker/Teich">+</a></span>, <a href="/sys/index.php?title=Grote&amp;action=edit&amp;redlink=1" class="new" title="Grote (page does not exist)">Grote</a>&nbsp;&nbsp;<span class="smwsearch"><a href="/systems/Special:SearchByProperty/Worker/Grote" title="Special:SearchByProperty/Worker/Grote">+</a></span>, and <a href="/sys/index.php?title=Thiel&amp;action=edit&amp;redlink=1" class="new" title="Thiel (page does not exist)">Thiel</a>&nbsp;&nbsp;<span class="smwsearch"><a href="/systems/Special:SearchByProperty/Worker/Thiel" title="Special:SearchByProperty/Worker/Thiel">+</a></span></td></tr></table></div>
+
+</div>
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+	
+				 <li id="ca-nstab-main" class="selected"><a href="/systems/SPEAK!" title="View the content page [c]" accesskey="c">Page</a></li>
+				 <li id="ca-talk" class="new"><a href="/sys/index.php?title=Talk:SPEAK!&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+				 <li id="ca-edit"><a href="/sys/index.php?title=SPEAK!&amp;action=edit" title="You can edit this page.&#10;Please use the preview button before saving [e]" accesskey="e">Edit</a></li>
+				 <li id="ca-history"><a href="/sys/index.php?title=SPEAK!&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+				 <li id="ca-purge"><a href="/sys/index.php?title=SPEAK!&amp;action=purge">purge</a></li>			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="/sys/index.php?title=Special:UserLogin&amp;returnto=SPEAK!" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(/sys/B2z-icon.gif);" href="/systems/NLG_Systems_Wiki" title="Visit the main page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+	<div class='generated-sidebar portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-mainpage-description"><a href="/systems/NLG_Systems_Wiki">Main Page</a></li>
+				<li id="n-Bibliography"><a href="http://www.nlg-wiki.org/systems/Special:Bibliography/new.bib">Bibliography</a></li>
+				<li id="n-NLG-systems"><a href="http://www.nlg-wiki.org/systems/Table_of_NLG_systems">NLG systems</a></li>
+				<li id="n-recentchanges"><a href="/systems/Special:RecentChanges" title="The list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+				<li id="n-randompage"><a href="/systems/Special:Random" title="Load a random page [x]" accesskey="x">Random page</a></li>
+				<li id="n-help"><a href="/systems/Help:Contents" title="The place to find out">Help</a></li>
+				<li id="n-ACL-SIGGEN"><a href="http://www.siggen.org/">ACL SIGGEN</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/sys/index.php" id="searchform"><div>
+				<input type='hidden' name="title" value="Special:Search"/>
+				<input id="searchInput" name="search" type="text" title="Search NLG Systems Wiki [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" title="Go to a page with this exact name if exists" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" title="Search the pages for this text" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>Toolbox</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><a href="/systems/Special:WhatLinksHere/SPEAK!" title="List of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+				<li id="t-recentchangeslinked"><a href="/systems/Special:RecentChangesLinked/SPEAK!" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+<li id="t-specialpages"><a href="/systems/Special:SpecialPages" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+				<li id="t-print"><a href="/sys/index.php?title=SPEAK!&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>				<li id="t-permalink"><a href="/sys/index.php?title=SPEAK!&amp;oldid=1024" title="Permanent link to this revision of the page">Permanent link</a></li><li id="t-smwbrowselink"><a href="/systems/Special:Browse/SPEAK!" title="Special:Browse/SPEAK!">Browse properties</a></li>			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="/sys/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+				<div id="f-copyrightico"><a href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt='Attribution-Noncommercial-Share Alike 3.0 Unported' /></a></div>
+			<ul id="f-list">
+					<li id="lastmod"> This page was last modified on 17 November 2009, at 14:47.</li>
+					<li id="copyright">Content is available under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" class="external " title="http://creativecommons.org/licenses/by-nc-sa/3.0/">Attribution-Noncommercial-Share Alike 3.0 Unported</a>.</li>
+					<li id="privacy"><a href="/systems/NLG_Systems_Wiki:Privacy_policy" title="NLG Systems Wiki:Privacy policy">Privacy policy</a></li>
+					<li id="about"><a href="/systems/NLG_Systems_Wiki:About" title="NLG Systems Wiki:About">About NLG Systems Wiki</a></li>
+					<li id="disclaimer"><a href="/systems/NLG_Systems_Wiki:General_disclaimer" title="NLG Systems Wiki:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+</div>
+
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+<!-- Served in 4.235 secs. --></body><!-- Cached 20100111135719 -->
+</html>

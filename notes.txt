@@ -1,0 +1,7 @@
+# figure out which domains are used for critic-unilang-classification
+
+select distinct t.Context from arguments a, tuples t where a.Value = 'critic-unilang-classification' and t.ID = a.TupleID;
+
+| default |
+| work    |
+| agenda

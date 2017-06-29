@@ -1,0 +1,4 @@
+05_bindings.t is doing something stupid
+
+("implies" ("p" "\n      ") ("q" "\n      "))
+("p" "x")

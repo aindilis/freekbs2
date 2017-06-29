@@ -1,0 +1,12 @@
+FreeKBS is a Knowledge Based System (KBS)
+http://en.wikipedia.org/wiki/Knowledge-based_systems.
+
+FreeKBS is most likely used over the network.  It's UniLang agent name
+is "KBS".  You can send messages to it in the following form:
+
+Commands are
+
+query
+assert
+unassert
+

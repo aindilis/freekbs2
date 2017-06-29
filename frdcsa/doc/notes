@@ -1,0 +1,67 @@
+my $statement = "select tuple.ID, argX.Value, argY.Value from tuples tuple, arguments argX, arguments argY where tuple.Context = 'default' and tuple.ID = ANY (select t0.TupleID from arguments t0 where t0.KeyID = 0 and t0.Value = 'due-date-for-entry') and argX.KeyID = 1 and argX.TupleID = tuple.ID and argY.KeyID = 2 and argY.TupleID = tuple.ID and !(argX.Value = ANY (select t1.Value from arguments t0, arguments t1 where t0.KeyID = 0 and (t0.Value = 'completed' or t0.Value = 'rejected' or t0.Value = 'obsolete' or t0.Value = 'skipped') and t1.KeyID = 1 and t1.TupleID = t0.TupleID));";
+
+# is this correct?  IDK
+KBS, default query ("and" ("due-date-for-entry" ?X ?Y) ("not" ("and" ("exists" ?Z ("or" ("completed" ?Z) ("rejected" ?Z) ("obsolete" ?Z) ("skipped" ?Z))) ("equals" ?Z ?X))))
+
+
+
+KBS, default query-cyclike ("due-date-for-entry" ?X ?Y)
+
+select tuple.ID from arguments t0 inner join tuples tuple on t0.TupleID = tuple.ID where t0.KeyID = 0 and t0.Value = 'due-date-for-entry' and tuple.Context = 'default'
+
+
+KBS, default query-cyclike ("asserter" ?X ?Y)
+
+select tuple.ID from arguments t0 inner join tuples tuple on t0.TupleID = tuple.ID where t0.KeyID = 0 and t0.Value = 'asserter' and tuple.Context = 'default'
+
+
+KBS, default query-cyclike ("asserter" ?X "aindilis")
+
+select tuple.ID from arguments t0 inner join arguments t2 on t0.TupleID = t2.TupleID inner join tuples tuple on t0.TupleID = tuple.ID where t0.KeyID = 0 and t0.Value = 'asserter' and t2.KeyID = 2 and t2.Value = 'aindilis' and tuple.Context = 'default'
+
+
+# as it should be
+KBS, default query-cyclike ("asserter" ?X "aindilis")
+
+select a1.Value from arguments a0 inner join arguments a1 on a0.TupleID = a1.TupleID inner join arguments a2 on a0.TupleID = a2.TupleID inner join tuples tuple on a0.TupleID = tuple.ID where a0.KeyID = 0 and a0.Value = 'asserter' and a1.KeyID = 1 and a2.KeyID = 2 and a2.Value = 'aindilis' and tuple.Context = 'default';
+
+
+# okay the sql query for this
+
+KBS, default query-cyclike ("and" ("due-date-for-entry" ?X ?Y) ("asserter" ?X ?Z))
+
+select a1.Value,a2.Value,b2.Value from arguments a0 inner join arguments a1 on a0.TupleID = a1.TupleID inner join arguments a2 on a0.TupleID = a2.TupleID inner join arguments b0 inner join tuples t0 on a0.TupleID = t0.ID inner join arguments b1 on b0.TupleID = b1.TupleID inner join arguments b2 on b0.TupleID = b2.TupleID inner join tuples t1 on b0.TupleID = t1.ID where a0.KeyID = 0 and a0.Value = 'due-date-for-entry' and a1.KeyID = 1 and a2.KeyID = 2 and t0.Context = 'default' and b0.KeyID = 0 and b0.Value = "asserter" and b1.KeyID = 1 and b1.Value = a1.Value and b2.KeyID = 2 and t1.Context = 'default';
+
+
+KBS, default query-cyclike ("not" ("asserter" ?X "aindilis"))
+
+# this is wrong - wrong way to negate
+select tuple.ID from arguments t0 inner join arguments t2 on t0.TupleID = t2.TupleID inner join tuples tuple on t0.TupleID = tuple.ID where t0.KeyID = 0 and t0.Value = 'asserter' and t2.KeyID = 2 and t2.Value != 'aindilis' and tuple.Context = 'default'
+
+
+KBS, default query-cyclike ("and" ("due-date-for-entry" ?X ?Y) ("not" ("asserter" ?X "aindilis")))
+
+# this is wrong
+# select a1.Value,a2.Value,b2.Value from arguments a0 inner join arguments a1 on a0.TupleID = a1.TupleID inner join arguments a2 on a0.TupleID = a2.TupleID inner join arguments b0 inner join tuples t0 on a0.TupleID = t0.ID inner join arguments b1 on b0.TupleID = b1.TupleID inner join arguments b2 on b0.TupleID = b2.TupleID inner join tuples t1 on b0.TupleID = t1.ID where a0.KeyID = 0 and a0.Value = 'due-date-for-entry' and a1.KeyID = 1 and a2.KeyID = 2 and t0.Context = 'default' and b0.KeyID = 0 and b0.Value = "asserter" and b1.KeyID = 1 and b1.Value = a1.Value and b2.KeyID = 2 and b2.Value != "aindilis" and t1.Context = 'default';
+
+KBS, default query-cyclike ("due-date-for-entry" ?X "1 days")
+
+select tuple.ID from arguments t0 inner join arguments t2 on t0.TupleID = t2.TupleID inner join tuples tuple on t0.TupleID = tuple.ID where t0.KeyID = 0 and t0.Value = 'due-date-for-entry' and t2.KeyID = 2 and t2.Value = '1 days' and tuple.Context = 'default'
+
+KBS, default query ("exists" ?X ("due-date-for-entry" ?X "1 days"))
+
+select !!count(tuple.ID) from arguments t0 inner join arguments t2 on t0.TupleID = t2.TupleID inner join tuples tuple on t0.TupleID = tuple.ID where t0.KeyID = 0 and t0.Value = 'due-date-for-entry' and t2.KeyID = 2 and t2.Value = '1 days' and tuple.Context = 'default'
+
+
+
+
+KBS, default query-cyclike ("not" ("asserter" ?X "aindilis"))
+
+
+
+
+# KBS, default query ("and" ("due-date-for-entry" ?X ?Y) ("not" ("and" ("exists" ?Z ("or" ("completed" ?Z) ("rejected" ?Z) ("obsolete" ?Z) ("skipped" ?Z))) ("equals" ?Z ?X))))
+
+
+
+# KBS, default query-cyclike ("and" ("due-date-for-entry" ?X ?Y) ("not" ("asserter" ?X "aindilis")))

@@ -1,0 +1,210 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.15.1" />
+		<meta name="keywords" content="IDtension,Template,Szilas" />
+		<link rel="alternate" type="application/x-wiki" title="Edit" href="/sys/index.php?title=IDtension&amp;action=edit" />
+		<link rel="edit" title="Edit" href="/sys/index.php?title=IDtension&amp;action=edit" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="/sys/opensearch_desc.php" title="NLG Systems Wiki (en)" />
+		<link title="Creative Commons" type="application/rdf+xml" href="/sys/index.php?title=IDtension&amp;action=creativecommons" rel="meta" />
+		<link rel="copyright" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" />
+		<link rel="alternate" type="application/rss+xml" title="NLG Systems Wiki RSS Feed" href="/sys/index.php?title=Special:RecentChanges&amp;feed=rss" />
+		<link rel="alternate" type="application/atom+xml" title="NLG Systems Wiki Atom Feed" href="/sys/index.php?title=Special:RecentChanges&amp;feed=atom" />
+		<title>IDtension - NLG Systems Wiki</title>
+		<link rel="stylesheet" href="/sys/skins/common/shared.css?207" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/sys/skins/common/commonPrint.css?207" type="text/css" media="print" />
+		<link rel="stylesheet" href="/sys/skins/monobook/main.css?207" type="text/css" media="screen" />
+		<!--[if lt IE 5.5000]><link rel="stylesheet" href="/sys/skins/monobook/IE50Fixes.css?207" type="text/css" media="screen" /><![endif]-->
+		<!--[if IE 5.5000]><link rel="stylesheet" href="/sys/skins/monobook/IE55Fixes.css?207" type="text/css" media="screen" /><![endif]-->
+		<!--[if IE 6]><link rel="stylesheet" href="/sys/skins/monobook/IE60Fixes.css?207" type="text/css" media="screen" /><![endif]-->
+		<!--[if IE 7]><link rel="stylesheet" href="/sys/skins/monobook/IE70Fixes.css?207" type="text/css" media="screen" /><![endif]-->
+		<link rel="stylesheet" href="/sys/index.php?title=MediaWiki:Common.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" type="text/css" />
+		<link rel="stylesheet" href="/sys/index.php?title=MediaWiki:Print.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" type="text/css" media="print" />
+		<link rel="stylesheet" href="/sys/index.php?title=MediaWiki:Monobook.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" type="text/css" />
+		<link rel="stylesheet" href="/sys/index.php?title=-&amp;action=raw&amp;maxage=18000&amp;gen=css" type="text/css" />
+		<!--[if lt IE 7]><script type="text/javascript" src="/sys/skins/common/IEFixes.js?207"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
+		<script type= "text/javascript">/*<![CDATA[*/
+		var skin = "monobook";
+		var stylepath = "/sys/skins";
+		var wgArticlePath = "/systems/$1";
+		var wgScriptPath = "/sys";
+		var wgScript = "/sys/index.php";
+		var wgVariantArticlePath = false;
+		var wgActionPaths = {};
+		var wgServer = "http://www.nlg-wiki.org";
+		var wgCanonicalNamespace = "";
+		var wgCanonicalSpecialPageName = false;
+		var wgNamespaceNumber = 0;
+		var wgPageName = "IDtension";
+		var wgTitle = "IDtension";
+		var wgAction = "view";
+		var wgArticleId = "375";
+		var wgIsArticle = true;
+		var wgUserName = null;
+		var wgUserGroups = null;
+		var wgUserLanguage = "en";
+		var wgContentLanguage = "en";
+		var wgBreakFrames = false;
+		var wgCurRevisionId = 880;
+		var wgVersion = "1.15.1";
+		var wgEnableAPI = true;
+		var wgEnableWriteAPI = true;
+		var wgSeparatorTransformTable = ["", ""];
+		var wgDigitTransformTable = ["", ""];
+		var wgRestrictionEdit = [];
+		var wgRestrictionMove = [];
+		/*]]>*/</script>
+
+		<script type="text/javascript" src="/sys/skins/common/wikibits.js?207"><!-- wikibits js --></script>
+		<!-- Head Scripts -->
+		<script type="text/javascript" src="/sys/skins/common/ajax.js?207"></script>
+		
+<style type="text/css">
+<!--
+.highlight {
+    background-color: yellow;
+}
+.blockquote {
+	border-left: 12px solid #BBBBBB;
+	margin:5px 0 5px -25px;
+	padding:0;
+	padding-left: 15px;
+}
+-->
+</style>				<link rel="alternate" type="application/rdf+xml" title="IDtension" href="/sys/index.php?title=Special:ExportRDF/IDtension&amp;xmlmime=rdf" />
+
+				<link rel="stylesheet" type="text/css" href="/sys/extensions/SemanticMediaWiki/skins/SMW_custom.css" />
+
+		<script type="text/javascript" src="/sys/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-IDtension skin-monobook">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 id="firstHeading" class="firstHeading">IDtension</h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From NLG Systems Wiki</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content -->
+			<a name="Summary" id="Summary"></a><h2><span class="editsection">[<a href="/sys/index.php?title=Template:System&amp;action=edit&amp;section=T-1" title="Template:System">edit</a>]</span> <span class="mw-headline"> Summary </span></h2>
+<ul><li> <i>System Name: </i>IDtension
+</li><li> <i>Short Description: </i>System implementing many aspects of narrative theory in order to support interactive drama
+</li><li> <i>System Builders: </i><a href="/sys/index.php?title=Szilas&amp;action=edit&amp;redlink=1" class="new" title="Szilas (page does not exist)">Szilas</a><sup id="_ref-batemanzock.bib.2Fszilas2007_0" class="reference"><a href="#_note-batemanzock.bib.2Fszilas2007" title="">[1]</a></sup>
+</li><li> <i>Development Period: </i>2007&ndash;2007
+</li><li> <i>Languages: </i>English
+</li><li> <i>Domain: </i>narrative
+</li><li> <i>Theoretical framework: </i><a href="/systems/Template" title="Template">Template</a>
+</li></ul>
+<a name="Description" id="Description"></a><h2> <span class="mw-headline"> Description </span></h2>
+<p>System implementing many aspects of narrative theory in order to support interactive drama. The narrative planning and realisation is intended to be medium-independent; early version of the system produces text descriptions by template generation.
+</p>
+<a name="References" id="References"></a><h2> <span class="mw-headline"> References </span></h2>
+<ol class="references">
+<li id="_note-batemanzock.bib.2Fszilas2007"><a href="#_ref-batemanzock.bib.2Fszilas2007_0" title="">↑</a> Szilas, N. (2007). A computational model of an intelligent narrator for interactive narratives. <em>Applied Artificial Intelligence</em><em>, 21</em>(8), 753. <sup><a href="/systems/Special:Bibliography/batemanzock.bib/szilas2007" title="Special:Bibliography/batemanzock.bib/szilas2007">Bib</a></sup></li></ol>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 114/1000000
+Post-expand include size: 1635/2097152 bytes
+Template argument size: 980/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key nlgwikidb:pcache:idhash:375-0!1!0!!en!2 and timestamp 20091216085257 -->
+<div class="printfooter">
+Retrieved from "<a href="http://www.nlg-wiki.org/systems/IDtension">http://www.nlg-wiki.org/systems/IDtension</a>"</div>
+			<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks"><a href="/systems/Special:Categories" title="Special:Categories">Category</a>:&#32;<span dir='ltr'><a href="/systems/Category:NLG_system" title="Category:NLG system">NLG system</a></span></div></div>			<!-- end content -->
+			<div id='mw-data-after-content'>
+	<div class="smwfact"><span class="smwfactboxhead">Facts about <span class="swmfactboxheadbrowse"><a href="/systems/Special:Browse/IDtension" title="Special:Browse/IDtension">IDtension</a></span></span><span class="smwrdflink"><span class="rdflink"><a href="/systems/Special:ExportRDF/IDtension" title="Special:ExportRDF/IDtension">RDF feed</a></span></span><table class="smwfacttable">
+<tr><td class="smwpropname"><a href="/systems/Property:Description" title="Property:Description">Description</a></td><td class="smwprops">System implementing many aspects of narrative theory in order to support interactive drama&nbsp;&nbsp;<span class="smwsearch"><a href="/systems/Special:SearchByProperty/Description/System-20implementing-20many-20aspects-20of-20narrative-20theory-20in-20order-20to-20support-20interactive-20drama" title="Special:SearchByProperty/Description/System-20implementing-20many-20aspects-20of-20narrative-20theory-20in-20order-20to-20support-20interactive-20drama">+</a></span></td></tr><tr><td class="smwpropname"><a href="/systems/Property:Domain" title="Property:Domain">Domain</a></td><td class="smwprops">narrative&nbsp;&nbsp;<span class="smwsearch"><a href="/systems/Special:SearchByProperty/Domain/narrative" title="Special:SearchByProperty/Domain/narrative">+</a></span></td></tr><tr><td class="smwpropname"><a href="/systems/Property:Ended" title="Property:Ended">Ended</a></td><td class="smwprops">2007&nbsp;&nbsp;<span class="smwsearch"><a href="/systems/Special:SearchByProperty/Ended/2007" title="Special:SearchByProperty/Ended/2007">+</a></span></td></tr><tr><td class="smwpropname"><a href="/systems/Property:Framework" title="Property:Framework">Framework</a></td><td class="smwprops"><a href="/systems/Template" title="Template">Template</a>&nbsp;&nbsp;<span class="smwsearch"><a href="/systems/Special:SearchByProperty/Framework/Template" title="Special:SearchByProperty/Framework/Template">+</a></span></td></tr><tr><td class="smwpropname"><a href="/systems/Property:Language" title="Property:Language">Language</a></td><td class="smwprops">English&nbsp;&nbsp;<span class="smwsearch"><a href="/systems/Special:SearchByProperty/Language/English" title="Special:SearchByProperty/Language/English">+</a></span></td></tr><tr><td class="smwpropname"><a href="/systems/Property:Name" title="Property:Name">Name</a></td><td class="smwprops"><strong class="selflink">IDtension</strong>&nbsp;&nbsp;<span class="smwsearch"><a href="/systems/Special:SearchByProperty/Name/IDtension" title="Special:SearchByProperty/Name/IDtension">+</a></span></td></tr><tr><td class="smwpropname"><a href="/systems/Property:Started" title="Property:Started">Started</a></td><td class="smwprops">2007&nbsp;&nbsp;<span class="smwsearch"><a href="/systems/Special:SearchByProperty/Started/2007" title="Special:SearchByProperty/Started/2007">+</a></span></td></tr><tr><td class="smwpropname"><a href="/systems/Property:Worker" title="Property:Worker">Worker</a></td><td class="smwprops"><a href="/sys/index.php?title=Szilas&amp;action=edit&amp;redlink=1" class="new" title="Szilas (page does not exist)">Szilas</a>&nbsp;&nbsp;<span class="smwsearch"><a href="/systems/Special:SearchByProperty/Worker/Szilas" title="Special:SearchByProperty/Worker/Szilas">+</a></span></td></tr></table></div>
+
+</div>
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+	
+				 <li id="ca-nstab-main" class="selected"><a href="/systems/IDtension" title="View the content page [c]" accesskey="c">Page</a></li>
+				 <li id="ca-talk" class="new"><a href="/sys/index.php?title=Talk:IDtension&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+				 <li id="ca-edit"><a href="/sys/index.php?title=IDtension&amp;action=edit" title="You can edit this page.&#10;Please use the preview button before saving [e]" accesskey="e">Edit</a></li>
+				 <li id="ca-history"><a href="/sys/index.php?title=IDtension&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+				 <li id="ca-purge"><a href="/sys/index.php?title=IDtension&amp;action=purge">purge</a></li>			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="/sys/index.php?title=Special:UserLogin&amp;returnto=IDtension" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(/sys/B2z-icon.gif);" href="/systems/NLG_Systems_Wiki" title="Visit the main page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+	<div class='generated-sidebar portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-mainpage-description"><a href="/systems/NLG_Systems_Wiki">Main Page</a></li>
+				<li id="n-Bibliography"><a href="http://www.nlg-wiki.org/systems/Special:Bibliography/new.bib">Bibliography</a></li>
+				<li id="n-NLG-systems"><a href="http://www.nlg-wiki.org/systems/Table_of_NLG_systems">NLG systems</a></li>
+				<li id="n-recentchanges"><a href="/systems/Special:RecentChanges" title="The list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+				<li id="n-randompage"><a href="/systems/Special:Random" title="Load a random page [x]" accesskey="x">Random page</a></li>
+				<li id="n-help"><a href="/systems/Help:Contents" title="The place to find out">Help</a></li>
+				<li id="n-ACL-SIGGEN"><a href="http://www.siggen.org/">ACL SIGGEN</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/sys/index.php" id="searchform"><div>
+				<input type='hidden' name="title" value="Special:Search"/>
+				<input id="searchInput" name="search" type="text" title="Search NLG Systems Wiki [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" title="Go to a page with this exact name if exists" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" title="Search the pages for this text" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>Toolbox</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><a href="/systems/Special:WhatLinksHere/IDtension" title="List of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+				<li id="t-recentchangeslinked"><a href="/systems/Special:RecentChangesLinked/IDtension" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+<li id="t-specialpages"><a href="/systems/Special:SpecialPages" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+				<li id="t-print"><a href="/sys/index.php?title=IDtension&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>				<li id="t-permalink"><a href="/sys/index.php?title=IDtension&amp;oldid=880" title="Permanent link to this revision of the page">Permanent link</a></li><li id="t-smwbrowselink"><a href="/systems/Special:Browse/IDtension" title="Special:Browse/IDtension">Browse properties</a></li>			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="/sys/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+				<div id="f-copyrightico"><a href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt='Attribution-Noncommercial-Share Alike 3.0 Unported' /></a></div>
+			<ul id="f-list">
+					<li id="lastmod"> This page was last modified on 17 November 2009, at 13:58.</li>
+					<li id="copyright">Content is available under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" class="external " title="http://creativecommons.org/licenses/by-nc-sa/3.0/">Attribution-Noncommercial-Share Alike 3.0 Unported</a>.</li>
+					<li id="privacy"><a href="/systems/NLG_Systems_Wiki:Privacy_policy" title="NLG Systems Wiki:Privacy policy">Privacy policy</a></li>
+					<li id="about"><a href="/systems/NLG_Systems_Wiki:About" title="NLG Systems Wiki:About">About NLG Systems Wiki</a></li>
+					<li id="disclaimer"><a href="/systems/NLG_Systems_Wiki:General_disclaimer" title="NLG Systems Wiki:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+</div>
+
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+<!-- Served in 1.405 secs. --></body><!-- Cached 20091216085258 -->
+</html>

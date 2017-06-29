@@ -1,0 +1,23 @@
+(#$comment #$subEvents "this is a test")		
+
+(#$holdsIn 
+ (#$TimeIntervalInclusiveFn 
+  (#$DayFn 2 
+   (#$MonthFn #$August 
+    (#$YearFn 1990))) 
+  (#$DayFn 27 
+   (#$MonthFn #$February 
+    (#$YearFn 1991)))) 
+ (#$beliefs #$UnitedStatesOfAmerica 
+  (#$goals #$Iraq 
+   (#$exists 
+    (?ATTACK) 
+    (#$exists 
+     (?WEAPON) 
+     (#$and 
+      (#$isa ?ATTACK #$MilitaryAttack) 
+      (#$isa ?WEAPON #$WeaponOfMassDestruction) 
+      (#$performedBy ?ATTACK #$Iraq) 
+      (#$intendedMaleficiary ?ATTACK 
+       (#$ArmyFn #$UnitedStatesOfAmerica)) 
+      (#$deviceUsed ?ATTACK ?WEAPON)))))))

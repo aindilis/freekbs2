@@ -1,0 +1,11 @@
+This is a tutorial of how to use the freekbs2 emacs software.
+
+Suppose you have the following assertions, in Emacs Format, in your
+buffer, and you wished to convert them to a Perl format.
+
+("has-postal-address" ("contact-fn" 1135) ("address-fn" "200 South Wacker Dr, Chicago, IL 60606"))
+("has-location"
+ ("address-fn" "200 South Wacker Dr, Chicago, IL 60606")
+ ("lat-long-fn" ("latitude-fn" "41.880537") ("longitude-fn" "-87.637038")))
+
+# need to show how to run this on the input # kbs2 --input-type "Emacs String" --output-type "Interlingua" convert test.kbs

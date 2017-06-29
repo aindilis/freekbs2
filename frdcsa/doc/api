@@ -1,0 +1,12 @@
+What is the api.  take this from opencyc or create our own?
+
+Assert(Statement, Context)
+
+if (! TrueP(Statement, Context)) {
+   DB->add(Statement,Context);
+} 
+
+TrueP(
+	If the context is a predicate language, and it is storable,
+	
+)

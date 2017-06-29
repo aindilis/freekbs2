@@ -1,0 +1,437 @@
+#!/usr/bin/perl -w
+
+use BOSS::Config;
+use KBS2::Client;
+use KBS2::ImportExport;
+use KBS2::ImportExport::Guess;
+use Manager::Dialog qw(Approve QueryUser2);
+use PerlLib::SwissArmyKnife;
+
+use Data::Dumper;
+
+my $specification = q(
+	-d				Use debugging
+
+	-i				Start interactive shell
+
+	-l				List contexts
+
+	--db <database>			Use this database
+	-c [<contexts>...]		Set context for operations
+
+	show				Show all the assertions in the given contexts
+	count				Show the total number of assertions in the given contexts
+	rename <newname>		Rename the context
+
+	clear				Clear the contents of the context
+	-y				Don't prompt, just do it
+
+	remove				Remove the context and all its contents
+	check				Check the consistency and syntax of the context
+
+	--input <data>			For specifying the input data manually, will override the files
+
+	--input-type <type>		Input Type (leave blank for guessing)
+
+ 	import <files>...		Import the assertions in the given file
+	fast-import <files>...		Import the assertions in the given file, using '--no-checking --input-type "Emacs String"'
+
+	--no-checking			Do not check consistency when adding, a temporary hack to speed up import
+
+	convert <files>...		Convert files to a particular format
+
+	--output-type <type>		Output Type (leave blank for default)
+
+ 	export <files>...		Export the assertions to a file
+
+	statistics			Print statistics about all contexts
+	remove-all-empty		Remove all empty contexts
+);
+
+my $config =
+  BOSS::Config->new
+  (Spec => $specification);
+my $conf = $config->CLIConfig;
+# $UNIVERSAL::systemdir = "/var/lib/myfrdcsa/codebases/internal/freekbs2";
+
+my $debug = $conf->{-d};
+
+my $database = $conf->{'--db'};
+my @contexts;
+if (exists $conf->{'-c'}) {
+  @contexts = @{$conf->{'-c'}};
+} else {
+  @contexts = ("default");
+}
+
+my $kbs2 = KBS2::Client->new();
+my $importexport = KBS2::ImportExport->new();
+my $guess = KBS2::ImportExport::Guess->new
+  (
+   ImportExport => $importexport,
+  );
+
+# my $light = Manager::Misc::Light->new;
+
+if (exists $conf->{'import'}) {
+  ImportFiles
+    (
+     Files => $conf->{'import'},
+    );
+} elsif (exists $conf->{'fast-import'}) {
+  # first clear the context
+  foreach my $context (@contexts) {
+    if ($conf->{'-y'} or Approve("Clear the context <$context>?")) {
+      my $res = $kbs2->Send
+	(
+	 QueryAgent => 1,
+	 ClearContext => 1,
+	 Database => $database,
+	 Context => $context,
+	);
+      print Dumper($res);
+    }
+  }
+
+  # then import
+  $conf->{'--no-checking'} = 1;
+  $conf->{'--input-type'} = "Emacs String";
+  ImportFiles
+    (
+     Files => $conf->{'fast-import'},
+    );
+} elsif (exists $conf->{'export'}) {
+  print Dumper($conf->{'export'}) if $debug;
+} elsif (exists $conf->{'convert'}) {
+  ConvertFiles
+    (
+     Files => $conf->{'convert'},
+    );
+} elsif (exists $conf->{'-l'}) {
+  print Dumper($conf->{'-l'}) if $debug;
+  my $res = $kbs2->Send
+    (
+     QueryAgent => 1,
+     Command => "list-contexts",
+     Database => $database,
+    );
+  DisplayResults(List => $res->{Data}->{Result});
+} elsif (exists $conf->{'show'} || exists $conf->{'count'}) {
+  # FIXME: use this instead SELECT c.Context,count(m.FormulaID) FROM contexts c, metadata m WHERE m.ContextID=c.ID GROUP by c.Context ORDER BY count(m.FormulaID) DESC;
+  foreach my $context (@contexts) {
+    my $res = $kbs2->Send
+      (
+       QueryAgent => 1,
+       Command => "all-asserted-knowledge",
+       Database => $database,
+       Context => $context,
+      );
+    # print Dumper($res);
+    if (exists $conf->{'count'}) {
+      my $count = scalar @{$res->{Data}->{Result}};
+      print "COUNT: $count\n";
+    }
+    if (exists $conf->{'show'}) {
+      DisplayResults
+	(
+	 Formulae => $res->{Data}->{Result},
+	);
+    }
+  }
+} elsif (exists $conf->{'check'}) {
+  foreach my $context (@contexts) {
+    my $res = $kbs2->Send
+      (
+       QueryAgent => 1,
+       Database => $database,
+       Context => $context,
+       Data => {
+		NewContext => $conf->{'rename'},
+	       },
+      );
+    print Dumper($res);
+  }
+} elsif (exists $conf->{'rename'}) {
+  foreach my $context (@contexts) {
+    if ($conf->{'-y'} or Approve("Rename the context <$context> to <".$conf->{'rename'}.">?")) {
+      my $res = $kbs2->Send
+	(
+	 QueryAgent => 1,
+	 Database => $database,
+	 Context => $context,
+	 Data => {
+		  NewContext => $conf->{'rename'},
+		 },
+	);
+      print Dumper($res);
+    }
+  }
+} elsif (exists $conf->{'clear'}) {
+  foreach my $context (@contexts) {
+    if ($conf->{'-y'} or Approve("Clear the context <$context>?")) {
+      my $res = $kbs2->Send
+	(
+	 QueryAgent => 1,
+	 ClearContext => 1,
+	 Database => $database,
+	 Context => $context,
+	);
+      print Dumper($res);
+    }
+  }
+} elsif (exists $conf->{'remove'}) {
+  foreach my $context (@contexts) {
+    if ($conf->{'-y'} or Approve("Remove the context <$context>?")) {
+      my $res = $kbs2->Send
+	(
+	 QueryAgent => 1,
+	 RemoveContext => 1,
+	 Database => $database,
+	 Context => $context,
+	);
+      print Dumper($res);
+    }
+  }
+} elsif (exists $conf->{'statistics'}) {
+  my $res = $kbs2->Send
+    (
+     QueryAgent => 1,
+     Database => $database,
+     Command => "list-contexts",
+    );
+  foreach my $context (@{$res->{Data}->{Result}}) {
+    print "CONTEXT: $context\n";
+    my $res = $kbs2->Send
+      (
+       QueryAgent => 1,
+       Command => "all-asserted-knowledge",
+       Database => $database,
+       Context => $context,
+      );
+    my $count = scalar @{$res->{Data}->{Result}};
+    print "\tCOUNT: $count\n";
+    print "\n";
+  }
+} elsif (exists $conf->{'-i'}) {
+  my $context = $contexts[0];
+  my $exit = 0;
+  my $mode = "query";
+  do {
+    my $userinput = QueryUser2(Prompt => "kbs2>");
+    # print Dumper($userinput);
+    if ($userinput =~ /^help$/i) {
+      print "help|assert|query|unassert|<FORMULA>\n";
+    } elsif ($userinput =~ /^assert$/i) {
+      $mode = "assert";
+    } elsif ($userinput =~ /^query$/i) {
+      $mode = "query";
+    } elsif ($userinput =~ /^unassert$/i) {
+      $mode = "unassert";
+    } elsif ($userinput =~ /^(abandon|cease|depart|discontinue|give up|go away|leave|quit|relinquish|resign|step down|stop|take leave|desert|forsake|vacate|end|divert|exit|get out|part|take off|break|break off|finish|terminate|dispense with|forego|forgo|cede|forfeit|part with|pass|pass on|release|surrender|yield|disappear|vanish|closedown|dismiss|abort)$/i) {
+      $exit = 1;
+    } else {
+      my $format = GetFormat
+	(
+	 Data => $userinput,
+	);
+      if ($mode eq "assert") {
+	# assume mode to be assert for now
+	my $res2 = $kbs2->Send
+	  (
+	   Assert => $userinput,
+	   InputType => $format,
+	   Database => $database,
+	   Context => $context,
+	   QueryAgent => 1,
+	  );
+	print Dumper($res2);
+      } elsif ($mode eq "query") {
+	my $res2 = $kbs2->Send
+	  (
+	   Query => $userinput,
+	   InputType => $format,
+	   Database => $database,
+	   Context => $context,
+	   QueryAgent => 1,
+	  );
+	print Dumper($res2);
+      } elsif ($mode eq "unassert") {
+	print "Hey!\n";
+	my $res2 = $kbs2->Send
+	  (
+	   Unassert => $userinput,
+	   InputType => $format,
+	   Database => $database,
+	   Context => $context,
+	   QueryAgent => 1,
+	  );
+	print Dumper($res2);
+      }
+    }
+  } while (! $exit);
+}
+
+sub ImportFiles {
+  my %args = @_;
+  my $context;
+
+  if (scalar @contexts > 1) {
+    $context = shift @contexts;
+    if (! ($conf->{'-y'} or Approve("Import all contents of all files into context <$context>, disregarding the other contexts?"))) {
+      return;
+    }
+  } else {
+    $context = shift @contexts || "default";
+  }
+
+  my @contents;
+  if (exists $conf->{'--input'}) {
+    push @contents, $conf->{'--input'};
+  } else {
+    foreach my $file (@{$args{Files}}) {
+      if (-f $file) {
+	# WISHLIST check whether it is compressed
+	push @contents, read_file($file);
+      }
+    }
+  }
+  foreach my $content (@contents) {
+    my $format = GetFormat
+      (
+       Data => $content,
+      );
+    # go ahead and parse the file, then interpret it
+    my $res = $importexport->Convert
+      (
+       Input => $content,
+       InputType => $format,
+       OutputType => "Interlingua",
+      );
+
+    # print Dumper($res);
+
+    if ($res->{Success}) {
+      foreach my $assertion (@{$res->{Output}}) {
+	Evaluate
+	  (
+	   Context => $context,
+	   Assertion => $assertion,
+	  );
+      }
+    } else {
+      print Dumper($res);
+    }
+    # because of the possibility of multiline data points, we will
+    # parse using the Light modules, and just force the syntax to be
+    # contained within, using some of the stuff I wrote earlier for
+    # interacting with "domains" from Light
+
+    # because I don't know exactly where the command processing
+    # stuff is, and I'm too tired to locate it, we will just do it
+    # here
+  }
+}
+
+sub DisplayResults {
+  my %args = @_;
+  if ($args{List}) {
+    print join("\n", sort @{$args{List}})."\n";
+  } elsif ($args{Formulae}) {
+    my $res = $importexport->Convert
+      (
+       Input => [sort {Dumper($a) cmp Dumper($b)} @{$args{Formulae}}],
+       InputType => "Interlingua",
+       OutputType => $conf->{'--output-type'} || "Emacs String",
+      );
+    if ($res->{Success}) {
+      print $res->{Output}."\n";
+    }
+  }
+}
+
+sub Evaluate {
+  my %args = @_;
+  # see if it is a command
+  # skip doing anything for now
+  $kbs2->Send
+    (
+     Assert => [$args{Assertion}],
+     InputType => "Interlingua",
+     Database => $database,
+     Context => $args{Context},
+     QueryAgent => 1,
+     Flags => {
+	       AssertWithoutCheckingConsistency => $conf->{'--no-checking'},
+	      },
+    );
+}
+
+sub ConvertFiles {
+  my %args = @_;
+  my $context;
+  my @contents;
+  if (exists $conf->{'--input'}) {
+    push @contents, $conf->{'--input'};
+  } else {
+    foreach my $file (@{$args{Files}}) {
+      if (-f $file) {
+	# WISHLIST check whether it is compressed, encrypted
+	push @contents, read_file($file);
+      }
+    }
+  }
+  foreach my $content (@contents) {
+    # go ahead and parse the file, then interpret it
+
+    my $newargs = {};
+
+    if (! defined $conf->{'--input-type'}) {
+      $newargs->{GuessInputType} = 1;
+    } else {
+      $newargs->{InputType} = $conf->{'--input-type'};
+    }
+    $newargs->{OutputType} = $conf->{'--output-type'} || "Interlingua";
+
+    # print Dumper($newargs);
+
+    my $res = $importexport->Convert
+      (
+       Input => $content,
+       %$newargs,
+      );
+
+    if ($res->{Success}) {
+      print Dumper($res->{Output});
+    } else {
+      See($res);
+    }
+    # because of the possibility of multiline data points, we will
+    # parse using the Light modules, and just force the syntax to be
+    # contained within, using some of the stuff I wrote earlier for
+    # interacting with "domains" from Light
+
+    # because I don't know exactly where the command processing
+    # stuff is, and I'm too tired to locate it, we will just do it
+    # here
+  }
+}
+
+sub GetFormat {
+  my %args = @_;
+  my $format;
+  if ($conf->{'--input-type'}) {
+    $format = $conf->{'--input-type'};
+  } else {
+    my $res = $guess->Guess
+      (
+       Formulae => $args{Data},
+      );
+    print Dumper($res);
+    if ($res->{Success}) {
+      $format = [keys %{$res->{Result}}]->[0];
+    }
+  }
+  warn "Don't know format\n" if ! defined $format;
+  return $format;
+}
+

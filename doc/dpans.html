@@ -1,0 +1,1984 @@
+<HTML>
+
+<HEAD>
+<TITLE> Knowledge Interchange Format</TITLE>
+</HEAD>
+
+<BODY BGCOLOR=WHITE>
+<HR>
+
+<CENTER>
+<P>
+<H1> Knowledge Interchange Format</H1>
+<P>
+<H3>draft proposed American National Standard (dpANS)</H3>
+<P>
+<H3>NCITS.T2/98-004</H3>
+</CENTER>
+
+<HR>
+
+<P><H2>Table of Contents</H2>
+
+<DL>
+<P><DT><A HREF="dpans.html#Scope"><B>1 Scope</B></A>
+<P><DT><A HREF="dpans.html#Normative"><B>2 Normative References</B></A>
+<P><DT><A HREF="dpans.html#Terms"><B>3 Terms and Definitions</B></A>
+<P><DT><A HREF="dpans.html#Syntax"><B>4 Syntax</B></A>
+   <DD><A HREF="dpans.html#4.1"><B>4.1 Introduction</B></A>
+   <DD><A HREF="dpans.html#4.2"><B>4.2 Characters</B></A>
+   <DD><A HREF="dpans.html#4.3"><B>4.3 Lexemes</B></A>
+   <DD><A HREF="dpans.html#4.4"><B>4.4 Expressions</B></A>
+<P><DT><A HREF="dpans.html#Basics"><B>5 Basics</B></A>
+   <DD><A HREF="dpans.html#5.1"><B>5.1 Introduction</B></A>
+   <DD><A HREF="dpans.html#5.2"><B>5.2 Bottom</B></A>
+   <DD><A HREF="dpans.html#5.3"><B>5.3 Functional Terms</B></A>
+   <DD><A HREF="dpans.html#5.4"><B>5.4 Relational Sentences</B></A>
+   <DD><A HREF="dpans.html#5.5"><B>5.5 Equations and Inequalities</B></A>
+   <DD><A HREF="dpans.html#5.6"><B>5.6 True and False</B></A>
+<P><DT><A HREF="dpans.html#Logic"><B>6 Logic</B></A>
+   <DD><A HREF="dpans.html#6.1"><B>6.1 Logical Terms</B></A>
+   <DD><A HREF="dpans.html#6.2"><B>6.2 Logical Sentences</B></A>
+   <DD><A HREF="dpans.html#6.3"><B>6.3 Quantified Sentences</B></A>
+   <DD><A HREF="dpans.html#6.4"><B>6.4 Definitions</B></A>
+<P><DT><A HREF="dpans.html#Numbers"><B>7 Numbers</B></A>
+   <DD><A HREF="dpans.html#7.1"><B>7.1 Introduction</B></A>
+   <DD><A HREF="dpans.html#7.2"><B>7.2 Functions on Numbers</B></A>
+   <DD><A HREF="dpans.html#7.3"><B>7.3 Relations on Numbers</B></A>
+<P><DT><A HREF="dpans.html#Lists"><B>8 Lists</B></A>
+<P><DT><A HREF="dpans.html#Strings"><B>9 Characters and Strings</B></A>
+   <DD><A HREF="dpans.html#9.1"><B>9.1 Characters</B></A>
+   <DD><A HREF="dpans.html#9.2"><B>9.2 Strings</B></A>
+<P><DT><A HREF="dpans.html#Metaknowledge"><B>10 Metaknowledge</B></A>
+   <DD><A HREF="dpans.html#10.1"><B>10.1 Naming Expressions</B></A>
+   <DD><A HREF="dpans.html#10.2"><B>10.2 Types of Expressions</B></A>
+   <DD><A HREF="dpans.html#10.3"><B>10.3 Changing Levels of Denotation</B></A>
+<P><DT><a HREF="dpans.html#Infix"><B>11 Infix Notation</B></a>
+   <DD><A HREF="dpans.html#11.1"><B>11.1 Introduction</B></A>
+   <DD><A HREF="dpans.html#11.2"><B>11.2 Characters</B></A>
+   <DD><A HREF="dpans.html#11.3"><B>11.3 Lexemes</B></A>
+   <DD><A HREF="dpans.html#11.4"><B>11.4 Expressions</B></A>
+<P><DT><a HREF="dpans.html#Conformance"><B>12 Conformance</B></a>
+   <DD><A HREF="dpans.html#12.1"><B>12.1 Introduction</B></A>
+   <DD><A HREF="dpans.html#12.2"><B>12.2 Conformance Dimensions</B></A>
+   <DD><A HREF="dpans.html#12.3"><B>12.3 Common Conformance Profiles</B></A>
+   <DD><A HREF="dpans.html#12.4"><B>12.4 Dealing with Differences in Conformance Profiles</B></A>  </DL>
+
+<HR>
+
+<H2><A NAME="Scope">1 Scope</A></H2>
+
+<P> This dpANS specifies the syntax and semantics of <I>Knowledge Interchange
+Format (KIF)</I> and a syntactic variant of KIF in "infix" form.
+
+<P>Knowledge Interchange Format (KIF) is a language designed for use in the
+interchange of knowledge among disparate computer systems (created by different
+programmers, at different times, in different languages, and so forth).
+
+<P>KIF is <I>not</I> intended as a primary language for interaction with human
+users (though it can be used for this purpose).  Different computer systems can
+interact with their users in whatever forms are most appropriate to their
+applications (for example Prolog, conceptual graphs, natural language, and so
+forth).
+
+<P>KIF is also <I>not</I> intended as an internal representation for
+knowledge <I>within</I> computer systems or within closely related sets of
+computer systems (though the language can be used for this purpose as well). 
+Typically, when a computer system reads a  knowledge base in KIF, it converts
+the data into its own internal form (specialized pointer structures, arrays,
+etc.).  All computation is done using these internal forms.  When the computer
+system needs to communicate with another computer system, it maps its internal
+data structures into KIF.
+
+<P>The purpose of KIF is roughly analogous to that of Postscript.  Postscript
+is commonly used by text and graphics formatting systems in communicating
+information about documents to printers.  Although it is not as efficient as a
+specialized representation for documents and not as perspicuous as a specialized
+wysiwyg display, Postscript is a programmer-readable representation that
+facilitates the independent development of formatting programs and printers. 
+While KIF is not as efficient as a specialized representation for knowledge nor
+as perspicuous as a specialized display (when printed in its list form), it too
+is a programmer-readable language and thereby facilitates the independent
+development of knowledge-manipulation programs.<P>
+
+<P>The following categorical features are essential to the design of KIF.
+
+<OL>
+
+<LI>The language has declarative semantics.  It is possible to
+understand the meaning of expressions in the language without appeal to an
+interpreter for manipulating those expressions.  In this way, KIF differs from
+other languages that are based on specific interpreters, such as Emycin
+and Prolog.<P>
+
+<LI>The language is logically comprehensive -- at its most general, it provides
+for the expression of arbitrary logical sentences. In this way, it differs from
+relational database languages (like SQL) and logic programming languages
+(like Prolog).<P>
+
+<LI>The language provides for the representation of knowledge about 
+knowledge.  This allows the user to make knowledge representation decisions
+explicit and permits the user to introduce new knowledge representation
+constructs without changing the language.<P>
+
+</OL>
+
+In addition to these essential features, KIF is designed to maximize the
+following additional features (to the extent possible while preserving the
+preceding features).<P>
+
+<OL>
+
+<LI>Implementability.  Although KIF is not intended for use within programs
+as a representation or communication language, it should be usable for that
+purpose if so desired.<P>
+
+<LI>Readability.  Although KIF is not intended primarily as a
+language for interaction with humans, human readability facilitates
+its use in describing representation language semantics, its use as a
+publication language for example knowledge bases, its use in assisting humans
+with knowledge base translation problems, etc.<P>
+
+</OL>
+
+<P><HR>
+
+<H2><A NAME="Normative">2 Normative References</A></H2>
+
+The following normative documents contain provisions, which,
+through reference in this text, constitute provisions of this
+dpANS.  For dated references, subsequent
+amendments to, or revisions of, any of these publications do not apply.
+However, parties to agreements based on this dpANS
+are encouraged to investigate the possibility of applying the most
+recent editions of the normative documents indicated below.
+Members of ISO and IEC maintain registers of currently valid
+International Standards. ANSI maintains a register of currently valid American
+National Standards.
+
+<P>ISO/IEC 10646-1:1993, <I>Information Technology (IT) - Universal
+Multiple-Octet Coded Character Set (UCS)</I>.
+
+<P>ISO/IEC 14481:1998, <I>Information Technology (IT) - Conceptual
+Schema Modeling Facilities (CSMF)</I>.
+
+<P><HR>
+
+<H2><A NAME="Terms">3 Terms and Definitions</A></H2>
+
+<P>For the purpose of this dpANS, the terms and definitions
+given in ISO/IEC 10646-1:1993 and ISO/IEC 14481:1998 apply.
+
+<P><HR>
+
+<H2><A NAME="Syntax">4 Syntax</A></H2>
+
+<H4><A NAME="4.1">4.1 Introduction</A></H4>
+
+As with many computer-oriented languages, the syntax of KIF is most easily
+described in three layers.  First, there are the basic <I>characters</I> of the
+language.  These characters can be combined to form <I>lexemes</I>.  Finally,
+the lexemes of the language can be combined to form grammatically legal
+<I>expressions</I>.  Although this layering is not strictly esential to the
+specification of KIF, it simplifies the description of the syntax by dealing with
+white space at the lexeme level and eliminating that detail from the expression
+level.<P>
+
+In this chapter, the syntax of KIF is presented using a modified BNF notation. 
+All nonterminals and BNF punctuation are written in boldface, while characters in
+KIF are expressed in plain font.  The notation
+<TT><B>{</B>x1,...,xn<B>}</B></TT> means the set of terminals
+<TT>x1,...,xn</TT>.  The notation <TT><B>[nonterminal]</B></TT>
+means zero or one instances of <TT><B>nonterminal</B></TT>;
+<TT><B>nonterminal*</B></TT> means zero or more occurrences;
+<TT><B>nonterminal+</B></TT> means one or more occurrences;
+<TT><B>nonterminal^n</B></TT> means <TT><B>n</B></TT> occurrences.  The notation
+<TT><B>nonterminal1 - nonterminal2</B></TT> refers to all of the members of
+<TT><B>nonterminal1</B></TT> except for those in <TT><B>nonterminal2</B></TT>. 
+The notation <TT><B>int(n)</B></TT> denotes the decimal representation
+of integer n.  The nonterminals <TT><B>space</B></TT>, <TT><B>tab</B></TT>,
+<TT><B>return</B>,</TT> <TT><B>linefeed</B></TT>, and <TT><B>page</B></TT> refer
+to the characters corresponding to ascii codes 32, 9, 13, 10, and 12,
+respectively.  The nonterminal <TT><B>character</B></TT> denotes the set of all
+128 ascii characters.  The nonterminal <TT><B>empty</B></TT> denotes the empty
+string.
+
+<H4><A NAME="4.2">4.2 Characters</A></H4>
+
+The alphabet of KIF consists of 7 bit blocks of data. In this document, we refer to
+KIF data blocks via their usual ASCII encodings as characters (as given in ISO
+646:1983).
+
+<P>KIF characters are classified as upper case letters, lower case letters, digits,
+alpha characters (non-alphabetic characters that are used in the same way
+that letters are used), special characters, white space, and other characters
+(every ascii character that is not in one of the other categories).<P>
+
+<PRE><B>
+    upper ::= </B>A<B> | </B>B<B> | </B>C<B> | </B>D<B> | </B>E<B> | </B>F<B> | </B>G<B> | </B>H<B> | </B>I<B> | </B>J<B> | </B>K<B> | </B>L<B> | </B>M<B> | 
+              </B>N<B> | </B>O<B> | </B>P<B> | </B>Q<B> | </B>R<B> | </B>S<B> | </B>T<B> | </B>U<B> | </B>V<B> | </B>W<B> | </B>X<B> | </B>Y<B> | </B>Z<B>
+
+    lower ::= </B>a<B> | </B>b<B> | </B>c<B> | </B>d<B> | </B>e<B> | </B>f<B> | </B>g<B> | </B>h<B> | </B>i<B> | </B>j<B> | </B>k<B> | </B>l<B> | </B>m<B> | 
+              </B>n<B> | </B>o<B> | </B>p<B> | </B>q<B> | </B>r<B> | </B>s<B> | </B>t<B> | </B>u<B> | </B>v<B> | </B>w<B> | </B>x<B> | </B>y<B> | </B>z<B>
+
+    digit ::= </B>0<B> | </B>1<B> | </B>2<B> | </B>3<B> | </B>4<B> | </B>5<B> | </B>6<B> | </B>7<B> | </B>8<B> | </B>9<B>
+
+    alpha ::= </B>!<B> | </B>$<B> | </B>%<B> | </B>&<B> | </B>*<B> | </B>+<B> | </B>-<B> | </B>.<B> | </B>/<B> | </B><<B> | </B>=<B> | </B>><B> | </B>?<B> |
+              </B>@<B> | </B>_<B> | </B>~<B> |
+
+    special ::= </B>"<B> | </B>#<B> | </B>'<B> | </B>(<B> | </B>)<B> | </B>,<B> | </B>\<B> | </B>^<B> | </B>`<B>
+
+    white ::= space | tab | return | linefeed | page
+</B></PRE>
+
+A normal character is either an upper case character, a lower case character, a
+digit, or an alpha character.
+
+<PRE><B>
+    normal ::= upper | lower | digit | alpha
+</B></PRE>
+
+<H4><A NAME="4.3">4.3 Lexemes</A></H4>
+
+The process of converting characters into lexemes in called <I>lexical
+analysis</I>.  The input to this process is a stream of characters, and the
+output is a stream of <I>lexemes</I>.<P>
+
+The function of a lexical analyzer is cyclic.  It reads characters from the
+input string until it encounters a character that cannot be combined with
+previous characters to form a legal lexeme.  When this happens, it outputs
+the lexeme corresponding to the previously read characters.  It then starts the
+process over again with the new character.  Whitespace causes a break in the
+lexical analysis process but otherwise is discarded.<P>
+
+There are five types of lexemes in KIF -- special lexemes, words, character
+references, character strings, and character blocks.<P>
+
+Each special character forms its own lexeme.  It cannot be combined with other
+characters to form more complex lexemes, except through the ``escape'' syntax
+described below.<P>
+
+A <I>word</I> is a contiguous sequence of (1) normal characters or (2) other
+characters preceded by the escape character <TT>\</TT>.<P>
+
+<PRE><B>
+    word ::= normal | word normal | word</B>\<B>character</B>
+</PRE>
+
+<P>It is possible to include the character <TT>\</TT> in a word by preceding it by
+another occurrence of <TT>\</TT>, i.e. two contiguous occurrences of <TT>\</TT> are
+interpreted as a single occurrence.  For example, the string <TT>A\\\'B</TT>
+corresponds to a word consisting of the four characters <TT>A</TT>, <TT>\</TT>,
+<TT>'</TT>, and <TT>B</TT>.
+
+<P>Except for characters following <TT>\</TT>, the lexical analysis of words is case
+insensitive.  The output lexeme for any word corresponds to the lexeme obtained by
+converting all letters not following <TT>\</TT> to their upper case equivalents. 
+For example, the word <TT>abc</TT> and the word <TT>ABC</TT> map into the same
+lexeme.  The word <TT>a\bc</TT> maps into the same lexeme as the word
+<TT>A\bC</TT>, which is not the same as the lexeme for the word <TT>ABC</TT>,
+since the second character is lower case.
+
+<P>A <I>character reference</I> consists of the characters <TT>#</TT>,
+<TT>\</TT>, and any character.  Character references allow us to refer to
+characters as characters and differentiate them from one-character symbols,
+which may refer to other objects.<P>
+
+<PRE><B>
+    charref ::= </B>#\<B>character
+</B></PRE>
+
+A <I>character string</I> is a series of characters enclosed in quotation
+marks.  The escape character <TT>\</TT> is used to permit the inclusion of
+quotation marks and the <TT>\</TT> character itself within such strings.<P>
+
+<PRE><B>
+    string ::= </B>"<B>quotable</B>"<B>
+
+    quotable ::= empty | quotable strchar | quotable</B>\<B>character
+
+    strchar ::= character - {</B>"<B>,</B>\<B>}
+</B></PRE>
+
+Sometimes it is desirable to group together a sequence of arbitrary bits or
+characters without imposing escape characters, e.g. to encode images, audio, or
+video in special formats.  Character blocks permit this sort of grouping through
+the use of a prefix that specifies how many of the following characters are to
+grouped together in this way.  A <I>character block</I> consists of the
+character <TT>#</TT> followed by the decimal encoding of a positive integer <B>n</B>,
+the character <TT>q</TT> or <TT>Q</TT>, and then <B>n</B> arbitrary characters.<P>
+
+<PRE><B>
+    block ::= </B>#<B> int(n) </B>q<B> character^n | </B>#<B> int(n) </B>Q<B> character^n
+</B></PRE>
+
+For the purpose of grammatical analysis, it is useful to subdivide the class of
+words a little further, viz. as variables, operators, and constants.<P>
+
+A <I>variable</I> is a word in which the first character is <TT>?</TT> or <TT>@</TT>. 
+A variable that begins with <TT>?</TT> is called an <I>individual variable</I>.  A
+variable that begins with an <TT>@</TT> is called a <I>sequence variable</I>.<P>
+
+<PRE><B>
+    variable ::= indvar | seqvar
+
+    indvar ::= </B>?<B>word
+
+    seqvar ::= </B>@<B>word
+</B></PRE>
+
+<I>Operators</I> are used in forming complex expressions of various sorts. 
+There are three types of operators in KIF -- <I>term operators</I>,
+<I>sentence operators</I>, and <I>definition operators</I>.  Term operators are
+used in forming complex terms.  Sentence operators and user operators are used
+in forming complex sentences.  Definition operators are used in forming 
+definitions.<P>
+
+<PRE><B>
+    operator ::= termop | sentop | defop
+
+    termop ::= </B>value<B> | </B>listof<B> | </B>quote<B> | </B>if<B>
+
+    sentop ::= </B>holds<B> | </B>=<B> | </B>/=<B> | </B>not<B> | </B>and<B> | </B>or<B> | </B>=><B> | </B><=<B> | </B><=><B> |
+               </B>forall<B> | </B>exists<B>
+
+    defop ::= </B>defobject<B> | </B>defunction<B> | </B>defrelation<B> | </B>deflogical<B> |
+              </B>:=<B> | </B>:-><B> | </B>:<=<B> | </B>:=><B>
+</B></PRE>
+
+All other words are called <I>constants</I>.<P>
+
+<PRE><B>
+    constant ::= word - variable - operator
+</B></PRE>
+
+Semantically, there are four categories of constants in KIF -- object constants,
+function constants, relation constants, and logical constants.  <I>Object
+constants</I> are used to denote individual objects.  <I>Function constants</I>
+denote functions on those objects.  <I>Relation constants</I> denote relations. 
+<I>Logical constants</I> express conditions about the world and are either true
+or false.  KIF is unusual among logical languages in that there is no syntactic
+distinction among these four types of constants; any constant can be used where
+any other constant can be used.  The differences between these categories of
+constants is entirely semantic.<P>
+
+<H4><A NAME="4.4">4.4 Expressions</A></H4>
+
+The legal expressions of KIF are formed from lexemes according to the rules
+presented in this section.  There are three disjoint types of expressions in
+the language -- <I>terms</I>, <I> sentences</I>, and <I>definitions</I>. 
+Terms are used to denote objects in the world being described; sentences are
+used to express facts about the world; and definitions are used to define
+constants.  Definitions and sentences are called <I>forms</I>.  A <I>knowledge
+base</I> is a finite set of forms.<P>
+
+There are nine types of terms in KIF -- individual variables, constants,
+character references, character strings, character blocks, functional terms,
+list terms, quotations, and logical terms.  Individual variables, constants,
+character references, strings, and blocks were discussed earlier.<P>
+ 
+<PRE><B>
+    term ::= indvar | constant | charref | string | block |
+             funterm | listterm | quoterm | logterm
+</B></PRE>
+
+<P>A <I>implicit functional term</I> consists of a constant and an arbitrary
+number of <I>argument</I> terms, terminated by an optional sequence variable and
+surrounded by matching parentheses.  Note that there is no syntactic 
+restriction on the number of argument terms; arity restrictions in KIF are
+treated semantically.<P>
+
+<PRE><B>
+    funterm ::= </B>(<B>constant term* [seqvar]</B>)<B>
+</B></PRE>
+
+<P>A <I>explicit functional term</I> consists of the operator <TT>value</TT>
+and one or more <I>argument</I> terms, terminated by an optional sequence
+variable and surrounded by matching parentheses.
+
+<PRE><B>
+    funterm ::= </B>(value <B>term term* [seqvar]</B>)<B>
+</B></PRE>
+
+A <I>list term</I> consists of the <TT>listof</TT> operator and a finite list of
+terms, terminated by an optional sequence variable and enclosed in matching
+parentheses. <P>
+
+<PRE><B>
+    listterm ::= </B>(listof <B>term* [seqvar]</B>)<B>
+</B></PRE>
+
+<I>Quotations</I> involve the <TT>quote</TT> operator and an arbitrary <I>list
+expression</I>.  A list expression is either an <I>atom</I> or a sequence of list
+expressions surrounded by parentheses.  An atom is either a word or a
+character reference or a character string or a character block.  Note that the
+list expression embedded within a quotation need <I>not</I> be a legal expression
+in KIF.<P>
+
+<PRE><B>
+    quoterm ::= </B>(quote <B>listexpr</B>)<B> | </B>'<B>listexpr
+
+    listexpr ::= atom | </B>(<B>listexpr*</B>)<B>
+
+    atom ::= word | charref | string | block
+</B></PRE>
+
+<I>Logical terms</I> involve the <TT>if</TT> and <TT>cond</TT> operators.  The
+<TT>if</TT> form allows for the testing of a single condition or multiple
+conditions.  An optional term at the end allows for the specification of a default
+value when all of the conditions are false.  The <TT>cond</TT> form is similar
+but groups the pairs of sentences and terms within parentheses and has no optional
+term at the end.<P>
+
+<PRE><B>
+    logterm ::= </B>(if <B>logpair+</B> <B>[term]</B>)<B>
+
+    logpair ::= sentence term
+
+    logterm ::= </B>(cond <B>logitem*</B>)<B>
+
+    logitem ::= </B>(<B>sentence term</B>)<B>
+</B></PRE>
+
+The following BNF defines the set of legal sentences in KIF.  There
+are six types of sentences.  We have already mentioned logical constants.<P>
+
+<PRE><B>
+     sentence ::= constant | equation | inequality | 
+                  relsent | logsent | quantsent
+</B></PRE>
+
+An <I>equation</I> consists of the <TT>=</TT> operator and two terms.  An
+<I>inequality</I> consist of the <TT>/=</TT> operator and two terms.<P>
+
+<PRE><B>
+    equation ::= </B>(= <B>term term</B>)<B>
+
+    inequality ::= </B>(/= <B>term term</B>)<B>
+</B></PRE>
+
+An <I>implicit relational sentence</I> consists of a constant and an arbitrary
+number of <I>argument</I> terms, terminated by an optional sequence variable. 
+As with functional terms, there is no syntactic  restriction on the number of
+argument terms in a relation sentence.<P>
+
+<PRE><B>
+    relsent ::= </B>(<B>constant term* [seqvar]</B>)<B>
+</B></PRE>
+
+<P>A <I>explicit relational sentence</I> consists of the operator <TT>holds</TT>
+and one or more <I>argument</I> terms, terminated by an optional sequence
+variable and surrounded by matching parentheses.
+
+<PRE><B>
+    relsent ::= </B>(holds <B>term term* [seqvar]</B>)<B>
+</B></PRE>
+
+<P>It is noteworthy that the syntax of implicit relational sentences is the same
+as that of implicit functional terms.  On the other hand, their meanings are
+different.  Fortunately, the context of each such expression determines its type
+(as an embedded term in one case or as a top-level sentence or argument to some
+sentential operator in the other case); and so this slight ambiguity causes no
+problems.
+
+<P>The syntax of <I>logical sentences</I> depends on the logical operator
+involved.  A sentence involving the <TT>not</TT> operator is called a <I>negation</I>.  A sentence involving the <TT>and</TT> operator is called a
+<I>conjunction</I>, and the arguments are called <I>conjuncts</I>.  A sentence
+involving the <TT>or</TT> operator is called a <I>disjunction</I>, and the
+arguments are called <I>disjuncts</I>.  A sentence involving the <TT>=></TT>
+operator is called an <I>implication</I>; all of its arguments but the last are
+called <I>antecedents</I>; and the last argument is called the
+<I>consequent</I>.  A sentence involving the <TT><=</TT> operator is called a
+<I>reverse implication</I>; its first argument is called the <I>consequent</I>;
+and the remaining arguments are called the <I>antecedents</I>.  A sentence
+involving the <TT><=></TT> operator is called an <I>equivalence</I>.
+
+<PRE><B>
+    logsent ::= </B>(not <B>sentence</B>)<B> |
+                </B>(and <B>sentence*</B>)<B> |
+                </B>(or <B>sentence*</B>)<B> |
+                </B>(=> <B>sentence* sentence</B>)<B> |
+                </B>(<= <B>sentence sentence*</B>)<B> |
+                </B>(<=> <B>sentence sentence</B>)<B>
+</B></PRE>
+
+There are two types of <I>quantified sentences</I> -- a <I>universally
+quantified sentence</I> is signalled by the use of the <TT>forall</TT> operator, and
+an <I>existentially quantified sentence</I> is signalled by the use of the <TT>
+exists</TT> operator.  The first argument in each case is a list of variable
+specifications.  A variable specification is either a variable or a list
+consisting of a variable and a term denoting a relation that restricts the
+domain of the specified variable.<P>
+
+<PRE><B>
+    quantsent ::= </B>(forall (<B>varspec+</B>) <B>sentence</B>)<B> |
+                  </B>(exists (<B>varspec+</B>) <B>sentence</B>)<B>
+
+    varspec ::= variable | </B>(<B>variable</B> <B>constant</B>)<B>
+</B></PRE>
+
+Note that, according to these rules, it is permissible to write sentences with
+<I>free</I> variables, i.e. variables that do not occur within the scope of any
+enclosing quantifiers.   The significance of the free variables in a sentence
+depends on the use of the sentence.  When we assert the truth of a sentence with
+free variables, we are, in effect, saying that the sentence is true for all values
+of the free variables, i.e. the variables are universally quantified.  When we ask
+whether a sentence with free variables is true, we are, in effect, asking whether
+there are any values for the free variables for which the sentence is true, i.e.
+the variables are existentially quantified.<P>
+
+The following BNF defines the set of legal KIF definitions.  There are three
+types of definitions -- unrestricted, complete, and partial.  Within each type,
+there are four cases, one for each category of constant.  Object constants are
+defined using the <TT>defobject</TT> operator.  Function constants are defined
+using the <TT>deffunction</TT> operator.  Relation constants are defined using
+the <TT>defrelation</TT> operator.  Logical constants are defined using the
+<TT> deflogical</TT> operator.<P>
+
+<PRE><B>
+    definition ::= unrestricted | complete | partial
+
+    unrestricted ::=
+      </B>(defobject <B>constant [string] sentence*</B>)<B> |
+      </B>(deffunction <B>constant [string] sentence*</B>)<B> |
+      </B>(defrelation <B>constant [string] sentence*</B>)<B> |
+      </B>(deflogical <B>constant [string] sentence*</B>)<B>
+
+    complete ::=
+      </B>(defobject <B>constant [string]</B> := <B>term</B>)<B> |
+      </B>(deffunction <B>constant</B> (<B>indvar* [seqvar]</B>) <B>[string]</B> := <B>term</B>)<B> |
+      </B>(defrelation <B>constant (<B>indvar* [seqvar]</B>) [string]</B> := <B>sentence</B>)<B> |
+      </B>(deflogical <B>constant [string]</B> := <B>sentence</B>)<B>
+
+    partial ::=
+      </B>(defobject <B>constant [string]</B> :-> <B>indvar</B> :<= <B>sentence</B>)<B> |
+      </B>(defobject <B>constant [string]</B> :-> <B>indvar</B> :=> <B>sentence</B>)<B> |
+      </B>(deffunction <B>constant (<B>indvar* [seqvar]</B>) [string]
+        </B>:-> <B>indvar</B> :<= <B>sentence</B>)<B> |
+      </B>(deffunction <B>constant (<B>indvar* [seqvar]</B>) [string]
+        </B>:-> <B>indvar</B> :=> <B>sentence</B>)<B> |
+      </B>(defrelation <B>constant (<B>indvar* [seqvar]</B>) [string]
+        </B>:<= <B>sentence</B>)<B> |
+      </B>(defrelation <B>constant (<B>indvar* [seqvar]</B>) [string]
+        </B>:=> <B>sentence</B>)<B> |
+      </B>(deflogical <B>constant [string]</B> :<= <B>sentence</B>)<B>
+      </B>(deflogical <B>constant [string]</B> :=> <B>sentence</B>)<B>
+</B></PRE>
+
+A <I>form</I> in KIF is either a sentence or a definition.<P>
+
+<PRE><B>
+    form ::= sentence | definition
+</B></PRE>
+
+It is important to note that definitions are top level constructs.  While
+definitions contain sentences, they are not themselves sentences and,
+therefore, cannot be written as constituent parts of sentences or other
+definitions (unless they occur inside of a quotation.
+
+<P>A <I>knowledge base</I> is a finite set of forms.  It is important to keep in
+mind that a knowledge base is a <I>set</I> of sentences, not a <I>sequence</I>;
+and, therefore, the order of forms within a knowledge base is unimportant. 
+Order <I>may</I> have heuristic value to deductive programs by suggesting an order
+in which to use those sentences; however, this implicit approach to knowledge
+exchange lies outside of the definition of KIF.
+
+<P><HR>
+
+<H2><A NAME="Basics">5 Basics</A></H2>
+
+<H4><A NAME="5.1">5.1 Introduction</A></H4>
+
+The basis for the semantics of KIF is a <EM>conceptualization</EM> of
+the world in terms of objects and relations among those objects.
+
+<P>A <EM>universe of discourse</EM> is the set of all objects presumed or
+hypothesized to exist in the world.  The notion of <EM>object</EM> used here is
+quite broad.  Objects can be concrete (e.g. a specific carbon atom, Confucius,
+the Sun) or abstract (e.g. the number 2, the set of all integers, the concept
+of justice).  Objects can be primitive or composite (e.g. a circuit that
+consists of many subcircuits).  Objects can even be fictional (e.g. a unicorn,
+Sherlock Holmes).
+
+<P>Different users of a declarative representation language, like KIF, are likely
+to have different universes of discourse.  KIF is <I>conceptually
+promiscuous</I> in that it does <I>not</I> require every user to share the same
+universe of discourse.  On the other hand, KIF is <I>conceptually grounded</I>
+in that every  universe of discourse <I>is</I> required to include certain
+<I>basic</I> objects.
+
+<P>The following basic objects must occur in every universe of discourse.
+
+<UL>
+
+<LI> All numbers, real and complex.<P>
+
+<LI> All ASCII characters.<P>
+
+<LI> All finite strings of ASCII characters.<P>
+
+<LI> Words.  Yes, words are themselves objects in the universe of discourse,
+along with the things they represent.<P>
+
+<LI> All finite lists of objects in the universe of discourse.<P>
+
+<LI> <I>bottom</I> -- a distinguished object that
+occurs as the value of a partial when that function is applied to arguments for
+which the function make no sense.<P>
+
+</UL>
+
+Remember, that to these basic elements, the user can add whatever
+<I>non-basic</I> objects seem useful.
+
+<P>In KIF, relationships among objects take the form of relations.  Formally, a
+<I>relation</I> is defined as an arbitrary set of finite lists of objects (of
+possibly varying lengths).  Each list is a selection of objects that jointly
+satisfy the relation.  For example, the &lt; relation on numbers contains the
+list &lt;2,3&gt;, indicating that 2 is less than 3.<P>
+
+A <I>function</I> is a special kind of relation.  For every finite sequence of
+objects (called the <I>arguments</I>), a function associates a unique
+object (called the <I>value</I>).  More formally, a function is defined as a set
+of finite lists of objects, one for each combination of possible arguments.  In
+each list, the initial elements are the arguments, and the final element is the
+value.  For example, the 1+ function contains the list &lt;2,3&gt;, indicating
+that integer successor of 2 is 3.<P>
+
+Note that both functions and relations are defined as sets of lists.  In fact,
+every function is a relation.  However, not every relation is a function.  In a
+function, there cannot be two lists that disagree on only the last element. 
+This would be tantamount to the function having two values for one combination
+of arguments.  By contrast, in a relation, there can be any number of lists
+that agree on all but the last element.  For example, the list &lt;2,3&gt; is
+a member of the 1+ function, and there is no other list of length 2 with 2
+as its first argument, i.e. there is only one successor for 2.  By contrast, the
+&lt; relation contains the lists &lt;2,3&gt;, &lt;2,4&gt;, &lt;2,5&gt;, and so
+forth, indicating that 2 is less than 3, 4, 5, and so forth.<P>
+
+Many mathematicians require that functions and relations have fixed arity, i.e
+they require that all of the lists comprising a relation have the same length. 
+The definitions here allow for relations with variable arity, i.e. it is
+perfectly acceptable for a function or a relation to contain lists of different
+lengths.  For example, the relation &lt; contains the lists &lt;2,3&gt; and
+&lt;2,3,4&gt;, reflecting the fact that 2 is less than 3 and the fact that 2 is
+less than 3 and 3 is less than 4.  This flexibility is not essential, but it is
+extremely convenient and poses no significant theoretical problems.<P>
+
+<H4><A NAME="5.2">5.2 Bottom</A></H4>
+
+In KIF, all functions are total, i.e. there is a value for every combination
+of arguments.  In order to allow a user to express the idea that a function
+is not meaningful for certain arguments, KIF assumes that there is a special
+"undefined" object in the universe and provides the object constant
+<TT>bottom</TT> to refer to this object.<P>
+
+<H4><A NAME="5.3">5.3 Functional Terms</A></H4>
+
+<P>The value of a functional term without a terminating sequence variable is
+obtained by applying the function denoted by the function constant in the term
+to the objects denoted by the arguments.
+
+<P>For example, the value of the term <TT>(+ 2 3)</TT> is obtained by applying
+the addition function (the function denoted by <TT>+</TT>) to the numbers
+<TT><B>2</B></TT> and <TT><B>3</B></TT> (the objects denoted by the object
+constants <TT>2</TT> and <TT>3</TT>) to obtain the value <TT><B>5</B></TT>,
+which is the value of the object constant <TT>5</TT>.
+
+<P>If a functional term has a terminating sequence variable, the value is
+obtained by applying the function to the sequence of arguments formed from the
+values of the terms that precede the sequence variable and the values in the
+sequence denoted by the sequence variable.
+
+<P>Assume, for example, that the sequence variable <TT>@l</TT> has as value the
+sequence <TT><B>2</B></TT>, <TT><B>3</B></TT>, <TT><B>4</B></TT>.  Then, the
+value of the term <TT>(+ 1 @l)</TT> is obtained by applying the addition
+function to the numbers <TT><B>1</B></TT>, <TT><B>2</B></TT>,
+<TT><B>3</B></TT>, and <TT><B>4</B></TT> to obtain the value
+<TT><B>10</B></TT>, which is the value of the object constant <TT>10</TT>.
+
+<H4><A NAME="5.4">5.4 Relational Sentences</A></H4>
+
+<P>A simple relational sentence without a terminating sequence variable is true
+if and only if the relation denoted by the relation constant in the sentence
+is true of the objects denoted by the arguments.  Equivalently, viewing a
+relation as a set of tuples, we say that the relational sentence is true if
+and only if the tuple of objects formed from the values of the arguments is a
+member of the set of tuples denoted by the relation constant.
+
+<P>If a relational sentence terminates in a sequence variable, the sentence
+is true if and only if the relation contains the tuple consisting of the
+values of the terms that precede the sequence variable together with the
+objects in the sequence denoted by the variable.<P>
+
+<H4><A NAME="5.5">5.5 Equations and Inequalities</A></H4>
+
+<P>An equation is true if and only if the terms in the equation refer to the
+same object in the universe of discourse.
+
+<P>An inequality is true if and only if the terms in the equation refer to
+distinct objects in the universe of discourse.
+
+<H4><A NAME="5.6">5.6 True and False</A></H4>
+
+<P>The truth value of <TT>true</TT> is true, and the truth value of
+<TT>false</TT> is false.
+
+<P><HR>
+
+<H2><A NAME="Logic">6 Logic</A></H2>
+
+<H4><A NAME="6.1">6.1 Logical Terms</A></H4>
+
+<P>The value of a logical term involving the <TT>if</TT> operator is the
+value of the term following the first true sentence in the argument list.  For
+example, the term <TT>(if (> 1 2) 1 (> 2 1) 2 0)</TT> is equivalent to
+<TT>2</TT>.
+
+<P>If none of the embedded sentences of a logical term involving the
+<TT>if</TT> operator is true and there is an isolated term at the end, the value
+of the conditional term is the value of that isolated term.  For example, if the
+object constant <TT>a</TT> denotes a number, then the term <TT>(if (> a 0) a (-
+a))</TT> denotes the absolute value of that number.
+
+<P>If none of the embedded sentences is true and there is no isolated term at
+the end, the value is undefined (i.e. <TT>bottom</TT>).  In other words, the
+term <TT>(if (p a) a)</TT> is equivalent to <TT>(if (p a) a bottom)</TT>.
+
+<P>The value of a logical term involving the <TT>cond</TT> operator is the
+value of the term following the first true sentence in the argument list.  For
+example, the term <TT>(cond ((> 1 2) 1) ((> 2 1) 2))</TT> is equivalent to
+<TT>2</TT>.
+
+<P>If none of the embedded sentences is true, the value is undefined (i.e.
+<TT>bottom</TT>).  In other words, the term <TT>(cond ((p a) a))</TT> is
+equivalent to <TT>(cond ((p a) a) (true bottom))</TT>.
+
+<H4><A NAME="6.2">6.2 Logical Sentences</A></H4>
+
+<P>A negation is true if and only if the negated sentence is false.
+
+<P>A conjunction is true if and only if every conjunct is true.
+
+<P>A disjunction is true if and only if at least one of the disjuncts is
+true.
+
+<P>If every antecedent in an implication is true, then the implication as a whole
+is true if and only if the the consequent is true.  If any of the antecedents
+is false, then the implication as a whole is true, regardless of the truth
+value of the consequent.
+
+<P>A reverse implication is just an implication with the consequent and
+antecedents reversed.
+
+<P>An equivalence is equivalent to the conjunction of an implication and a
+reverse implication.
+
+<H4><A NAME="6.3">6.3 Quantified Sentences</A></H4>
+
+<P>A simple existentially quantified sentence (one in which the first argument is
+a list of variables) is true if and only if the embedded sentence is true for
+<I>some</I> value of the variables mentioned in the first argument.
+
+<P>A simple universally quantified sentence (one in which the first argument is
+a list of variables) is true if and only if the embedded sentence is true for
+<I>every</I> value of the variables mentioned in the first argument.
+
+<P>Quantified sentences with complicated variables specifications can be
+converted into simple quantified sentences by replacing each complicated
+variable specification by the variable in the specification and adding an
+appropriate condition into the body of the sentence.  Note that, in the case
+of a set restriction, it may be necessary to rename variables to avoid
+conflicts.  The following pairs of sentences show the transformation from
+complex quantified sentences to simple quantified sentences.
+
+<PRE>
+    (forall (... (?x <B>r</B>) ...) <B>s</B>)
+    (forall (...  ?x    ...) (=> (<B>r</B> ?x) <B>s</B>))
+
+    (exists (... (?x <B>r</B>) ...) <B>s</B>)
+    (exists (...  ?x    ...) (and (<B>r</B> ?x) <B>s</B>))
+</PRE>
+
+<P>Note that the significance of free variables in quantifier-free sentences
+depends on context.  Free variables in an assertion are assumed to be
+universally quantified.  Free variables in a query are assumed to be
+existentially quantified.  In other words, the meaning of free variables is
+determined by the way in which KIF is used.  It cannot be unambiguously
+defined within KIF itself.  To be certain of the usage in all contexts, use
+explicit quantifiers.
+
+<H4><A NAME="6.4">6.4 Definitions</A></H4>
+
+<P>The definitional operators in KIF allow us to state sentences that are true
+``by definition'' in a way that distinguishes them from sentences that express
+contingent properties of the world.  Definitions have no truth values in the
+usual sense; they are so because we say that they are so.
+
+<P>On the other hand, definitions have content -- sentences that allow us to
+derive other sentences as conclusions.  In KIF, every definition has a
+corresponding set of sentences, called the <I>content</I> of the
+definition.
+
+<P>The <TT>defobject</TT> operator is used to define objects.  The legal
+forms are shown below, together with their content.  In the first case, the
+content is the equation involving the object constant in the definition with
+the defining term.  In the second case, the content is the conjunction of the
+constituent sentences.
+
+<PRE>
+    (defobject <B>s</B> := <B>t</B>)
+    (= <B>s</B> <B>t</B>)
+
+    (defobject <B>s</B> <B>p1</B> ... <B>pn</B>)
+    (and <B>p1</B> ... <B>pn</B>)
+
+    (defobject <B>s</B> :-> <B>v</B>  :=> <TT><B>p</B></TT>)
+    (=> (= <B>s</B> <B>v</B>) <TT><B>p</B></TT>)
+
+    (defobject <B>s</B> :-> <B>v</B>  :<= <TT><B>p</B></TT>)
+    (<= (= <B>s</B> <B>v</B>) <TT><B>p</B></TT>)
+</PRE>
+
+<P>The <TT>deffunction</TT> operator is used to define functions.  Again, the 
+legal forms are shown below, together with their defining axioms.  In the
+first case, the content is the equation involving (1) the term formed from the
+function constant in the definition and the variables in its argument list and
+(2) the defining term.  In the second case, as with object definitions, the
+content is the conjunction of the constituent sentences.
+
+<PRE>
+    (deffunction <B>f</B> (<B>v1</B> ...<b>vn</B>) := <B>t</B>)
+    (= (<B>f</B> <B>v1</B> ...<b>vn</B>) <B>t</B>)
+
+    (deffunction <B>f</B> <B>p1</B> ...<b>pn</B>)
+    (and <B>p1</B> ...<b>pn</B>)
+
+    (deffunction <B>f</B> (<B>v1</B> ... <B>vn</B>) :-> <B>v</B> :=> <B>p</B>)
+    (=> (= (<B>f</B> <B>v1</B> ... <B>vn</B>) <B>v</B>) <TT><B>p</B></TT>)
+
+    (deffunction <B>f</B> (<B>v1</B> ... <B>vn</B>) :-> <B>v</B> :<= <B>p</B>)
+    (<= (= (<B>f</B> <B>v1</B> ... <B>vn</B>) <B>v</B>) <TT><B>p</B></TT>)
+</PRE>
+
+<P>The <TT>defrelation</TT> operator is used to define relations.  The legal
+forms are shown below, together with their defining axioms.  In the first case,
+the content is the equivalence relating (1) the relational sentence formed from
+the relation constant in the definition and the variables in its argument list
+and (2) the defining sentence.  In the second case, as with object and function
+definitions, the content is the conjunction of the constituent sentences.
+
+<PRE>
+    (defrelation <B>r</B> (<B>v1</B> ...<b>vn</B>) := <B>p</B>)
+    (<=> (<B>r</B> <B>v1</B> ...<b>vn</B>) <B>p</B>)
+
+    (defrelation <B>r</B> <B>p1</B> ...<b>pn</B>)
+    (and <B>p1</B> ...<b>pn</B>)
+
+    (defrelation <B>r</B> (<B>v1</B> ... <B>vn</B>) :=> <TT><B>p</B></TT>)
+    (=> (<B>r</B> <B>v1</B> ... <B>vn</B>) <TT><B>p</B></TT>))
+
+    (defrelation <B>r</B> (<B>v1</B> ... <B>vn</B>) :<= <TT><B>p</B></TT>)
+    (<= (<B>r</B> <B>v1</B> ... <B>vn</B>) <TT><B>p</B></TT>))
+</PRE>
+
+<P><HR>
+
+<H2><A NAME="Numbers">7 Numbers</A></H2>
+
+<H4><A NAME="7.1">7.1 Introduction</A></H4>
+
+<P>The referent of every numerical constant in KIF is assumed to be the number
+for which that constant is the base <B>10</B> representation.  Among other
+things, this means that we can infer inequality of all distinct numerical
+constants, i.e. for every <TT><B>t1</B></TT> and distinct <TT><B>t2</B></TT> the
+following sentence is true.
+
+<PRE>
+    (/= <B>t1</B> <B>t2</B>)
+</PRE>
+
+<P>We use the intended meaning of numerical constants in defining the numerical
+functions and relations in this chapter.  In particular, we require that these
+functions and relations behave correctly on all numbers represented in this
+way.
+
+<P>Note that this does mean that it is incorrect to apply these functions
+and relations to terms other than numbers.  For example, a nonnumerical term
+may <I>refer</I> to a number, e.g. the term <TT>two</TT> may be defined to be
+the same as the number <TT>2</TT> in which case it is perfectly proper to write
+<TT>(+ two two)</TT>.
+
+<P>The user may also want to extend these functions and relations to apply to
+objects other than numbers, e.g. sets and lists.<P>
+
+<H4><A NAME="7.2">7.2 Functions on Numbers</A></H4>
+
+<DL><P>
+
+<DT><TT>*</TT> -- If <TT><B>t1</B></TT>, ..., <TT><B>tn</B></TT> denote numbers, then the
+term <TT>(* <B>t1</B> ... <B>tn</B>)</TT> denotes the product of those
+numbers.<P><P>
+
+<DT><TT>+</TT> -- If <TT><B>t1</B></TT>, ..., <TT><B>tn</B></TT> are numerical
+constants, then the term <TT>(+ <B>t1</B> ... <B>tn</B>)</TT> denotes the sum
+<TT><B>t</B></TT> of the numbers corresponding to those constants.<P>
+
+<DT><TT>-</TT> -- If <TT><B>t</B></TT> and <TT><B>t1</B></TT>, ...,
+<TT><B>tn</B></TT> denote numbers, then the term <TT>(- <TT><B>t</B></TT>
+<B>t1</B> ... <B>tn</B>)</TT> denotes the difference between the number denoted
+by <TT><B>t</B></TT> and the numbers denoted by <TT><B>t1</B></TT> through
+<TT><B>tn</B></TT>.  An exception occurs when <B>n=0</B>, in which case the term
+denotes the negation of the number denoted by <TT><B>t</B></TT>.<P>
+
+<DT><TT>/</TT> --  If <TT><B>t1</B></TT>, ..., <TT><B>tn</B></TT> are numbers,
+then the term <TT>(/ <B>t1</B> ... <B>tn</B>)</TT> denotes the result
+<TT><B>t</B></TT> obtained by dividing the number denoted by <TT><B>t1</B></TT>
+by the numbers denoted by <TT><B>t2</B></TT> through <TT><B>tn</B></TT>.  An
+exception occurs when <B>n=1</B>, in which case the term denotes the reciprocal
+<TT><B>t</B></TT> of the number denoted by <TT><B>t1</B></TT>.<P>
+
+<DT><TT>1+</TT> --  The term <TT>(1+ <TT><B>t</B></TT>)</TT> denotes the sum of
+the object denoted by <TT><B>t</B></TT> and <TT><B>1</B></TT>. <P>
+
+<XMP>
+    (deffunction 1+ (?x) :=
+      (+ ?x 1))
+</XMP>
+
+<DT><TT>1-</TT> -- 
+The term <TT>(1- <TT><B>t</B></TT>)</TT> denotes the difference of the object
+denoted by <TT><B>t</B></TT> and <TT><B>1</B></TT>. <P>
+
+<XMP>
+    (deffunction 1- (?x) :=
+      (- ?x 1))
+</XMP>
+
+<DT><TT>abs</TT> -- 
+The term <TT>(abs <TT><B>t</B></TT>)</TT> denotes the absolute value of the
+object denoted by <TT><B>t</B></TT>. <P>
+
+<XMP>
+    (deffunction abs (?x) :=
+      (if (>= ?x 0) ?x (- ?x)))
+</XMP>
+
+<DT><TT>ceiling</TT> -- 
+If <TT><B>t</B></TT> denotes a real number, then the term <TT>(ceiling
+<TT><B>t</B></TT>)</TT> denotes the smallest integer greater than or equal to
+the number denoted by <TT><B>t</B></TT>.<P>
+
+<DT><TT>denominator</TT> -- 
+The term <TT>(denominator <TT><B>t</B></TT>)</TT> denotes the denominator of
+the canonical reduced form of the object denoted by <TT><B>t</B></TT>.<P>
+
+<P>
+
+<DT><TT>expt</TT> -- 
+The term <TT>(expt <TT><B>t1</B></TT> <TT><B>t2</B></TT>)</TT> denotes the
+object denoted by <TT><B>t1</B></TT> raised to the power the object denoted by
+<TT><B>t2</B></TT>.<P>
+
+<P>
+
+<DT><TT>floor</TT> -- 
+The term <TT>(floor <TT><B>t</B></TT>)</TT> denotes the largest integer less
+than the object denoted by <TT><B>t</B></TT>.<P>
+
+<P>
+
+<DT><TT>gcd</TT> -- 
+The term <TT>(gcd <B>t1</B> ... <B>tn</B>)</TT> denotes the greatest common
+divisor of the objects denoted by <TT><B>t1</B></TT> through <TT><B>tn</B></TT>.<P>
+
+<P>
+
+<DT><TT>imagpart</TT> -- 
+The term <TT>(imagpart <TT><B>t</B></TT>)</TT> denotes the imaginary part of
+the object denoted by <TT><B>t</B></TT>.<P>
+
+<P>
+
+<DT><TT>lcm</TT> -- 
+The term <TT>(lcm <B>t1</B> ... <B>tn</B>)</TT> denotes the least common
+multiple of the objects denoted by <B>t1</B>,...,<B>tn</B>.
+
+<P>
+
+<DT><TT>log</TT> -- 
+The term <TT>(log <TT><B>t1</B></TT> <TT><B>t2</B></TT>)</TT> denotes the logarithm of the
+object denoted by <TT><B>t1</B></TT> in the base denoted by <TT><B>t2</B></TT>.<P>
+
+<P>
+
+<DT><TT>max</TT> -- 
+The term <TT>(max <B>t1</B> ... <B>tk</B>)</TT> denotes the largest object
+denoted by <TT><B>t1</B></TT> through <TT><B>tn</B></TT>.
+
+<P>
+
+<DT><TT>min</TT> -- 
+The term <TT>(min <B>t1</B> ... <B>tk</B>)</TT> denotes the smallest
+object denoted by <TT><B>t1</B></TT> through <TT><B>tn</B></TT>.
+
+<P>
+
+<DT><TT>mod</TT> -- 
+The term <TT>(mod <TT><B>t1</B></TT> <TT><B>t2</B></TT>)</TT> denotes the root of the object
+denoted by <TT><B>t1</B></TT> modulo the object denoted by <TT><B>t2</B></TT>.
+The result will have the same sign as denoted by <TT><B>t1</B></TT>.<P>
+
+<DT><TT>numerator</TT> -- 
+The term <TT>(numerator <TT><B>t</B></TT>)</TT> denotes the numerator of the canonical reduced form of
+the object denoted by <TT><B>t</B></TT>.<P>
+
+<DT><TT>realpart</TT> -- 
+The term <TT>(realpart <TT><B>t</B></TT>)</TT> denotes the real part of the object denoted by <TT><B>t</B></TT>.<P>
+
+<DT><TT>rem</TT> -- 
+The term <TT>(rem <B>t1</B> <B>t2</B>)</TT> denotes the remainder of the object
+denoted by <TT><B>t1</B></TT> divided by the object denoted by
+<TT><B>t2</B></TT>. The result has the same sign as the object denoted by
+<TT><B>t2</B></TT>.<P>
+
+<DT><TT>round</TT> -- 
+The term <TT>(round <TT><B>t</B></TT>)</TT> denotes the integer nearest to the object denoted by <TT><B>t</B></TT>.
+If the object denoted by <TT><B>t</B></TT> is halfway between two integers (for example 3.5),
+it denotes the nearest integer divisible by <B>2</B>.<P>
+
+<DT><TT>sqrt</TT> -- 
+The term <TT>(sqrt <TT><B>t</B></TT>)</TT> denotes the principal square root of the object denoted by <TT><B>t</B></TT>.<P>
+
+<DT><TT>truncate</TT> -- 
+The term <TT>(truncate <TT><B>t</B></TT>)</TT> denotes the largest integer less than the object denoted
+by <TT><B>t</B></TT>.<P>
+
+<H4><A NAME="7.3">7.3 Relations on Numbers</A></H4>
+
+<DT><TT>integer</TT> -- 
+The sentence <TT>(integer <TT><B>t</B></TT>)</TT> means that the object denoted by
+<TT><B>t</B></TT> is an integer.<P>
+
+<DT><TT>real</TT> -- 
+The sentence <TT>(real <TT><B>t</B></TT>)</TT> means that the object denoted by
+<TT><B>t</B></TT> is a real number.<P>
+
+<DT><TT>complex</TT> -- 
+The sentence <TT>(complex <TT><B>t</B></TT>)</TT> means that the object denoted by
+<TT><B>t</B></TT> is a complex number.<P>
+
+<XMP>
+    (defrelation number (?x) :=
+      (or (real ?x) (complex ?x)))
+</XMP>
+
+<XMP>
+    (defrelation natural (?x) :=
+      (and (integer ?x) (>= ?x 0)))
+</XMP>
+
+<XMP>
+    (defrelation rational (?x) :=
+      (exists (?y) (and (integer ?y) (integer (* ?x ?y)))))
+</XMP>
+
+<P><DT><TT>approx</TT> -- 
+The sentence <TT>(approx <TT><B>t1</B></TT> <TT><B>t2</B></TT>
+<TT><B>t</B></TT>)</TT> is true if and only if the number denoted by
+<TT><B>t1</B></TT> is "approximately equal" to the number denoted by
+<TT><B>t2</B></TT>, i.e. the absolute value of the difference between
+the numbers denoted by <TT><B>t1</B></TT> and <TT><B>t2</B></TT> is less than or
+equal to the number denoted by <TT><B>t</B></TT>.
+
+<P><DT><TT>&lt</TT> -- 
+The sentence <TT>(< <TT><B>t1</B></TT> <TT><B>t2</B></TT>)</TT> is true if and only if the number denoted by
+<TT><B>t1</B></TT> is less than the number denoted by <TT><B>t2</B></TT>.
+
+<XMP>
+    (defrelation > (?x ?y) :=
+      (< ?y ?x))
+</XMP>
+
+<XMP>
+    (defrelation =< (?x ?y) :=
+      (or (= ?x ?y) (< ?x ?y)))
+</XMP>
+
+<XMP>
+    (defrelation >= (?x ?y) :=
+      (or (> ?x ?y) (= ?x ?y)))
+</XMP>
+
+<XMP>
+    (defrelation positive (?x) :=
+      (> ?x 0))
+</XMP>
+
+<XMP>
+    (defrelation negative (?x) :=
+      (< ?x 0))
+</XMP>
+
+<XMP>
+    (defrelation zero (?x) :=
+      (= ?x 0))
+</XMP>
+
+<XMP>
+    (defrelation odd (?x) :=
+      (integer (/ (+ ?x 1) 2))
+</XMP>
+
+<XMP>
+    (defrelation even (?x) :=
+      (integer (/ ?x 2))
+</XMP>
+
+</DL>
+
+<P><HR>
+
+<H2><A NAME="Lists">8 Lists</A></H2>
+
+A <I>list</I> is a finite sequence of objects.  Any objects in the universe
+of discourse may be elements of a list.<P>
+
+In KIF, we use the term <TT>(listof <B>t1</B> ... <B>tk</B>)</TT> to denote
+the list of objects denoted by <TT><B>t1</B></TT>, ..., <TT><B>tk</B></TT>.  For example,
+the following expression denotes the list of an object named <TT>mary</TT>, a
+list of objects named <TT>tom</TT>, <TT>dick</TT>, and <TT>harry</TT>, and an
+object named <TT>sally</TT>.<P>
+
+<CENTER>
+<TT>(listof mary (listof tom dick harry) sally)</TT><P>
+</CENTER>
+
+The relation <TT>list</TT> is the type predicate for lists.  An object
+is a list if and only if there is a corresponding expression involving the <TT>
+listof</TT> operator.<P>
+
+<PRE>
+    (defrelation list (?x) :=
+      (exists (@l) (= ?x (listof @l))))
+</PRE>
+
+The object constant <TT>nil</TT> denotes the empty list.  <TT>null</TT> tests
+whether or not an object is the empty list.  The relation constants <TT>
+single</TT>, <TT>double</TT>, and <TT>triple</TT> allow us to assert the
+length of lists containing one, two, and three elements, respectively.<P>
+
+<XMP>
+    (defobject nil := (listof))
+
+    (defrelation null (?l) :=
+      (= ?l (listof)))
+
+    (defrelation single (?l) :=
+      (exists (?x) (= ?l (listof ?x))))
+
+    (defrelation double (?l) :=
+      (exists (?x ?y) (= ?l (listof ?x ?y))))
+
+    (defrelation triple (?l) :=
+      (exists (?x ?y ?z) (= ?l (listof ?x ?y ?z))))
+</XMP>
+
+The functions <TT>first</TT>, <TT>rest</TT>, <TT>last</TT>, and
+<TT>butlast</TT> each take a single list as argument and select individual
+items or sublists from those lists.<P>
+
+<XMP>
+    (deffunction first (?l) :=
+      (if (= (listof ?x @items) ?l) ?x)
+
+    (deffunction rest (?l) :=
+      (cond ((null ?l) ?l)
+            ((= ?l (listof ?x @items)) (listof @items))))
+
+    (deffunction last (?l) :=
+      (cond ((null ?l) bottom)
+            ((null (rest ?l)) (first ?l))
+            (true (last (rest ?l)))))
+
+    (deffunction butlast (?l) :=
+      (cond ((null ?l) bottom)
+            ((null (rest ?l)) nil)
+            (true (cons (first ?l) (butlast (rest ?l))))))
+</XMP>
+
+The sentence <TT>(item <B>t1</B> <B>t2</B>)</TT> is true if and only if
+the object denoted by <TT><B>t2</B></TT> is a non-empty list and the object
+denoted by <TT><B>t1</B></TT> is either the first item of that list or an item in
+the rest of the list.<P>
+
+<XMP>
+    (defrelation item (?x ?l) :=
+      (and (list ?l)
+           (not (null ?l))
+           (or (= ?x (first ?l)) (item ?x (rest ?l)))))
+</XMP>
+
+The sentence <TT>(sublist <B>t1</B> <B>t2</B>)</TT> is true if and only if
+the object denoted by <TT><B>t1</B></TT> is a final segment of the list denoted by
+<TT><B>t2</B></TT>.<P>
+
+<XMP>
+    (defrelation sublist (?l1 ?l2) :=
+      (and (list ?l1)
+           (list ?l2)
+           (or (= ?l1 ?l2)
+               (sublist ?l1 (rest ?l2)))))
+</XMP>
+
+The function <TT>cons</TT> adds the object specified as its first
+argument to the front of the list specified as its second argument.<P>
+
+<XMP>
+    (deffunction cons (?x ?l) :=
+      (if (= ?l (listof @l)) (listof ?x @l)))
+</XMP>
+
+The function <TT>append</TT> adds the items in the list specified as its first
+argument to the list specified as its second argument.  The function
+<TT>revappend</TT> is similar, except that it adds the items in reverse
+order.<P>
+
+<XMP>
+    (deffunction append (?l1 ?l2) :=
+      (cond ((null ?l1) (if (list ?l2) ?l2))
+            ((list ?l1) (cons (first ?l1) (append (rest ?l1) ?l2)))))
+
+    (deffunction revappend (?l1 ?l2) :=
+      (cond ((null ?l1) (if (list ?l2) ?l2))
+            ((list ?l1) (revappend (rest ?l1) (cons (first ?l1) ?l2))))) 
+</XMP>
+
+The function <TT>reverse</TT> produces a list in which the order of items is
+the reverse of that in the list supplied as its single argument.<P>
+
+<XMP>
+    (deffunction reverse (?l) :=
+      (revappend ?l (listof))) 
+</XMP>
+
+The functions <TT>adjoin</TT> and <TT>remove</TT> construct lists by adding or
+removing objects from the lists specified as their arguments.<P>
+
+<XMP>
+    (deffunction adjoin (?x ?l) :=
+      (if (item ?x ?l) ?l (cons ?x ?l)))
+
+    (deffunction remove (?x ?l) :=
+      (cond ((null ?l) nil)
+            ((and (= ?x (first ?l)) (list ?l))
+             (remove ?x (rest ?l)))
+            ((list ?l) (cons ?x (remove ?x (rest ?l))))))
+</XMP>
+
+The value of <TT>subst</TT> is the object or list obtained by substituting the
+object supplied as first argument for all occurrences of the object supplied
+as second argument in the object or list supplied as third argument.<P>
+
+<XMP>
+    (deffunction subst (?x ?y ?z) :=
+      (cond ((= ?y ?z) ?x)
+            ((null ?z) nil)
+            ((list ?z) (cons (subst ?x ?y (first ?z))
+                             (subst ?x ?y (rest ?z))))
+            (true ?z)))
+</XMP>
+
+The function constant <TT>length</TT> gives the number of items in a list. 
+<TT>nth</TT> returns the item in the list specified as its first argument in
+the position specified as its second argument.  <TT>nthrest</TT> returns the
+list specified as its first argument minus the first <B>n</B> items, where
+<B>n</B> is the number specified as its second argument.<P>
+
+<XMP>
+    (deffunction length (?l) :=
+       (cond ((null ?l) 0)
+             ((list ?l) (1+ (length (rest ?l))))))
+
+    (deffunction nth (?l ?n) :=
+       (cond ((= ?n 1) (first ?l))
+             ((and (list ?l) (positive ?n)) (nth (rest ?l) (1- ?n)))))
+
+    (deffunction nthrest (?l ?n) :=
+      (cond ((= ?n 0) (if (list ?l) ?l))
+            ((and (list ?l) (positive ?n)) (nthrest (rest ?l) (1- ?n)))))
+</XMP>
+
+<P><HR>
+
+<H2><A NAME="Strings">9 Characters and Strings</A></H2>
+
+<H4><A NAME="9.1">9.1 Characters</A></H4>
+
+A character is a printed symbol, such as a digit or a letter.  There are
+128 distinct characters known to KIF, corresponding to the 128 possible
+combinations of bits in the ASCII encoding.  In KIF, there are two ways to
+refer to characters.<P>
+
+The first method is use of <TT><B>charref</B></TT> syntax, i.e. the
+characters <TT>#</TT> and <TT>\</TT>, followed by the character to be
+represented.<P>
+
+While this method works for all 128 characters, it is less than ideal for
+documents like this one, because of the difficulty of writing out
+non-printing characters.  Using this method, it is also difficult to assert
+properties of some classes of characters.  For this reason, KIF supports an
+alternative method of specification, viz. the use of the 7 bit code
+corresponding to the character.
+
+The relationship between characters and their numerical codes is given via
+the functions <TT>char-code</TT> and <TT>code-char</TT>.  The former maps
+the nth character <TT><B>cn</B></TT> into the corresponding 7-bit integer
+<TT><B>n</B></TT>, and the latter maps a 7-bit integer <TT><B>n</B></TT>
+into the corresponding character <TT><B>cn</B></TT>.  The values of these
+functions on all other arguments are undefined.<P>
+
+<PRE>
+    (= (char-code #\<B>cn</B>) <B>n</B>)
+
+    (= (code-char <B>n</B>) #\<B>cn</B>)
+</PRE>
+
+The relation constant <TT>character</TT> is true of the characters of KIF
+and no other objects.<P>
+
+<XMP>
+    (defrelation character (?x) :=
+      (exists ((?n natural-number))
+        (and (>= ?n 0) (< ?n 128) (= (code-char ?n) ?x))))
+</XMP>
+
+<H4><A NAME="9.2">9.2 Strings</A></H4>
+
+A <I>string</I> is a list of characters.<P>
+
+One way of referring to strings is through the use of the
+<TT><B>string</B></TT> syntax described in chapter 4.  In this
+method, we refer to the string <TT>abc</TT> by enclosing it in double
+quotes, i.e. <TT>"abc"</TT>.<P>
+
+A second way is through the use of character blocks, the
+<TT><B>block</B></TT> syntax described in chapter 4.  In this
+method, we refer to the string <TT>abc</TT> by prefixing with the
+character <TT>#</TT>, a positive integer indicating the length, the letter
+<TT>q</TT>, and the characters of the string, i.e. <TT>#3qabc</TT><P>
+
+A third way of referring to strings is to use the <TT>listof</TT>
+function.  For example, we can denote the string <TT>abc</TT> by
+a term of the form <TT>(listof #\a #\b #\c)</TT>.<P>
+
+The advantage of the <TT>listof</TT> representation over the preceding
+representations is that it allows us to quantify over characters within
+strings.  For example, the following sentence says that all 3 character
+strings beginning with <TT>a</TT> and ending with <TT>a</TT> are nice.<P>
+
+<XMP>
+    (=> (character ?y) (nice (listof #\a ?y #\a)))
+</XMP>
+
+From this sentence, we can infer that various strings are nice.
+<XMP>
+    (nice (listof #\a #\a #\a))
+    (nice "aba")
+    (nice #\Qaca)
+</XMP>
+
+<P><HR>
+
+<H2><A NAME="Metaknowledge">10 Metaknowledge</A></H2>
+
+<H4><A NAME="10.1">10.1 Naming Expressions</A></H4>
+
+In formalizing knowledge about knowledge, we use a conceptualization in which
+expressions are treated as objects in the universe of discourse and in which
+there are functions and relations appropriate to these objects.  In our
+conceptualization, we treat atoms as primitive objects (i.e. having
+no subparts).  We conceptualize complex expressions (i.e. non-atoms) as lists of
+subexpressions (either atoms or other complex expressions).  In particular,
+every complex expression is viewed as a list of its immediate subexpressions.<P>
+
+For example, we conceptualize the sentence <TT>(not (p (+ a b c) d))</TT> as a
+list consisting of the operator <TT>not</TT> and the sentence <TT>(p (+ a b c)
+d)</TT>.  This sentence is treated as a list consisting of the relation constant
+<TT>p</TT> and the terms <TT>(+ a b c)</TT> and <TT>d</TT>.  The first of these
+terms is a list consisting of the function constant <TT>+</TT> and the object
+constants <TT>a</TT>, <TT>b</TT>, and <TT>c</TT>.<P>
+
+For Lisp programmers, this conceptualization is relatively obvious, but it
+departs from the usual conceptualization of formal languages taken in the
+mathematical theory of logic.  It has the disadvantage that we cannot describe
+certain details of syntax such as parenthesization and spacing (unless we
+augment the conceptualization to include string representations of expressions
+as well).  However, it is far more convenient for expressing properties of
+knowledge and inference than string-based conceptualizations.<P>
+
+In order to assert properties of expressions in the language, we need a way of
+referring to those expressions.  There are two ways of doing this in KIF.<P>
+
+One way is to use the <TT>quote</TT> operator in front of an expression.  To
+refer to the symbol <TT>john</TT>, we use the term <TT>'john</TT> or,
+equivalently, <TT>(quote john)</TT>.  To refer to the expression <TT>(p a
+b)</TT>, we use the term <TT>'(p a b)</TT> or, equivalently, <TT>(quote (p a
+b))</TT>.<P>
+
+With a way of referring to expressions, we can assert their properties.  For
+example, the following sentence ascribes to the individual named <TT>john</TT>
+the belief that the moon is made of a particular kind of blue cheese.<P>
+
+<PRE>
+    (believes john '(material moon stilton))
+</PRE>
+
+Note that, by nesting quotes within quotes, we can talk about quoted
+expressions.  In fact, we can write towers of sentences of arbitrary heights, in
+which the sentences at each level talk about the sentences at the lower levels.<P>
+
+Since expressions are first-order objects, we can quantify over them, thereby
+asserting properties of whole classes of sentences.  For example, we could say
+that Mary believes everything that John believes.  This fact together with the
+preceding fact allows us to conclude that Mary also believes the moon to be made
+of blue cheese.<P>
+
+<PRE>
+    (=> (believes john ?p) (believes mary ?p))
+</PRE>
+
+The second way of referring to expressions is KIF is to use the <TT>listof</TT>
+function.  For example, we can denote a complex expression like <TT>(p a b)</TT>
+by a term of the form <TT>(listof 'p 'a 'b)</TT>, as well as <TT>'(p
+a b)</TT>.<P>
+
+The advantage of the <TT>listof</TT> representation over the <TT>quote</TT>
+representation is that it allows us to quantify over parts of expressions.  For
+example, let us say that Lisa is more skeptical than Mary.  She agrees with
+John, but only on the composition of things.  The first sentence below asserts
+this fact without specifically mentioning <TT>moon</TT> or <TT>stilton</TT>. 
+Thus, if we were to later discover that John thought the sun to be made of chili
+peppers, then Lisa would be constrained to believe this as well.<P>
+
+<PRE>
+    (=> (believes john (listof 'material ?x ?y))
+        (believes lisa (listof 'material ?x ?y)))
+</PRE>
+
+While the use of <TT>listof</TT> allows us to describe the structure of
+expressions in arbitrary detail, it is somewhat awkward.  For example, the term
+<TT>(listof 'material ?x ?y)</TT> is somewhat awkward.  Fortunately, we can
+eliminate this difficulty using uparrow and comma.  Rather than using the
+<TT>listof</TT> function constant as described above, we write the expression
+preceded by the uparrow character <TT>^</TT> and add a comma character
+<TT>,</TT> in front of any subexpression that is not to be taken literally.  For
+example, we would rewrite the preceding sentence as follows.<P>
+
+<PRE>
+    (=> (believes john ^(material ,?x ,?y))
+        (believes lisa ^(material ,?x ,?y)))
+</PRE>
+
+<H4><A NAME="10.2">10.2 Types of Expressions</A></H4>
+
+In order to facilitate the encoding of knowledge about KIF, the language
+includes type relations for the various syntactic categories defined in
+chapter~4.<P>
+
+For every individual variable <TT><B>v</B></TT>, there is an axiom asserting that
+it is indeed an individual variable.  Each such axiom is a defining axiom for the
+<TT>indvar</TT> relation.<P>
+
+<PRE>
+    (indvar (quote <B>v</B>))
+</PRE>
+
+For every sequence variable <TT><B>s</B></TT>, there is an axiom asserting that
+it is a sequence variable.  Each such axiom is a defining axiom for the
+<TT>seqvar</TT> relation.<P>
+
+<PRE>
+    (indvar (quote <B>s</B>))
+</PRE>
+
+For every word <TT><B>w</B></TT>, there is an axiom asserting that it is a
+word.  Each such axiom is a defining axiom for the <TT>word</TT>
+relation.<P>
+
+<PRE>
+    (word (quote <B>w</B>))
+</PRE>
+
+Using this basic vocabulary and our vocabulary for lists, it is possible to
+define type relations for all types of syntactic expressions in KIF.<P>
+
+<H4><A NAME="10.3">10.3 Changing Levels of Denotation</A></H4>
+
+Logicians frequently use axiom schemata to encode (potentially infinite) sets of
+sentences with particular syntactic properties.  As an example, consider the
+axiom schema shown below, where we are told that <TT><B>r</B></TT> stands for an
+arbitrary relation constant.<P>
+
+<PRE>
+    (=> (and (<B>r</B> 0) (forall (?n) (=> (<B>r</B> ?n) (<B>r</B> (1+ ?n)))))
+        (forall (?n) (<B>r</B> ?n)))
+</PRE>
+
+This schema encodes infinitely many sentences, the principle of mathematical
+induction for named relations.  The following sentences are instances.<P>
+
+<PRE>
+    (=> (and (p 0) (forall (?n) (=> (p ?n) (p (1+ ?n)))))
+        (forall (?n) (p ?n)))
+
+    (=> (and (q 0) (forall (?n) (=> (q ?n) (q (1+ ?n)))))
+        (forall (?n) (q ?n)))
+</PRE>
+
+Axiom schemata are differentiated from axioms due to the presence of
+metavariables or other metalinguistic notation (such as dots or star notation),
+together with conditions on the variables.  They <I>describe</I> sentences in a
+language, but they are not themselves sentences in the language.  As a result,
+they cannot be manipulated by procedures designed to process the language
+(presentation, storage, communication, deduction, and so forth) but instead must
+be hard coded into those procedures.<P>
+
+As we have seen, it is possible in KIF to write expressions that describe KIF
+sentences.  As it turns out, there is also a way to write sentences that assert
+the truth of the sentences so described.  The effect of adding such metalevel
+sentences to a knowledge base is the same as directly including the (potentially
+infinite) set of described sentences in the knowledge base.<P>
+
+The use of such a language simplifies the construction of knowledge-based
+systems, since it obviates the need for building axiom schemata into deductive
+procedures.  It also makes it possible for systems to exchange axiom schemata
+with each other and thereby promotes knowledge sharing.<P>
+
+The KIF truth predicate is called <TT>wtr</TT> (which stands for ``weakly
+true'').  For example, we can say that a sentence of the form <TT>(=> (p ?x) (q
+?x))</TT> is true by writing the following sentence.<P>
+
+<PRE>
+    (wtr '(=> (p ?x) (q ?x)))
+</PRE>
+
+This may seem of limited utility, since we can just write the sentence denoted
+by the argument as a sentence in its own right.  The advantage of the
+metanotation becomes clear when we need to quantify over sentences, as in the
+encoding of axiom schemata.  For example, we can say that every sentence of the
+form <TT>(=> <B>p</B> <B>p</B>)</TT> is true with the following sentence.  (The
+relation <TT>sentence</TT> can easily be defined in terms of <TT>quote</TT>,
+<TT>listof</TT>, <TT>indvar</TT>, <TT>seqvar</TT>, and <TT>word</TT>.<P>
+
+<PRE>
+    (=> (sentence ?p) (wtr ^(=> ,?p ,?p)))
+</PRE>
+
+Semantically, we would like to say that a sentence of the form <TT>(wtr
+'<B>p</B>)</TT> is true if and only if the sentence <TT><B>p</B></TT> is
+true.  Unfortunately, this causes serious problems.  Equating a truth function
+with the meaning it ascribes to <TT>wtr</TT> quickly leads to paradoxes.  The
+English sentence ``This sentence is false.'' illustrates the paradox.  We
+can write this sentence in KIF as shown below.  The sentence, in effect,
+asserts its own negation.<P>
+
+<PRE>
+    (wtr (subst (name ^(subst (name x) ^x ^(truth ,x)))
+                ^x
+                ^(not (wtr (subst (name x) ^x ^(not (wtr ,x)))))))
+</PRE>
+
+No matter how we interpret this sentence, we get a contradiction.  If we assume
+the sentence is true, then we have a problem because the sentence asserts its
+own falsity.  If we assume the sentence is false, we also have a problem
+because the sentence then is necessarily true.<P>
+
+Fortunately, we can circumvent such paradoxes by slightly modifying the proposed
+definition of <TT>wtr</TT>.  In particular, we have the following axiom schema
+for all <TT><B>p</B></TT> that do <I>not</I> contain any occurrences of
+<TT>wtr</TT>.  For all <TT><B>p</B></TT> that <I>do</I> contain occurrences,
+<TT>wtr</TT> is false.<P>
+
+<PRE>
+    (<=> (wtr '<B>p</B>) <B>p</B>)
+</PRE>
+
+With this modified definition, the paradox described above disappears, yet we
+retain the ability to write virtually all useful axiom schemata as metalevel
+axioms.<P>
+
+From the point of view of formalizing truth, <TT>wtr</TT> is a cheat, since it
+fails to cover those interesting cases where sentences contain the truth
+predicate.  However, from the point of view of capturing axiom schemata
+<I>not</I> involving the truth predicate, it works just fine.  Furthermore,
+unlike the  solutions to the problem of formalizing truth, the framework
+presented here is easy for users to understand, and it is easy to implement.<P>
+
+Two other constants round out KIF's level-crossing vocabulary.<P>
+
+The term <TT>(denotation <B>t</B>)</TT> denotes the object denoted by the object
+denoted by <TT><B>t</B></TT>.  A quotation denotes the quoted expression; the
+denotation of any other object is <TT>bottom</TT>.  As with <TT>wtr</TT>, the
+dentotation of a quoted expression is the embedded expression, provided that the
+expression does not contain any occurrences of <TT>denotation</TT>.  Otherwise,
+the value is undefined.<P>
+
+<PRE>
+    (= (denotation '<B>t</B>) <B>t</B>)
+</PRE>
+
+The term <TT>(name <B>t</B>)</TT> denotes the standard name for the object
+denoted by the term <TT><B>t</B></TT>.  The standard name for an expression
+<TT><B>t</B></TT> is <TT>(quote <B>t</B>)</TT>; the standard name for a
+non-expression is at the discretion of the user.  (Note that there are only a
+countable number of terms in KIF, but there can be worlds with uncountable
+cardinality; consequently, it is not always possible for every object to have a
+unique name.)<P>
+
+<P><HR>
+
+<H2><A NAME="Infix">11 Infix Syntax</A></H2>
+
+<H4><A NAME="11.1">11.1 Introduction</A></H4>
+
+<P>Infix KIF is a syntactic variant of prefix KIF using infix syntax.  For every
+expression in Infix KIF, there is a logically equivalent expression in KIF. 
+However, the reverse is not true; some KIF expressions have been dropped for
+simplicity, eg. complex conditionals, complex variable specifications in
+quantified sentences, and documentation strings in definitions.
+
+<P>This chapter gives the full grammar for Infix KIF using nonterminals similar
+to those in the specification of Prefix KIF.  (A few extra nonterminals are used
+here to define the more complicated syntax of Infix KIF.)  This parallel
+treatment of nonterminals conveys the relationship between the two syntaxes.
+
+<P>Note that Infix KIF is NOT intended for use in the exchange of knowledge
+between computers.  It is provided solely for consumption by humans, in articles
+about KIF and possibly in knowledge base editors.  Prefix KIF is preferred for
+exchange of knowledge between machines.  Its simpler syntax makes it easier to
+write parsers and makes it possible to write parsers that are more efficient.
+
+<H4><A NAME="11.2">11.2 Characters</A></H4>
+
+<PRE><B>
+    upper ::= </B>A<B> | </B>B<B> | </B>C<B> | </B>D<B> | </B>E<B> | </B>F<B> | </B>G<B> | </B>H<B> | </B>I<B> | </B>J<B> | </B>K<B> | </B>L<B> | </B>M<B> | 
+              </B>N<B> | </B>O<B> | </B>P<B> | </B>Q<B> | </B>R<B> | </B>S<B> | </B>T<B> | </B>U<B> | </B>V<B> | </B>W<B> | </B>X<B> | </B>Y<B> | </B>Z<B>
+
+    lower ::= </B>a<B> | </B>b<B> | </B>c<B> | </B>d<B> | </B>e<B> | </B>f<B> | </B>g<B> | </B>h<B> | </B>i<B> | </B>j<B> | </B>k<B> | </B>l<B> | </B>m<B> | 
+              </B>n<B> | </B>o<B> | </B>p<B> | </B>q<B> | </B>r<B> | </B>s<B> | </B>t<B> | </B>u<B> | </B>v<B> | </B>w<B> | </B>x<B> | </B>y<B> | </B>z<B>
+
+    digit ::= </B>0<B> | </B>1<B> | </B>2<B> | </B>3<B> | </B>4<B> | </B>5<B> | </B>6<B> | </B>7<B> | </B>8<B> | </B>9<B>
+
+    alpha ::= </B>$<B> | </B>%<B> | </B>?<B> | </B>@<B> | </B>_<B>
+
+    special ::= </B>"<B> | </B>#<B> | </B>'<B> | </B>(<B> | </B>)<B> | </B>,<B> | </B>\<B> | </B>^<B> | </B>`<B> | </B>|<B>
+                </B>!<B> | </B>&<B> | </B>*<B> | </B>+<B> | </B>-<B> | </B>.<B> | </B>/<B> | </B><<B> | </B>=<B> | </B>><B> | </B>~<B> 
+
+    white ::= space | tab | return | linefeed | page
+
+    normal ::= upper | lower | digit | alpha
+</B></PRE>
+
+<H4><A NAME="11.3">11.3 Lexemes</A></H4>
+
+<PRE><B>
+    word ::= normal | word normal | word</B>\<B>character
+
+    charref ::= </B>#\<B>character
+
+    string ::= </B>"<B>quotable</B>"<B>
+
+    quotable ::= empty | quotable strchar | quotable</B>\<B>character
+
+    strchar ::= character - {</B>"<B>,</B>\<B>}
+
+    block ::= </B>#<B> int(n) </B>q<B> character^n | </B>#<B> int(n) </B>Q<B> character^n
+
+    variable ::= upper word
+
+    operator ::= termop | sentop | defop
+
+    termop ::= </B>listof<B> | </B>quote<B> | </B>if<B>
+
+    sentop ::= </B>=<B> | </B>/=<B> | </B>not<B> | </B>and<B> | </B>or<B> | </B>=><B> | </B><=<B> | </B><=><B> |
+               </B>forall<B> | </B>exists<B>
+
+    defop ::= </B>defobject<B> | </B>defunction<B> | </B>defrelation<B> | </B>deflogical<B> |
+              </B>:=<B> | </B>:-><B> | </B>:<=<B> | </B>:=><B>
+
+    constant ::= word - variable - operator
+
+    atom ::= word | charref | string | block
+</B></PRE>
+
+<H4><A NAME="11.4">11.4 Expressions</A></H4>
+
+<P>The following BNF grammar defines the legal expressions in Infix KIF.  Note that
+parentheses are specified only where essential.  It is permissible to add
+parentheses, in pairs, around any term or sentence, in order to specify a
+particular association of expressions.  In the absence of parentheses, parsers are
+required to associate to the right.
+
+<PRE><B>
+    term ::= indvar | constant | charref | string | block |
+             funterm | listterm | quoterm | logterm
+
+    terms ::= empty | termlist | termlist </B>;<B> seqvar
+
+    termlist ::= term | term </B>,<B> termlist
+
+    funterm ::= constant</B>(<B>terms</B>)<B>
+
+    listterm ::= </B>[<B>terms</B>]<B>
+
+    quoterm ::= </B>'<B>expr</B>'<B>
+
+    expr ::= atom | </B>[<B></B>]<B> | </B>[<B>exprlist</B>]<B>
+
+    exprlist ::= expr | expr </B>,<B> exprlist
+
+    logterm ::= </B>if(<B>loglist</B>)<B> | </B>if(<B>loglist</B>,<B>term</B>)<B>
+
+    loglist ::= sentence </B>,<B> term | sentence </B>,<B> term </B>,<B> loglist
+
+
+
+    sentence ::= constant | equation | inequality | 
+                 relsent | logsent | quantsent
+
+    sentencelist ::= sentence | sentence </B>,<B> sentencelist
+
+    equation ::= term</B>=<B>term
+
+    inequality ::= term</B>/=<B>term
+
+    relsent ::= constant</B>(<B>terms</B>)<B>
+
+    logsent ::= </B>~<B>sentence
+                sentence </B>&<B> sentence |
+                sentence </B>|<B> sentence |
+                sentence </B>=><B> sentence |
+                sentence </B><=<B> sentence |
+                sentence </B><=><B> sentence
+
+    quantsent ::= </B>A<B>variable</B>).<B>sentence |
+                  </B>E<B>variable</B>).<B>sentence
+
+    vars ::= empty | varlist | varlist </B>;<B> seqvar
+
+    varlist ::= indvar | indvar </B>,<B> varlist
+
+
+
+    definition ::= unrestricted | complete | partial
+
+    unrestricted ::=
+      </B>defobject(<B>constant</B>,<B>sentencelist</B>)<B> |
+      </B>deffunction(<B>constant</B>,<B>sentencelist</B>)<B> |
+      </B>defrelation(<B>constant</B>,<B>sentencelist</B>)<B> |
+      </B>deflogical(<B>constant</B>,<B>sentencelist</B>)<B>
+
+    complete ::=
+      </B>defobject(<B>constant</B> := <B>term</B>)<B> |
+      </B>deffunction(<B>constant</B>(<B>vars</B>) := <B>term</B>)<B> |
+      </B>defrelation(<B>constant</B>(<B>vars</B>) := <B>sentence</B>)<B> |
+      </B>deflogical(<B>constant</B> := <B>sentence</B>)<B>
+
+    partial ::=
+      </B>defobject(<B>constant</B> :-> <B>indvar</B> :<= <B>sentence</B>)<B> |
+      </B>defobject(<B>constant</B> :-> <B>indvar</B> :=> <B>sentence</B>)<B> |
+      </B>deffunction(<B>constant</B>(<B>vars</B>) :-> <B>indvar</B> :<= <B>sentence</B>)<B> |
+      </B>deffunction(<B>constant</B>(<B>vars</B>) :-> <B>indvar</B> :=> <B>sentence</B>)<B> |
+      </B>defrelation(<B>constant</B>(<B>vars</B>) :<= <B>sentence</B>)<B> |
+      </B>defrelation(<B>constant</B>(<B>vars</B>) :=> <B>sentence</B>)<B> |
+      </B>deflogical(<B>constant</B> :<= <B>sentence</B>)<B>
+      </B>deflogical(<B>constant</B> :=> <B>sentence</B>)<B>
+
+    form ::= sentence | definition
+</B></PRE>
+
+<P>As with prefix KIF, a <I>knowledge base</I> in Infix KIF is a finite set of
+forms, not a sequence, though, as with Prefix KIF, there may be heursitic value in
+the order.
+
+<P><HR>
+
+<H2><A NAME="Conformance">12 Conformance</A></H2>
+
+<H4><A NAME="12.1">12.1 Introduction</A></H4>
+
+<P>KIF is a highly expressive language.  For many, this is a desirable feature;
+but there are disadvantages.  One disadvantage is that it complicates the job of
+building fully conforming systems.  Another disdvantage is that the resulting
+systems tend to be "heavyweight" (i.e. they are larger and in some cases less
+efficient than systems that employ more restricted languages).
+
+<P>In order to deal with these problems, the KIF committee in the Fall of 1997
+voted to augment the basic language specification with a set of "conformance
+dimensions".  These dimensions are not the same as the "conformance levels" of
+other languages.  Rather, each conformance dimension has a variety of levels
+within that dimension.
+
+<P>A "conformance profile" is a selection of alternatives from each conformance
+dimension.  System builders are expected to make choices for each dimension and
+and then ensure that their systems adhere to the resulting comformance profile. 
+Systems are expected to use the terminology defined here to share information
+about their conformance profile with other systems (in a protocol-specific
+manner).
+
+<P>Although this conformance profile scheme is more complex than one based
+on  conformance levels, it accommodates varying capabilities and/or
+computational constraints while providing a migration path from more restrictive
+to more expressive.
+
+<H4><A NAME="12.2">12.2 Conformance Dimensions</A></H4>
+
+<H4>12.2.1 Introduction</H4>
+
+<P>A <B>conformance dimension</B> is a classification of KIF sentences into
+<B>conformance categories</B> on the basis of a single syntactic criterion.  (For
+example, the quantification dimension provides two categories, quantified KIF
+and unquantified KIF, based on whether or not a conforming knowledge base
+contans quantifiers.)
+
+<H4>12.2.2 Logical Form</H4>
+
+<P>The first conformance dimension concerns logical form.  There are five basic
+categories: atomic, conjunctive, positive, logical, and rule-like.  Rule-like
+knowledge bases are further categorized as Horn or non-Horn and recursive or
+non-recursive.
+
+<P>A knowledge base is <B>atomic</B> if and only if it contains no logical
+operators.
+
+<P>A knowledge base is <B>conjunctive</B> if and only if it contains no logical
+operators except for conjunction.
+
+<P>A knowledge base is <B>positive</B> if and only if it contains no logical
+operators except for conjunction and disjunction.
+
+<P>A knowledge base is <B>logical</B> if and only if it contains no logical
+operators except for conjunction, disjunction, and negation.
+
+<P>A knowledge base is <B>rule-like</B> if and only if every sentence is either
+atomic or an implication or reverse implication in which all subexpressions are
+atomic sentences or negations of atomic sentences.  A rule system is a rule-like
+knowledge base.
+
+<P>A rule system is <B>Horn</B> if and only if every constituent of every
+rule is atomic (i.e. no negations allowed).  Otherwise, the rule system is said
+to be <B>non-Horn</B>.
+
+<P>The dependency graph for a rule system is a graph whose nodes are
+the constants in relational position.  There is an edge from the node for a given
+relation constant <I>p</I> to the node of relation constant <I>q</I> if and only
+if <I>p</I> appears in the body of a rule whose head predicate is <I>p</I>.
+
+<P>A rule system is <B>recursive</B> if there is a cycle in its dependency
+graph.  Otherwise, the rule system is said to be <B>non-recursive</B>.
+
+<H4>12.2.3 Term Complexity</H4>
+
+<P>The nature of terms defines a second conformance dimension.  There are two
+categories: simple and complex.
+
+<P>A knowledge base is <B>simple</B> if and only if the only terms occurring
+the knowledge base are constants and variables.
+
+<P>A knowledge base is <B>complex</B> if and only if it contains terms
+other than constants or variables, e.g. functional terms or logical terms.
+
+<H4>12.2.4 Order</H4>
+
+<P>The third conformance dimension concerns the presence or absence of variables.
+
+<P>A knowledge base is <B>ground</B>, or <B>zeroth-order</B>, if and only if it
+contains no variables.  Otherwise, a knowledge base in <B>nonground</B>.
+
+<P>A knowledge base is <B>first-order</B> if and only if there are no variables
+in the first argument of any explicit functional term or explicit relational
+sentence.
+
+<P>A knowledge base is <B>higher-order</B> otherwise.
+
+<H4>12.2.5 Quantification</H4>
+
+<P>For nonground knowledge bases, there are two alternatives -- quantified
+and unquantified.
+
+<P>A nonground knowledge base is <B>quantified</B> if and only if it contains at
+least one explicit quantifier.
+
+<P>A nonground knowledge base is <B>unquantified</B> if and only if it contains
+no explicit quantifiers.
+
+<H4>12.2.6 Metaknowledge</H4>
+
+<P>The final conformance dimension concerns the ability to express
+metaknowledge, e.g. to write sentences about sentences.
+
+<P>A knowledge base is <B>baselevel</B> if and only if it contains no
+occurrences of the <TT>quote</TT> operator or the <TT>wtr</TT> relation.
+
+<P>Otherwise, the knowledge base is <B>metalevel</B>.
+
+<H4><A NAME="12.3">12.3 Common Conformance Profiles</A></H4>
+
+<P>A <B>conformance profile</B> is a selection of alternatives for each
+conformance dimension.  Given the dimensions and categories defined in the
+preceding section, it is possible to define a large number of profiles.  A
+single system may use different profiles in different types of communication. 
+In particular, it is common to use one profile for assertions and another for
+queries.  The following paragraphs define a few common types of systems with
+their corresponding profiles.
+
+<P>A <B>database system</B> is one in which (1) all assertions are atomic,
+simple, ground, and baselevel and (2) all queries are positive, simple,
+unquantified, and baselevel.
+
+<P>A <B>Horn system</B> (e.g. pure Datalog) is one in which (1) all assertions
+are rules that are Horn, unquantified, and baselevel and (2) all queries are
+positive, non-recursive, unquantified, and baselevel.
+
+<P>A <B>relational system</B> is one in which (1) all assertions are rules that
+are simple, unquantified (but may be non-Horn and non-recursive), and baselevel
+and (2) all queries are logical, non-recursive, unquantified, and baselevel.
+
+<P>A <B>first-order system</B> is one that allows the broadest categories
+within each conformance dimension except that only first-order expressions are
+accommodated.
+
+<P>A <B>full KIF system</B> is one that accepts the broadest categories within
+each conformance dimension, i.e. any KIF knowledge base is acceptable in any
+context.
+
+<H4><A NAME="12.4">12.4 Dealing with Differences in Conformance Profiles</A></H4>
+
+<P>The existence of multiple conformance profiles raises the question of what
+happens when systems with different profles must communicate.
+
+<P>Whenever the conformance profile of a receiver is known, a sender should avoid
+sending expressions that fall outside the receiver's conformance profile.
+
+<P>Unfortunately, this rule cannot be enforced in all situations.  In some cases,
+conformance information about receivers is unavailable; and, even when
+conformance information is available, it may be desirable to send a message that
+falls outside a receiver's profile, e.g. it may be most efficient for a sender
+to broadcast a single knowledge base to a large number of receivers with differing
+conformance profiles rather than sending different knowledge bases to each
+receiver.
+
+<P>Whenever a receiver receives a non-conforming expression, it is free to ignore
+the expression, even though it may be able to make sense of portions of that
+expression.  If the receiver ignores a non-conforming expression and the sender
+requests a reply, the receiver should report a failure.
+
+<P><HR>
+
+<ADDRESS>
+<A HREF="mailto:genesereth@cs.stanford.edu">Michael R. Genesereth</A>
+</ADDRESS>
+
+</BODY>
+</HTML>

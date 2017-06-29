@@ -1,0 +1,9 @@
+Cannot unassert these presumably because of "undef"
+
+("event-duration" ("entry-fn" "pse" "undef") "0000-00-00_03:00:00")
+("end-date" ("entry-fn" "pse" "undef") "undef")
+("start-date" ("entry-fn" "pse" "undef") "20110101T150000")
+("end-date" ("entry-fn" "pse" "undef") "20110101T180000")
+("event-duration" ("entry-fn" "pse" "undef") "undef")
+
+Variables written in Chinese in Perl Interlingua are not translated properly to KIF.

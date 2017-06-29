@@ -1,0 +1,220 @@
+# Deductive Statuses
+# ------------------
+# + Tautology (TAU)
+#   Every interpretation is a model of Ax and a model of C
+#   + Shows
+#     + F is valid,
+#     + ~F is unsatisfiable,
+#     + C is a tautology
+#   + Expected output
+#     + Assurance
+#     + Proof of F
+#     + Refutation of ~F
+
+# + TautologousConclusion (TAC)
+#   Every interpretation is a model of C
+#   + Shows
+#     + F is valid,
+#     + C is a tautology
+#   + Expected output
+#     + Assurance
+#     + Proof of C
+#     + Refutation of ~C
+
+# + Equivalent (EQV)
+#   Ax and C have the same models (and there are some)
+#   + Shows
+#     + F is valid
+#     + C is a theorem of Ax
+#   + Expected output
+#     + Assurance
+#     + Proof of C from Ax and proof of Ax from C
+#     + Refutation of Ax U {~C} and refutation of ~Ax U {C}
+#     + Refutation of CNF(Ax U {~C}) and refutation of CNF(~Ax U {C})
+
+# + Theorem (THM)
+#   Every model of Ax (and there are some) is a model of C
+#   + Shows
+#     + F is valid
+#     + C is a theorem of Ax
+#   + Expected output
+#     + Assurance
+#     + Proof of C from Ax
+#     + Refutation of Ax U {~C}
+#     + Refutation of CNF(Ax U {~C})
+
+# + Satisfiable (SAT)
+#   Some models of Ax (and there are some) are models of C
+#   + Shows
+#     + F is satisfiable
+#     + ~F is not valid
+#     + C is not a theorem of Ax
+#   + Expected output
+#     + Assurance
+#     + Model of Ax and C
+#     + Saturation
+
+# + ContradictoryAxioms (CAX)
+#   There are no models of Ax
+#   + Shows
+#     + F is valid
+#     + Anything is a theorem of Ax
+#   + Expected output
+#     + Assurance
+#     + Refutation of Ax
+#     + Refutation of CNF(Ax)
+
+# + NoConsequence (NOC)
+#   Some models of Ax (and there are some) are models of C, and some are models
+#   of ~C.
+#   + Shows
+#     + F is not valid
+#     + F is satisfiable
+#     + ~F is not valid
+#     + ~F is satisfiable
+#     + C is not a theorem of Ax
+#   + Expected output
+#     + Assurance
+#     + Pair of models, one of Ax and C, and one of Ax and ~C
+#     + Pair of saturations
+
+# + CounterSatisfiable (CSA)
+#   Some models of Ax (and there are some) are models of ~C
+#   + Shows
+#     + F is not valid
+#     + ~F is satisfiable
+#     + C is not a theorem of Ax
+#   + Expected output
+#     + Assurance
+#     + Model Ax and ~C
+#     + Saturation
+
+# + CounterTheorem (CTH)
+#   Every model of Ax (and there are some) is a model of ~C
+#   + Shows
+#     + F is invalid
+#     + ~F is valid
+#     + ~C is a theorem of Ax
+#     + C cannot be made into a theorem of Ax by extending Ax,
+#   + Expected output
+#     + Assurance
+#     + Proof of ~C from Ax
+#     + Refutation of Ax U {C}
+#     + Refutation of CNF(Ax U {C})
+
+# + CounterEquivalent (CEQ)
+#   Ax and ~C have the same models (and there are some)
+#   + Shows
+#     + F is not valid
+#     + ~C is a theorem of Ax
+#     + Every interpretation is a model of Ax xor a model of C
+#   + Expected output
+#     + Assurance
+#     + Proof of ~C from Ax and proof of Ax from ~C
+#     + Refutation of Ax U {C} and refutation of ~Ax U {~C}
+#     + Refutation of CNF(Ax U {C}) and refutation of CNF(~Ax U {~C})
+
+# + Unsatisfiable Conclusion (UNC)
+#   Every interpretation is a model of ~C
+#   + Shows
+#     + ~C is a tautology
+#   + Expected output
+#     + Assurance
+#     + Proof of ~C
+#     + Refutation of C
+
+# + Unsatisfiable (UNS)
+#   Every interpretation is a model of Ax and a model of ~C
+#   + Shows
+#     + F is unsatisfiable,
+#     + ~F is valid
+#     + ~C is a tautology
+#   + Expected output
+#     + Assurance
+#     + Refutation of F
+#     + Proof of ~F
+
+# Preserving Statuses
+# -------------------
+# + SatisfiabilityBijection (SAB)
+#   There is a bijection between the models of Ax (and there are some) and models
+#   of C
+#   + Example: Skolemization, psuedo-splitting
+#   + Shows
+#     + F is satisfiable
+#   + Expected output
+#     + Assurance
+
+# + SatisfiabilityMapping (SAM)
+#   There is a mapping from the models of Ax (and there are some) to models of C
+#   + Shows
+#     + F is satisfiable
+#   + Expected output
+#     + Assurance
+
+# + SatisfiabilityPartialMapping (SAR)
+#   There is a partial mapping from the models of Ax (and there are some) to
+#   models of C
+#   + Example: Ax = {p | q}, C = p & r
+#   + Shows
+#     + Nothing about F
+#   + Expected output
+#     + Assurance
+#     + Pairs of models
+#     + Pairs of saturations
+
+# + SatisfiabilityPreserving (SAP)
+#   If there exists a model of Ax then there exists a model of C
+#   + Shows
+#     + F is satisfiable
+#   + Expected output
+#     + Assurance
+
+# + CounterSatisfiabilityPreserving (CSP)
+#   If there exists a model of Ax then there exists a model of ~C
+#   + Shows
+#     + Nothing about F
+#   + Expected output
+#     + Assurance
+
+# + CounterSatisfiabilityPartialMapping (CSR)
+#   There is a partial mapping from the models of Ax (and there are some) to
+#   models of ~C
+#   + Shows
+#     + Nothing about F
+#   + Expected output
+#     + Assurance
+#     + Pairs of models
+
+# + CounterSatisfiabilityMapping (CSM)
+#   There is a mapping from the models of Ax (and there are some) to models of ~C
+#   + Shows
+#     + Nothing about F
+#   + Expected output
+#     + Assurance
+
+# + CounterSatisfiabilityBijection (CSB)
+#   There is a bijection between the models of Ax (and there are some) and models
+#   of ~C
+#   + Shows
+#     + Nothing about F
+#   + Expected output
+#     + Assurance
+
+# Unsolved Statuses
+# -----------------
+# + Inappropriate (IAP)
+#   The system cannot attempt this type of problem, in principle
+# + Unknown     (UNK)
+#   System exited before the time limit for unknown reason
+# + InputError  - System exited due to an error in its input
+# + GaveUp      (GUP)
+#   System gave up before the time limit
+#   + Reason    - And this is the reason
+# + ResourceOut - System exited due to running out of some non-time resource
+#   + Timeout   (TMO)
+#     System ran past user imposed CPU time limit
+#   + What      - Resource that system ran out of
+# + Assumed     - System assumes that the problem has the status
+#   + UnsolvedStatus - Why the problem was unsolved and hence an assumption made
+#   + SolvedStatus   - The assumed status

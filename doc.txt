@@ -1,0 +1,12 @@
+So there is this item:
+
+("entry-fn" "pse" "13531")
+
+
+What is this thing called.
+
+Entry Function?
+
+Entry relation?
+
+Entry formula?

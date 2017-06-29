@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>AiML: Tools</title>
+<link rel="stylesheet" href="http://www.aiml.net/aiml.css" type="text/css" />
+</head>
+<body>
+<div id="frame">
+
+<div id="content-header">
+
+<div id="menu">
+<div id="content-header-logo">
+<img src="http://www.aiml.net/images/aiml-logo.gif" width="300" height="100" alt="Advances in Modal Logic" />
+</div>
+
+<a href="http://www.aiml.net/">home</a><br/>
+<a href="http://www.aiml.net/news/">news</a><br/>
+<a href="http://www.aiml.net/background.html">background</a><br/>
+<a href="http://www.aiml.net/conferences/">conferences</a><br/>
+<a href="http://www.aiml.net/volumes/">volumes</a><br/>
+<a href="http://www.aiml.net/whoswho.html">who's who</a><br/>
+<a href="http://www.aiml.net/tools.html">tools</a><br/>
+</div>
+<br style="clear: both"/>
+</div>
+
+<br style="clear: both"/>
+
+<div id="content-center">
+<!--- begin of contents -->
+
+<p>In recent years the number of computational tools useful for modal logics, and related logics, has increased significantly, and is continuously increasing. The following is an incomplete list of</p>
+<ul>
+    <li><a href="#provers">Accessible theorem provers</a></li>
+    <li><a href="#translators">Translators</a></li>
+    <li><a href="#correspondence">Automated correspondence theory</a></li>
+    <li><a href="#visualisation">Visualisation</a></li>
+    <li><a href="#generators">Generators of formulae</a></li>
+    <li><a href="#collections">Collections of problems</a></li>
+    <li><a href="#morelinks">Related links</a></li>
+</ul>
+
+<h3>Your contribution</h3>
+
+<p>If you'd like something added or changed please let <a href="mailto:schmidt@cs.man.ac.uk">Renate Schmidt</a> (schmidt@cs.man.ac.uk) know.</p>
+
+<h3 id="provers">Accessible theorem provers</h3>
+
+<ul class="longlist">
+    <li><a href="http://www.charcoalfeathers.net/research/projects/aximo/">Aximo</a> - a tool for verifying knowledge in dynamic multi-agent scenarios 
+based on the algebraic axiomatics of dynamic epistemic logic. 
+Implemented by Simon Richards and Mehrnoosh Sadrzadeh.
+</li>
+
+    <li><a href="http://www.ii.uni.wroc.pl/~nivelle/software/bliksem">BLIKSEM</a> - Hans de Nivelle's resolution based theorem prover for modal logic and first-order logic with equality.</li>
+
+    <li><a href="http://www.bell-labs.com/user/pfps/dlp/">DLP</a> - An experimental tableaux-based inference system by Peter Patel-Schneider for a range of description logics.</li>
+
+    <li><a href="http://owl.man.ac.uk/factplusplus/">FaCT++</a> - A tableaux-based description logic OWL reasoner by Ian Horrocks and Dmitry Tsarkov. Successor of <a href="http://www.cs.man.ac.uk/~horrocks/FaCT/">FaCT</a>.</li>
+
+    <li><a href="http://lat.inf.tu-dresden.de/systems/gost.html">Gost</a> - A Lisp implementation of a tableau algorithm for GF1-, a sublogic of the "First Guarded Fragment".</li>
+
+    <li><a href="http://cialdea.dia.uniroma3.it/herod">Herod and Pilate</a> - Two tableau decision procedures for 
+the hybrid logic HL(@) implemented by Marta Cialdea, Serenella Cerrito and their students.
+Based on internalized tableau calculi, without loop-checking and 
+no restriction on the order of the application of the rules.  </li>
+
+    <li> J-prover - A connection/matrix based prover that produces sequent proofs for FO-Intuitionistic, and propositional S4 and S4nJ logics, implemented as a module of the MetaPRL logical framework. <a href="http://yegor.org/s4nlp/theorem">Web interface for modal logic</a>.</li>
+
+<!--
+    <li> <a href="ftp://ftp.mrg.dist.unige.it/pub/mrg-systems/ksat/ksat1/">KSAT</a> - A SAT based theorem prover for the propositional modal         logic K(m) and the description logic ALC.
+-->
+
+    <li><a href="http://users.rsise.anu.edu.au/~rpg/KtSeqC/">KtSeqC</a> - A theorem prover for the minimal tense logic Kt.</li>
+
+    <li><a href="http://www.irit.fr/Lotrec/">LoTREC</a> - A generic tableau theorem prover for modal logic, which is suitable for creating, testing and analysing tableau method implementations. <a href="http://www.irit.fr/Lotrec/run">Web interface</a></li>
+
+    <li><a href="http://www.lwb.unibe.ch/">Logics Workbench (LWB)</a> - A sequent based theorem prover for a range of propositional logics, including     modal logics, temporal logics, intuitionistic logics and nonmonotonic logics. <a href="http://www.lwb.unibe.ch/run.html">Web interface</a></li>
+
+    <li><a href="http://www.cs.man.ac.uk/~dmitry/implementations/MetTeL/">MetTeL</a> - a general tableau prover core allowing specifications of several, different tableau provers in a plug-in style. Implemented by Dmitry Tishkovsky.</li>
+
+    <li><a href="http://www.cs.man.ac.uk/~schmidt/mltp/">MLTP</a> - An efficient and generic modal logic tableau prover inplemented by Zhen Li.</li>
+
+    <li><a href="http://www.uni-koblenz.de/~beckert/modlean/">ModLeanTAP</a> - A lean implementation of a free variable tableau calculus for a range of propositional modal logics.</li>
+
+    <li><a href="http://molle.sourceforge.net">Molle</a> - A cross-platform prover written in Java that implements Fitting's 1969 semantic tableaux algorithm for propositional modal logic. It can prove the validity of modal formulae and generate (counter-)models.</li>
+
+    <li><a href="http://www.cs.man.ac.uk/~schmidt/mspass/">MSPASS</a> - An enhancement of the first-order theorem prover <a href="http://spass.mpi-inf.mpg.de/">SPASS</a> with a translator of modal formulae and formulae of the relational calculus into first-order logic with equality. The features of <a href="http://www.cs.man.ac.uk/~schmidt/mspass/">MSPASS</a> are now incorporated in the latest release of <a href="http://spass.mpi-inf.mpg.de/">SPASS</a>.  <a href="http://www.cs.man.ac.uk/schmidt-bin/web-mspass.cgi">Web interface</a></li>
+
+    <li><A HREF="http://www.cs.man.ac.uk/~schmidt/pdl-tableau/">pdl-tableau</A> - A prototypical implementation of the tableau calculus for PDL. Implemented by Renate Schmidt.
+    <a href="http://scylla.cs.man.ac.uk/schmidt-bin/web-pdl-tableau.cgi">Web interface</a></li>
+
+    <li><a href="http://www.ics.ele.tue.nl/es/research/fv/research/research_ptl.html">ptl</a> - A propositional temporal logic (PTL) tautology checker
+    developed by Geert Janssen at Eindhoven University of Technology. (28/03/2005: It seems that this tool is no longer available on-line.) <a href="http://www.ics.ele.tue.nl/es/research/fv/research/research_ptl.html#ptl_test">Web interface</a></li>
+
+    <li><a href="http://www.ase.md/~aursu/research_pttf_en.html">pttf</a> - A satisfiability checker for propositional temporal transition formulae
+    developed by Anatol Ursu. <a href="http://www.ase.md/~aursu/research_pttf_en.html">Web interface</a></li>
+
+    <li><a href="http://www.racer-systems.com/index.phtml">RACER</a> - A description logic reasoner for the Semantic Web languages OWL/RDF.</li>
+
+    <li><a href="http://lat.inf.tu-dresden.de/systems/saga.html">Saga</a> - A Lisp program implementing a tableau algorithm for the Guarded Fragment of Predicate Logic.</li>
+
+    <li><a href="http://www.mpi-sb.mpg.de/SATURATE/Saturate.html">Saturate</a> - An experimental theorem prover for first-order logic, primarily based on saturation. It includes a translator for modal logic into first-order logic by semantic embedding.</li>
+
+    <li><a href="http://spass.mpi-inf.mpg.de/">SPASS</a> - A
+saturation-based resolution theorem prover for first-order logic with
+equality, sorted logic, and many non-classical logics including
+traditional style modal logics, dynamic modal logics, description logics
+and relational logics.</li>
+
+    <li><a href="http://www.mrg.dist.unige.it/~tac/StarSAT.html">*SAT</a> - An experimentation platform of SAT-based decision procedures for expressive description logics, modal and temporal logics.</li>
+
+    <li><a href="http://www-step.stanford.edu/">STeP</a> - The Stanford Temporal Prover, combines deductive methods with algorithmic techniques to verify linear-time temporal logic specifications of reactive and real-time systems.</li>
+
+    <LI><A HREF="http://www.csc.liv.ac.uk/~ullrich/TRP/">TRP</A> - 
+	A protoypical implementation of a theorem prover for propositional linear-time logic 
+	based on the temporal resolution calculus.</LI>
+
+    <LI><A HREF="http://www.csc.liv.ac.uk/~konev/software/trp++/">TRP++</A> - 
+	A C++ implementation of a theorem prover for propositional linear-time logic 
+	based on the temporal resolution calculus.</LI>
+
+    <LI><A HREF="http://www.csc.liv.ac.uk/~konev/TeMP/">TeMP</A> - 
+	A C++ implementation of a theorem prover for the monodic fragment of first-order
+	linear-time temporal logic over expanding domains based on the temporal resolution 
+	calculus.  </LI>
+
+    <li><A HREF="http://twb.rsise.anu.edu.au/">Tableau WorkBench (TWB)</A> - A generic framework for building automated theorem provers for arbitrary propositional logics, includig modal and temportal logics.</li>
+
+</ul>
+
+
+
+
+<h3 id="translators">Translators</h3>
+
+<ul class="longlist">
+    <li><a href="http://spass.mpi-inf.mpg.de/">SPASS</a>, <a href="http://www.cs.man.ac.uk/~schmidt/mspass/">MSPASS</a> - Can be used as a translator of modal formulae, formulae of description logics, and formulae of the relational calculus into first-order logic with equality. Various standard and non-standard translations are available.         <a href="http://www.cs.man.ac.uk/schmidt-bin/web-mspass.cgi">MSPASS Web interface</a></li>
+
+<li><a href="http://project.kjsmith.net/">Axiomatic translation</a> -
+An implementation of the axiomatic translation for a large class of modal axioms by John Kevin Smith.
+<a href="http://project.kjsmith.net/public_html/KJSpass/main.html">Web interface</a>
+ 
+<li><A HREF="http://www.csc.liv.ac.uk/~ullrich/PLTLmona/">PLTLmona</A> - A translator from propositional linear-time logic to MONA input syntax.</LI>
+
+    <li><a href="http://www.csc.liv.ac.uk/~ullrich/mdp/section7.html">Small collection of useful code</a> - including SICStus Prolog code for the functional translation of modal formulae, SICStus Prolog code for simplifying modal formulae. Written for an <a href="http://www.csc.liv.ac.uk/~ullrich/mdp/">empirical analysis of decision procedures for modal logic</a>.</li>
+
+</ul>
+
+
+
+
+<h3 id="correspondence">Automated correspondence theory</h3>
+
+<p>These tools are useful for computing correspondence properties:</p>
+
+<ul class="longlist">
+    <li><a href="http://www.ida.liu.se/labs/kplab/projects/dls/">The DLS Algorithm</a> - A general tool for the elimination of second-order     quantifiers, based on Ackermann's Lemma. <a href="http://www.ida.liu.se/labs/kplab/projects/dls/dlsexample.html">Web interface</a> - Example, for axiom schema T:<br /><em>exists P (-( all x (P(x) -&gt; (exists y (R(x,y) &amp; P(y))))))</em></li>
+
+    <li><a href="http://www.mpi-inf.mpg.de/departments/d2/software/SCAN">SCAN</a> - A general tool for the elimination of second-order quantifiers, based on resolution. Accepts also modal syntax. <a href="http://www.mpi-inf.mpg.de/departments/d2/software/SCAN/corr_form.html">Web interface</a></li>
+
+    <li><a href="http://www.fmi.uni-sofia.bg/fmi/logic/sqema">SQEMA</a> - Computes first-order equivalents and proves canonicity of modal formulas. <a href="http://www.fmi.uni-sofia.bg/fmi/logic/sqema/sqema.jsp">Web interface</a></li>
+</ul>
+
+
+
+
+<h3 id="visualisation">Visualisation</h3>
+
+<ul>
+    <li><a href="http://staff.science.uva.nl/~jaspars/animations/">Logic Animations</a> - A collection of JavaScript programs used for teaching of basic mathematical logic.</li>
+</ul>
+
+
+
+<h3 id="generators">Generators of formulae</h3>
+
+<ul class="longlist">
+    <li> <a href="http://www.csc.liv.ac.uk/~ullrich/mdp/section7.html">LISP code for randomly generating CNF formulae of multi-modal K</a> - implemented by Ullrich Hustadt.</li>
+
+    <li>Generators are distributed together with some provers, e.g. <a href="http://www.cs.man.ac.uk/~horrocks/FaCT/">FaCT</a> and <a    href="http://www.bell-labs.com/user/pfps/dlp/">DLP</a>.</li>
+
+    <li><a href="ftp://ftp.dis.uniroma1.it/pub/tancs/code/">TANCS Benchmarks Generators</a> - implemented in C by Fabio Massacci and Francesco           Donini. See also <a href="http://www.dis.uniroma1.it/tancs/comparison.shtml">TANCS</a>.</li>
+</ul>
+
+
+
+<h3 id="collections">Collections of problems</h3>
+
+<p>The collection of modal problem sets is beginning to grow rapidly. The webpages of some provers above also have links to benchmark collections.</p>
+<ul class="longlist">
+    <li><a href="http://iamwww.unibe.ch/~lwb/benchmarks/benchmarks.html">LWB benchmark formulae</a> -  for the propositional modal logics K, KT, and S4.</li>
+
+    <li><a href="http://www.dis.uniroma1.it/tancs/comparison.shtml">TANCS Problems</a> - TANCS is a Non Classical System Comparison held         regularly in conjunction with the TABLEAUX Conferences.</li>
+
+    <li> <a href="http://tcw2.ppsw.rug.nl/mas/LOK/lwb/"> Multi-agent modelling in the Logics Workbench</a> - A small number of implementations of situations, problems and reasoning in multi-agent systems, using epistemic logics.</li>
+</ul>
+
+<p>Also of interest: Benchmark formulae for <a href="http://www.cs.st-andrews.ac.uk/~rd/logic/marks.html">intuitionistic propositional logic</a>.</p>
+
+
+
+
+<h3 id="morelinks">Related links</h3>
+
+<ul class="longlist">
+    <li><a href="http://www.ida.liu.se/labs/iislab/people/patla/DL/index.html">Description Logics</a> - Web pages maintained by Patrick Lambrix.</li>
+
+    <li><a href="http://www-formal.stanford.edu/clt/ARS/systems.html">Database of Existing Mechanized Reasoning Systems</a> - Web pages maintained by Michael Kohlhase and Carolyn Talcott.</li>
+
+    <li><a href="http://rewriting.loria.fr/">Rewriting home page</a> - Includes a database of <a href="http://rewriting.loria.fr/systems.html">rewriting systems and first-order theorem provers</a>.</li>
+
+    <li><a href="http://www.cs.kun.nl/~freek/digimath/xindexx.html">Overview of implementing "mathematics in the computer"</a> - Compiled by Freek Wiedijk.</li>
+</ul>
+
+<!--- end of contents -->
+
+</div>
+
+<br style="clear: both"/>
+
+<div id="content-footer">
+<div id="small-menu">
+[ <a href="http://www.aiml.net/">home</a> |
+
+<a href="http://www.aiml.net/news/">news</a> |
+<a href="http://www.aiml.net/background.html">background</a> |
+<a href="http://www.aiml.net/conferences/">conferences</a> |
+<a href="http://www.aiml.net/volumes/">volumes</a> |
+<a href="http://www.aiml.net/whoswho.html">who's who</a> |
+<a href="http://www.aiml.net/tools.html">tools</a> ]</div>
+
+<div id="address"><b>Advances in Modal Logic</b><br />
+This page is provided by
+<a href="mailto:schmidt@cs.man.ac.uk">Renate Schmidt</a><br />
+Last modified: 28 Mar 10
+</div>
+</div>
+<br style="clear: both"/>
+</div>
+</body>
+</html>
+

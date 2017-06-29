@@ -1,0 +1,350 @@
+-------------------------------------------------------------------------------
+The SZS Problem Status Ontology
+-------------------------------
+
+The output from current ATP systems varies widely in quantity, quality, and
+meaning.  At the low end of the scale, systems that search for a refutation of
+a set of clauses may output only an assurance that a refutation exists (the
+wonderful "yes" output). At the high end of the scale a system may output a
+natural deduction proof of a problem expressed in FOF. In some cases the
+output is misleading, e.g., when a CNF based system claims that a FOF input
+problem is "unsatisfiable" it typically means that the negated CNF of the
+problem is unsatisfiable.
+
+In order to use ATP systems' results, e.g., as input to other tools, it is
+necessary that the ATP systems correctly and precisely specify what has been
+established. To this end the SZS problem status ontology has been established.
+The ontology was based on initial work done to establish communication
+protocols for systems on the MathWeb Software Bus. The ontology is shown
+below.
+
+The ontology assumes that the input F is of the form Ax => C, where Ax is a
+set (conjunction) of axioms and C is a single conjecture formula. This is a
+common standard usage of ATP systems.
++ The status value indicates the relationship between Ax and C.
++ By showing that F is valid, an ATP system shows that C is a theorem (a
+  logical consequence) of Ax, i.e., Ax |= C, where |= is the standard first
+  order entailment.
++ If F is not valid, there are several other possible relationships between Ax
+  and C, as shown in the ontology.
+
+If F is not of the form Ax => C, it is treated as a single monolithic
+conjecture formula (even if it is an "axiom" or "set of axioms" from the user
+view point). This is equivalent to Ax being TRUE. In this case not all of the
+statuses are appropriate, and those that are possible are marked with a * in
+the ontology.
++ Systems that report Theorem for a monolithic formula must have established
+  Tautology.
++ A set of axioms is treated as a conjecture formed from the conjunction of the
+  formulae.
++ This is the scenario for a set of clauses.
+
+-------------------------------------------------------------------------------
+The Ontology
+------------
+
+                                   System
+                                   Status
+                                      |
+                    ------------------+------------------
+                  /                                       \
+              Solved                                   Unsolved
+              Status                                    Status
+                 |                                         |
+         --------+--------                         {Unsolved Ontology}
+       /                   \                             \ | /
+  Deductive            Preserving                        Open
+   Status                Status
+
+
+
+                                  Deductive
+                                   Status
+                                      |
+                    ------------------+------------------
+                  /                                       \
+             Satisfiable* ------------&-------------    Counter
+                 |                   No               Satisfiable*
+                 |               Consequence               |
+                 |                                         |
+              Theorem ----------------&---------------- Counter
+                 |              Contradictory           Theorem
+                 |                 Axioms                  |
+         --------+--------                         --------+--------
+       /                   \                     /                   \
+  Tautologous          Equivalent             Counter           Unsatisfiable
+  Conclusion                |                Equivalent          Conclusion
+       \                   /                     \                   /
+         --------+--------                         --------+--------
+                 |                                         |
+             Tautology*                              Unsatisfiable*
+
+
+
+                                 Preserving
+                                   Status
+                                      |
+                    ------------------+------------------
+                  /                                       \
+           Satisfiability                         Counter Satisfiability
+             Preserving                                Preserving
+                 |                                         |
+           Satisfiability                         Counter Satisfiability
+           Partial Mapping                            Partial Mapping
+                 |                                         |
+           Satisfiability                         Counter Satisfiability
+              Mapping                                   Mapping
+                 |                                         |
+           Satisfiability                         Counter Satisfiability
+             Bijection                                 Bijection
+
+                                 Unsolved
+                                  Status
+                                    |
+                                 Unknown
+                                    |
+          --------------------------+--------------------------
+        /             |          |            |                 \
+Inappropriate    InputError    GaveUp    ResourceOut    Assumed(UnsolvedStatus,
+                      |                 /           \             SolvedStatus)
+                GaveUp(Reason)      Timeout   ResourceOut(What)
+
+All status values are expressed as "OneWord" to make system output parsing
+simple, and also have a three letter code. Associated with each possible
+status are the possible outputs from the ATP system.
+
+Deductive Statuses
+------------------
++ Tautology (TAU)
+  Every interpretation is a model of Ax and a model of C
+  + Shows
+    + F is valid,
+    + ~F is unsatisfiable,
+    + C is a tautology
+  + Expected output
+    + Assurance
+    + Proof of F
+    + Refutation of ~F
+
++ TautologousConclusion (TAC)
+  Every interpretation is a model of C
+  + Shows
+    + F is valid,
+    + C is a tautology
+  + Expected output
+    + Assurance
+    + Proof of C
+    + Refutation of ~C
+
++ Equivalent (EQV)
+  Ax and C have the same models (and there are some)
+  + Shows
+    + F is valid
+    + C is a theorem of Ax
+  + Expected output
+    + Assurance
+    + Proof of C from Ax and proof of Ax from C
+    + Refutation of Ax U {~C} and refutation of ~Ax U {C}
+    + Refutation of CNF(Ax U {~C}) and refutation of CNF(~Ax U {C})
+
++ Theorem (THM)
+  Every model of Ax (and there are some) is a model of C
+  + Shows
+    + F is valid
+    + C is a theorem of Ax
+  + Expected output
+    + Assurance
+    + Proof of C from Ax
+    + Refutation of Ax U {~C}
+    + Refutation of CNF(Ax U {~C})
+
++ Satisfiable (SAT)
+  Some models of Ax (and there are some) are models of C
+  + Shows
+    + F is satisfiable
+    + ~F is not valid
+    + C is not a theorem of Ax
+  + Expected output
+    + Assurance
+    + Model of Ax and C
+    + Saturation
+
++ ContradictoryAxioms (CAX)
+  There are no models of Ax
+  + Shows
+    + F is valid
+    + Anything is a theorem of Ax
+  + Expected output
+    + Assurance
+    + Refutation of Ax
+    + Refutation of CNF(Ax)
+
++ NoConsequence (NOC)
+  Some models of Ax (and there are some) are models of C, and some are models
+  of ~C.
+  + Shows
+    + F is not valid
+    + F is satisfiable
+    + ~F is not valid
+    + ~F is satisfiable
+    + C is not a theorem of Ax
+  + Expected output
+    + Assurance
+    + Pair of models, one of Ax and C, and one of Ax and ~C
+    + Pair of saturations
+
++ CounterSatisfiable (CSA)
+  Some models of Ax (and there are some) are models of ~C
+  + Shows
+    + F is not valid
+    + ~F is satisfiable
+    + C is not a theorem of Ax
+  + Expected output
+    + Assurance
+    + Model Ax and ~C
+    + Saturation
+
++ CounterTheorem (CTH)
+  Every model of Ax (and there are some) is a model of ~C
+  + Shows
+    + F is invalid
+    + ~F is valid
+    + ~C is a theorem of Ax
+    + C cannot be made into a theorem of Ax by extending Ax,
+  + Expected output
+    + Assurance
+    + Proof of ~C from Ax
+    + Refutation of Ax U {C}
+    + Refutation of CNF(Ax U {C})
+
++ CounterEquivalent (CEQ)
+  Ax and ~C have the same models (and there are some)
+  + Shows
+    + F is not valid
+    + ~C is a theorem of Ax
+    + Every interpretation is a model of Ax xor a model of C
+  + Expected output
+    + Assurance
+    + Proof of ~C from Ax and proof of Ax from ~C
+    + Refutation of Ax U {C} and refutation of ~Ax U {~C}
+    + Refutation of CNF(Ax U {C}) and refutation of CNF(~Ax U {~C})
+
++ Unsatisfiable Conclusion (UNC)
+  Every interpretation is a model of ~C
+  + Shows
+    + ~C is a tautology
+  + Expected output
+    + Assurance
+    + Proof of ~C
+    + Refutation of C
+
++ Unsatisfiable (UNS)
+  Every interpretation is a model of Ax and a model of ~C
+  + Shows
+    + F is unsatisfiable,
+    + ~F is valid
+    + ~C is a tautology
+  + Expected output
+    + Assurance
+    + Refutation of F
+    + Proof of ~F
+
+Preserving Statuses
+-------------------
++ SatisfiabilityBijection (SAB)
+  There is a bijection between the models of Ax (and there are some) and models
+  of C
+  + Example: Skolemization, psuedo-splitting
+  + Shows
+    + F is satisfiable
+  + Expected output
+    + Assurance
+
++ SatisfiabilityMapping (SAM)
+  There is a mapping from the models of Ax (and there are some) to models of C
+  + Shows
+    + F is satisfiable
+  + Expected output
+    + Assurance
+
++ SatisfiabilityPartialMapping (SAR)
+  There is a partial mapping from the models of Ax (and there are some) to
+  models of C
+  + Example: Ax = {p | q}, C = p & r
+  + Shows
+    + Nothing about F
+  + Expected output
+    + Assurance
+    + Pairs of models
+    + Pairs of saturations
+
++ SatisfiabilityPreserving (SAP)
+  If there exists a model of Ax then there exists a model of C
+  + Shows
+    + F is satisfiable
+  + Expected output
+    + Assurance
+
++ CounterSatisfiabilityPreserving (CSP)
+  If there exists a model of Ax then there exists a model of ~C
+  + Shows
+    + Nothing about F
+  + Expected output
+    + Assurance
+
++ CounterSatisfiabilityPartialMapping (CSR)
+  There is a partial mapping from the models of Ax (and there are some) to
+  models of ~C
+  + Shows
+    + Nothing about F
+  + Expected output
+    + Assurance
+    + Pairs of models
+
++ CounterSatisfiabilityMapping (CSM)
+  There is a mapping from the models of Ax (and there are some) to models of ~C
+  + Shows
+    + Nothing about F
+  + Expected output
+    + Assurance
+
++ CounterSatisfiabilityBijection (CSB)
+  There is a bijection between the models of Ax (and there are some) and models
+  of ~C
+  + Shows
+    + Nothing about F
+  + Expected output
+    + Assurance
+
+Unsolved Statuses
+-----------------
++ Inappropriate (IAP)
+  The system cannot attempt this type of problem, in principle
++ Unknown     (UNK)
+  System exited before the time limit for unknown reason
++ InputError  - System exited due to an error in its input
++ GaveUp      (GUP)
+  System gave up before the time limit
+  + Reason    - And this is the reason
++ ResourceOut - System exited due to running out of some non-time resource
+  + Timeout   (TMO)
+    System ran past user imposed CPU time limit
+  + What      - Resource that system ran out of
++ Assumed     - System assumes that the problem has the status
+  + UnsolvedStatus - Why the problem was unsolved and hence an assumption made
+  + SolvedStatus   - The assumed status
+
+-------------------------------------------------------------------------------
+Precise Output Forms
+--------------------
+
+Output Value    TSTP Code
+-------------------------
+Assurance       Ass
+Refutation      Ref
+CNFRefutation   CRf
+Proof           Prf
+Model           Mod
+Saturation      Sat
+None            Non
+-------------------------------------------------------------------------------
